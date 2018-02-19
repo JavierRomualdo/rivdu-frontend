@@ -1,0 +1,112 @@
+<div class="">
+  <div class="card mb-0">
+    <div class="card-close">
+      <div class="dropdown">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="h4">Datos principales de la Empresa</h3>
+    </div>
+    <div class="card-body pb-0">
+      <form class="form-horizontal">
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Razon social</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="razonsocial" [(ngModel)]="empresa.razonsocial">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Ruc</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="ruc" [(ngModel)]="empresa.ruc" disabled><small class="help-block-none">Este atributo es fundamental, se recomienda no cambiarlo.</small>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Partida electrónica</label>
+          <div class="col-sm-9">
+            <input type="text" name="password" class="form-control">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Oficina registral</label>
+          <div class="col-sm-9">
+            <input type="text" name="oficina" [(ngModel)]="empresa.numeropartida" class="form-control">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Urbanizacion/A.H</label>
+          <div class="col-sm-9">
+            <input type="text" name="urbanizacion" [(ngModel)]="empresa.urbanizacion" class="form-control">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Av/Calle/Jiron</label>
+          <div class="col-sm-9">
+            <input type="text" name="avcajiron" [(ngModel)]="empresa.avcajiron" class="form-control">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Manzana/Lote</label>
+          <div class="col-sm-9">
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" [(ngModel)]="empresa.manzana" class="form-control" name="manzana">
+              </div>
+              <div class="col-md-6">
+                <input type="text" [(ngModel)]="empresa.lote" class="form-control" name="lote">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Email</label>
+          <div class="col-sm-9">
+            <input type="email" name="email" [(ngModel)]="empresa.email" class="form-control">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Ubigeo</label>
+          <div class="col-sm-9">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="empresa.idubigeo" name="idubigeo">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Gerente</label>
+          <div class="col-sm-9">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="!unidadSelect" class="btn btn-primary" (click)="c('Close click')">Aceptar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="d()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

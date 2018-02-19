@@ -3,6 +3,7 @@ import { AuthService } from '../servicios/auth.service';
 import { ApiRequestService } from '../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { LS } from '../app-constants';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
 
   cargando:boolean=false;
   user: any = {};
+  ruc:string;
+  empresaIsTrue:boolean=false;
 
   constructor(
     public apiService: ApiRequestService,
@@ -22,6 +25,28 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    localStorage.clear();
+  }
+
+  consultarEmpresa(){
+    this.cargando = true;
+    this.apiService.get("empresa/validar/"+this.ruc)
+      .then(respuesta => {
+        if(respuesta && respuesta.extraInfo){
+          this.toastr.success(respuesta.operacionMensaje, 'Exito');
+          localStorage.setItem(LS.KEY_ID_EMPRESA, respuesta.extraInfo.id);
+          localStorage.setItem(LS.KEY_RUC_EMPRESA, respuesta.extraInfo.ruc);
+          this.empresaIsTrue = true;
+        }else{
+          this.toastr.error(respuesta.operacionMensaje, 'Error');
+        }
+      })
+      .catch(err => this.handleError(err));
+  }
+
+  private handleError(error: any): void {
+    this.cargando = false;
+    this.toastr.error("Error Interno", 'Error');
   }
 
   ingresar() {
@@ -36,7 +61,8 @@ export class LoginComponent implements OnInit {
             return;
           }
           this.cargando = false;
-          this.router.navigate(['']);
+          this.armarMenu();
+          this.router.navigate(['/welcome']);
         },
         errResponse => {
           this.authService.cerrarSession();
@@ -47,10 +73,15 @@ export class LoginComponent implements OnInit {
               break;
             default:
               this.toastr.error('Error interno', 'Error');
+              break;
           }
           this.cargando = false;
         }
       );
+  }
+
+  armarMenu(){
+
   }
 
 }

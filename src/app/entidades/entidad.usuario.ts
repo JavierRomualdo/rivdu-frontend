@@ -12,5 +12,4 @@ export class Usuario {
   password:string;
   cambiarclave:boolean;
   estado:boolean;
-  tipousuario:TipoUsuario ;
 }

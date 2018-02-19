@@ -110,6 +110,30 @@ export class AuthService {
         this.almacenamiento.setItem(this.usuarioActualKey, dataJWT);
     }
 
+    hayToken():boolean {
+      let objJWT: ObjetoJWT = this.getObjetoJWT();
+      if (objJWT !== null){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    getToken():string | null {
+      let objJWT: ObjetoJWT = this.getObjetoJWT();
+      if (objJWT !== null){
+        return objJWT.token;
+      }
+      return null;
+      }
+
+    getMenus():any|null {
+      let objJWT: ObjetoJWT = this.getObjetoJWT();
+      if (objJWT !== null){
+        return objJWT.menus;
+      }
+      return null;
+    }
 
     getObjetoJWT(): ObjetoJWT|null {
         try{
@@ -125,31 +149,6 @@ export class AuthService {
         catch (error) {
             return null;
         }
-    }
-
-    hayToken():boolean {
-        let objJWT: ObjetoJWT = this.getObjetoJWT();
-        if (objJWT !== null){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    getToken():string|null {
-        let objJWT: ObjetoJWT = this.getObjetoJWT();
-        if (objJWT !== null){
-            return objJWT.token;
-        }
-        return null;
-    }
-
-    getMenus():any|null {
-      let objJWT: ObjetoJWT = this.getObjetoJWT();
-      if (objJWT !== null){
-        return objJWT.menus;
-      }
-      return null;
-    }
+    };
 
 }
