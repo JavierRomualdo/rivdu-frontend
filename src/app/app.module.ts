@@ -18,6 +18,10 @@ import { AuthGuardService } from './servicios/auth-guard.service';
 import { AppConfig } from './app-config';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ModalEmpresaComponent } from './empresa/modal-empresa/modal-empresa.component';
+import { ModalProgramasComponent } from './empresa/modal-programas/modal-programas.component';
+import { ModalIngenierosComponent } from './empresa/modal-ingenieros/modal-ingenieros.component';
+import { ModalSucursalesComponent } from './empresa/modal-sucursales/modal-sucursales.component';
+import { ModalApoderadosComponent } from './empresa/modal-apoderados/modal-apoderados.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +29,18 @@ import { ModalEmpresaComponent } from './empresa/modal-empresa/modal-empresa.com
     LoginComponent,
     EmpresaComponent,
     WelcomeComponent,
-    ModalEmpresaComponent
+    ModalEmpresaComponent,
+    ModalProgramasComponent,
+    ModalIngenierosComponent,
+    ModalSucursalesComponent,
+    ModalApoderadosComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
+    ModalProgramasComponent,
+    ModalIngenierosComponent,
+    ModalSucursalesComponent,
+    ModalApoderadosComponent
   ],
   imports: [
     NgbModule.forRoot(),
