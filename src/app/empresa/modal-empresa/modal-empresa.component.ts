@@ -32,8 +32,20 @@ export class ModalEmpresaComponent implements OnInit {
     this.api.get("empresa/validar/"+this.ruc)
       .then(respuesta => {
         if(respuesta && respuesta.extraInfo){
-          this.toastr.success(respuesta.operacionMensaje, 'Exito');
           this.empresa = respuesta.extraInfo;
+        }else{
+          this.toastr.error(respuesta.operacionMensaje, 'Error');
+        }
+      })
+      .catch(err => this.handleError(err));
+  }
+
+  actualizarEmpresa(){
+    this.api.post("empresa",this.empresa)
+      .then(respuesta => {
+        if(respuesta && respuesta.extraInfo){
+          this.empresa = respuesta.extraInfo;
+          this.activeModal.close(this.empresa);
         }else{
           this.toastr.error(respuesta.operacionMensaje, 'Error');
         }
