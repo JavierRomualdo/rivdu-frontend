@@ -22,6 +22,21 @@ import { ModalProgramasComponent } from './empresa/modal-programas/modal-program
 import { ModalIngenierosComponent } from './empresa/modal-ingenieros/modal-ingenieros.component';
 import { ModalSucursalesComponent } from './empresa/modal-sucursales/modal-sucursales.component';
 import { ModalApoderadosComponent } from './empresa/modal-apoderados/modal-apoderados.component';
+import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mantenimiento-captacion.component';
+import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
+import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
+import { ModalUbigeoComponent } from './mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
+import { ModalDescuentosComponent } from './mantenimiento-captacion/modal-descuentos/modal-descuentos.component';
+import { ModalEstadocivilComponent } from './mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component';
+import { ModalRelacionpersonalComponent } from './mantenimiento-captacion/modal-relacionpersonal/modal-relacionpersonal.component';
+import { ModalCaptadorComponent } from './mantenimiento-captacion/modal-captador/modal-captador.component';
+import { ModalMaterialesComponent } from './mantenimiento-construccion/modal-materiales/modal-materiales.component';
+import { ModalLaboresComponent } from './mantenimiento-construccion/modal-labores/modal-labores.component';
+import { ModalResponsablesComponent } from './mantenimiento-construccion/modal-responsables/modal-responsables.component';
+import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-proveedores/modal-proveedores.component';
+import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
+import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
+import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
 
 @NgModule({
   declarations: [
@@ -33,14 +48,41 @@ import { ModalApoderadosComponent } from './empresa/modal-apoderados/modal-apode
     ModalProgramasComponent,
     ModalIngenierosComponent,
     ModalSucursalesComponent,
-    ModalApoderadosComponent
+    ModalApoderadosComponent,
+    MantenimientoCaptacionComponent,
+    MantenimientoConstruccionComponent,
+    MantenimientoTesoreriaComponent,
+    ModalUbigeoComponent,
+    ModalDescuentosComponent,
+    ModalEstadocivilComponent,
+    ModalRelacionpersonalComponent,
+    ModalCaptadorComponent,
+    ModalMaterialesComponent,
+    ModalLaboresComponent,
+    ModalResponsablesComponent,
+    ModalProveedoresComponent,
+    ModalBancosComponent,
+    ModalCostosComponent,
+    ModalCuentasComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
     ModalProgramasComponent,
     ModalIngenierosComponent,
     ModalSucursalesComponent,
-    ModalApoderadosComponent
+    ModalApoderadosComponent,
+    ModalUbigeoComponent,
+    ModalDescuentosComponent,
+    ModalEstadocivilComponent,
+    ModalRelacionpersonalComponent,
+    ModalCaptadorComponent,
+    ModalMaterialesComponent,
+    ModalLaboresComponent,
+    ModalResponsablesComponent,
+    ModalProveedoresComponent,
+    ModalBancosComponent,
+    ModalCostosComponent,
+    ModalCuentasComponent
   ],
   imports: [
     NgbModule.forRoot(),

@@ -4,6 +4,9 @@ import { AuthGuardService } from './servicios/auth-guard.service';
 
 import { LoginComponent } from './login/login.component';
 import { EmpresaComponent } from './empresa/empresa.component';
+import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mantenimiento-captacion.component';
+import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
+import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppComponent } from './app.component';
 
@@ -22,6 +25,18 @@ const routes: Routes = [
       {
         path: 'empresa', // la ruta real es movimientos/nuevo
         component: EmpresaComponent
+      },
+      {
+        path: 'mantcapt', // la ruta real es movimientos/nuevo
+        component: MantenimientoCaptacionComponent
+      },
+      {
+        path: 'mantconst', // la ruta real es movimientos/nuevo
+        component: MantenimientoConstruccionComponent
+      },
+      {
+        path: 'mantteso', // la ruta real es movimientos/nuevo
+        component: MantenimientoTesoreriaComponent
       }
     ]
   },

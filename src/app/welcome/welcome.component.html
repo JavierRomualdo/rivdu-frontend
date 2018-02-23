@@ -15,7 +15,7 @@
             <a routerLink="/" class="navbar-brand">
               <div class="brand-text brand-big"><span>Riv </span><strong>Du</strong></div>
               <div class="brand-text brand-small"><strong>RD</strong></div></a>
-            <a id="toggle-btn" href="#" class="menu-btn active">
+            <a id="toggle-btn" class="menu-btn active cursor-pointer">
               <span></span><span></span><span></span></a>
           </div>
           <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -64,8 +64,14 @@
       <span class="heading">Principal</span>
 
       <ul class="list-unstyled">
-        <li class="active"><a href="index.html"> <i class="fa fa-home"></i>RivDu </a></li>
-        <li><a href="tables.html"> <i class="fa fa-address-card"></i>Mantenimiento </a></li>
+        <li class="active"><a routerLink="/"> <i class="fa fa-home"></i>RivDu </a></li>
+        <li><a href="#exampledropdownDropdown0" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-window-close"></i>Mantenimiento </a>
+          <ul id="exampledropdownDropdown0" class="collapse list-unstyled ">
+            <li><a routerLink="mantcapt"><i class="fa fa-adjust"></i> Captaciones</a></li>
+            <li><a routerLink="mantconst"><i class="fa fa-windows"></i> Construccion</a></li>
+            <li><a routerLink="mantteso"><i class="fa fa-file-archive-o"></i> Tesoreria</a></li>
+          </ul>
+        </li>
         <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Captaciones </a></li>
         <li><a href="forms.html"> <i class="fa fa-table"></i>Administracion </a></li>
         <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-window-close"></i>Tesoreria </a>

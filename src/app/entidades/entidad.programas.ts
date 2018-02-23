@@ -1,7 +1,8 @@
 export class Programas {
   id: number;
   codigoet: string;
-  correlativocontacto: string;
+  correlativocontrato1: string;
+  correlativocontrato2: string;
   estado: boolean;
   importe: number;
   maximovalor: number;

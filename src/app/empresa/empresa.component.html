@@ -6,7 +6,7 @@
 <section class="dashboard-counts no-padding-bottom">
   <div class="container-fluid">
     <div class="row bg-white has-shadow cursor-pointer">
-      <div class="col-xl-2 col-sm-6" (click)="abrirDatos()">
+      <div class="col-xl-3 col-sm-6" (click)="abrirDatos()">
         <div class="item d-flex align-items-center">
           <div class="icon bg-violet"><i class="fa fa-home"></i></div>
           <div class="title"><span>La Empresa</span>
@@ -16,17 +16,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-2 col-sm-6" (click)="abrirPrograma()">
-        <div class="item d-flex align-items-center">
-          <div class="icon bg-red"><i class="fa fa-group"></i></div>
-          <div class="title"><span>Los Programas</span>
-            <div class="progress">
-              <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-2 col-sm-6" (click)="abrirIngenieros()">
+      <div class="col-xl-3 col-sm-6" (click)="abrirIngenieros()">
         <div class="item d-flex align-items-center">
           <div class="icon bg-green"><i class="fa fa-user-plus"></i></div>
           <div class="title"><span>Los Ingenieros</span>
@@ -36,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-2 col-sm-6">
+      <div class="col-xl-3 col-sm-6">
         <div class="item d-flex align-items-center" (click)="abrirSucursal()">
           <div class="icon bg-orange"><i class="fa fa-address-card"></i></div>
           <div class="title"><span>Las Sucursales</span>
@@ -46,12 +36,50 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-sm-12">
+      <div class="col-xl-3 col-sm-6">
         <div class="item d-flex align-items-center" (click)="abrirApoderado()">
           <div class="icon bg-orange"><i class="fa fa-file-archive-o"></i></div>
           <div class="title"><span>Los Apoderados-Formatos</span>
             <div class="progress">
               <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="tables">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-close mb-2">
+              <a id="closeCard1" (click)="abrirPrograma()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
+          </div>
+          <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Programas</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Codigo</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="cursor-pointer" (click)="abrirPrograma()">
+                    <th scope="row">1</th>
+                    <td>Programa CSP</td>
+                    <td>LIB-562-13-3-17</td>
+                    <td>18565.00</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
