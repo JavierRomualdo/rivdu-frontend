@@ -30,10 +30,7 @@
         "vendor/popper.js/umd/popper.min.js",
         "vendor/bootstrap/js/bootstrap.min.js",
         "vendor/jquery.cookie/jquery.cookie.js",
-        "vendor/chart.js/Chart.min.js",
-        "vendor/jquery-validation/jquery.validate.min.js",
-        "js/charts-home.js",
-        "js/front.js"
+        "vendor/jquery-validation/jquery.validate.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

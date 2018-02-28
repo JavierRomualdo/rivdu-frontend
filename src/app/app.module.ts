@@ -6,11 +6,9 @@ import { AppRouterModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { EmpresaComponent } from './empresa/empresa.component';
-
 import { ApiRequestService } from './servicios/api-request.service';
 import { AuthService } from './servicios/auth.service';
 import { HomeService } from './servicios/home.service';
