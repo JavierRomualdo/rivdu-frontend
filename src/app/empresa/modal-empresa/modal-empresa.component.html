@@ -30,7 +30,6 @@
           <label class="col-sm-3 form-control-label">Partida electrónica</label>
           <div class="col-sm-9">
             <input type="text" name="numeropartida" [(ngModel)]="empresa.numeropartida" class="form-control" maxlength="20">
-
           </div>
         </div>
         <div class="line"></div>
@@ -83,7 +82,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="empresa.idubigeo" name="idubigeo">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                  <button type="button" class="btn btn-primary" (click)="ubigeo()"><i class="fa fa-search" ></i></button >
                 </div>
               </div>
             </div>
@@ -95,16 +94,16 @@
           <div class="col-sm-9">
             <div class="form-group">
               <div class="input-group">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" [(ngModel)]="persona.nombre">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                      <button type="button" class="btn btn-primary" (click)="abrirpersona()"><i class="fa fa-search" ></i></button >
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="actualizarEmpresa()" >Aceptar</button>
+        <button type="submit" class="btn btn-primary" (click)="actualizarEmpresa()" >Aceptar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
