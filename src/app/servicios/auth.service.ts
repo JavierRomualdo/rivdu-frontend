@@ -16,6 +16,8 @@ export interface ObjetoJWT {
     token:string;
     menus:any;
     tipoUsuario: number;
+    nombrecompleto: string;
+
 }
 
 export interface AuthRespuesta {
@@ -58,7 +60,9 @@ export class AuthService {
                             "userId": jsonResp.item.usuarioId,
                             "token": jsonResp.item.token,
                             "menus": jsonResp.item.menus,
-                            "tipoUsuario": jsonResp.item.tipoUsuario
+                            "tipoUsuario": jsonResp.item.tipoUsuario,
+                            "nombrecompleto": jsonResp.item.nombrecompleto
+
                         }
                     };
                     this.almacenamiento.setItem(this.usuarioActualKey, JSON.stringify(authRespuesta.user));
@@ -92,6 +96,16 @@ export class AuthService {
             return objJWT.userId
         }
         return "no-user";
+    }
+
+    getNombrecompleto():string{
+        let objJWT: ObjetoJWT = JSON.parse(this.almacenamiento.getItem(this.usuarioActualKey));
+        if (objJWT !== null && objJWT.nombrecompleto && objJWT.nombrecompleto!== " "){
+            return objJWT.nombrecompleto
+        }else {
+            return objJWT.userId;
+        }
+
     }
 
     getTipoUser():number {

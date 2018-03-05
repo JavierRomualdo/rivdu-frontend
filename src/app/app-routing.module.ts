@@ -8,11 +8,12 @@ import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mante
 import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
 import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { } from ''
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
-  {
+    {
     path: 'welcome',
     component: WelcomeComponent,
     canActivate: [AuthGuardService],
@@ -26,6 +27,7 @@ const routes: Routes = [
         path: 'empresa', // la ruta real es movimientos/nuevo
         component: EmpresaComponent
       },
+
       {
         path: 'mantcapt', // la ruta real es movimientos/nuevo
         component: MantenimientoCaptacionComponent

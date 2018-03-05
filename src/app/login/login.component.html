@@ -17,19 +17,19 @@
           <div class="col-lg-6 bg-white">
             <div class="form d-flex align-items-center" *ngIf="!empresaIsTrue">
               <div class="content">
-                <form id="login-form0">
+                <form #empresa="ngForm"(ngSubmit)="consultarEmpresa()">
                   <div class="form-group">
                     <input id="ruc" type="text" name="ruc" required="" class="form-control" [(ngModel)]="ruc">
                     <label for="ruc" class="label-material">Ruc de empresa</label>
                   </div>
-                  <a (click)="consultarEmpresa()" class="btn btn-primary">Continuar</a>
+                  <button type="submit" class="btn btn-primary" [disabled]="!empresa.form.valid" >Continuar</button>
                 </form>
                 <br><small>¿No tienes una cuenta? </small><a href="#" class="signup">Registrarse</a>
               </div>
             </div>
             <div class="form d-flex align-items-center" *ngIf="empresaIsTrue">
               <div class="content">
-                <form id="login-form">
+                <form #login="ngForm"(ngSubmit)="ingresar()">
                   <div class="form-group">
                     <input id="login-username" type="text" name="loginUsername" required="" class="form-control" [(ngModel)]="user.username">
                     <label for="login-username" class="label-material">Nombre de usuario</label>
@@ -38,7 +38,7 @@
                     <input id="login-password" type="password" name="loginPassword" required="" class="form-control" [(ngModel)]="user.password">
                     <label for="login-password" class="label-material">Clave</label>
                   </div>
-                  <a id="login" (click)="ingresar()" class="btn btn-primary">Login</a>
+                  <button type="submit" class="btn btn-primary" [disabled]="!login.form.valid" >Login</button>
                 </form>
                 <a href="#" class="forgot-pass">¿Olvido Contraseña?</a><br><small>¿No tienes una cuenta? </small><a href="register.html" class="signup">Registrarse</a>
               </div>
