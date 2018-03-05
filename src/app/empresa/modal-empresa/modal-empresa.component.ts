@@ -10,7 +10,6 @@ import {ModalGerenteComponent} from '../../empresa/modal-gerente/modal-gerente.c
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 
-
 @Component({
   selector: 'app-modal-empresa',
   templateUrl: './modal-empresa.component.html',
@@ -21,9 +20,6 @@ export class ModalEmpresaComponent implements OnInit {
   public ruc:string;
   public empresa:Empresa;
   public persona:Persona;
-
-
-
   constructor(
     public activeModal: NgbActiveModal,
     public api: ApiRequestService,
@@ -33,12 +29,10 @@ export class ModalEmpresaComponent implements OnInit {
     this.empresa = new Empresa();
     this.persona= new Persona();
   }
-
   ngOnInit() {
     this.ruc = localStorage.getItem(LS.KEY_RUC_EMPRESA);
     this.traerEmpresa();
   }
-
   traerEmpresa(){
     this.api.get("empresa/validar/"+this.ruc)
       .then(respuesta => {
@@ -56,15 +50,12 @@ export class ModalEmpresaComponent implements OnInit {
     }, (reason) => {
     });
   }
-
-
   ubigeo():void{
     const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
   }
-
   actualizarEmpresa(){
     this.api.post("empresa",this.empresa)
       .then(respuesta => {
