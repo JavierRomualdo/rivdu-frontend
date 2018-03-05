@@ -36,7 +36,8 @@ import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/mod
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
 import { ModalGerenteComponent } from './empresa/modal-gerente/modal-gerente.component';
-import {ModalUbigeoComponent} from "./empresa/modal-ubigeo/modal-ubigeo.component";
+import { CargandoComponent } from './util/cargando/cargando.component';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +65,9 @@ import {ModalUbigeoComponent} from "./empresa/modal-ubigeo/modal-ubigeo.componen
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
-    ModalGerenteComponent
+    ModalGerenteComponent,
+    CargandoComponent
+
   ],
   entryComponents: [
     ModalEmpresaComponent,
