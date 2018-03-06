@@ -35,6 +35,7 @@ import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-pr
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
+import { CargandoComponent } from './util/cargando/cargando.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/m
     ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
-    ModalCuentasComponent
+    ModalCuentasComponent,
+    CargandoComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
