@@ -7,29 +7,42 @@
         </button>
       </div>
     </div>
+
     <div class="card-header d-flex align-items-center">
       <h3 class="h4">Datos principales del programa</h3>
     </div>
-    <div class="card-body pb-0">
+
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
+
+    <div *ngIf="!cargando" class="card-body pb-0">
       <form class="form-horizontal">
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="nombre" [(ngModel)]="programa.nombre">
+            <input  maxlength="50" type="text" class="form-control" name="nombre" [(ngModel)]="programa.nombre">
           </div>
         </div>
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Codigo</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="codigo" [(ngModel)]="programa.codigoet" disabled><small class="help-block-none">Este atributo es fundamental, se recomienda no cambiarlo.</small>
+            <input maxlength="15" type="text" class="form-control" name="codigo" [(ngModel)]="programa.codigoet" ><small class="help-block-none">Este atributo es fundamental, se recomienda no cambiarlo.</small>
           </div>
         </div>
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Max. Valor terreno</label>
           <div class="col-sm-9">
-            <input type="number" name="maximovalor" [(ngModel)]="programa.maximovalor" class="form-control">
+            <input maxlength="19" type="number" name="maximovalor" [(ngModel)]="programa.maximovalor" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Importe Bono Familiar</label>
+          <div class="col-sm-9">
+            <input   maxlength="19" type="number" name="importe" [(ngModel)]="programa.importe" class="form-control">
           </div>
         </div>
         <div class="line"></div>
@@ -38,10 +51,10 @@
           <div class="col-sm-9">
             <div class="row">
               <div class="col-md-6">
-                <input type="text" [(ngModel)]="programa.correlativocontrato1" class="form-control" name="manzana">
+                <input maxlength="20" type="text" [(ngModel)]="programa.correlativocontrato1" class="form-control" name="manzana">
               </div>
               <div class="col-md-6">
-                <input type="text" [(ngModel)]="programa.correlativocontrato2" class="form-control" name="lote">
+                <input maxlength="20" type="text" [(ngModel)]="programa.correlativocontrato2" class="form-control" name="lote">
               </div>
             </div>
           </div>
@@ -127,7 +140,7 @@
           </div>
         </section>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>
+          <button type="submit" class="btn btn-primary" (click)="guardarProgramas()">Aceptar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>

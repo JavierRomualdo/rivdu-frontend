@@ -36,9 +36,11 @@ import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/mod
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
 import { ModalGerenteComponent } from './empresa/modal-gerente/modal-gerente.component';
+import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
-
 
 @NgModule({
   declarations: [
@@ -67,8 +69,10 @@ import { MomentModule } from 'angular2-moment';
     ModalCostosComponent,
     ModalCuentasComponent,
     ModalGerenteComponent,
+    CaptacionesComprasComponent,
+    CaptacionesProyectosComponent,
+    CaptacionesVentasComponent,
     CargandoComponent
-
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -89,7 +93,6 @@ import { MomentModule } from 'angular2-moment';
     ModalCostosComponent,
     ModalCuentasComponent,
     ModalGerenteComponent,
-
   ],
   imports: [
     NgbModule.forRoot(),
