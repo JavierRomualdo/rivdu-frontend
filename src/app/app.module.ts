@@ -35,7 +35,13 @@ import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-pr
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
+import { ModalGerenteComponent } from './empresa/modal-gerente/modal-gerente.component';
+import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
+import { MomentModule } from 'angular2-moment';
+import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +69,12 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
+    ModalGerenteComponent,
+    CargandoComponent,
+    ConfirmacionComponent,
+    CaptacionesComprasComponent,
+    CaptacionesProyectosComponent,
+    CaptacionesVentasComponent,
     CargandoComponent
   ],
   entryComponents: [
@@ -82,7 +94,9 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
-    ModalCuentasComponent
+    ModalCuentasComponent,
+    ModalGerenteComponent,
+    ConfirmacionComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -92,7 +106,8 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MomentModule
   ],
   providers: [
     AppConfig,

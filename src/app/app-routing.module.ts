@@ -10,6 +10,7 @@ import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mante
 import { WelcomeComponent } from './welcome/welcome.component';
 import { } from ''
 import { AppComponent } from './app.component';
+import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-compras.component';
 
 const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -39,9 +40,14 @@ const routes: Routes = [
       {
         path: 'mantteso', // la ruta real es movimientos/nuevo
         component: MantenimientoTesoreriaComponent
+      },
+      {
+        path: 'captcomp',
+        component:CaptacionesComprasComponent
       }
     ]
   },
+
 	{ path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
 ];
 

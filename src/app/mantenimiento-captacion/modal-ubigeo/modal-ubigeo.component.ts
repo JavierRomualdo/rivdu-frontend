@@ -12,6 +12,7 @@ import {Tipoubigeo } from  '../../entidades/entidad.tipoubigeo';
   styleUrls: ['./modal-ubigeo.component.css']
 })
 export class ModalUbigeoComponent implements OnInit {
+
   public ubigeo:Ubigeo;
   public  tipos:any=[];
   public cargando:boolean=false;
@@ -26,7 +27,7 @@ export class ModalUbigeoComponent implements OnInit {
      this.traertipos();
   }
 
-  guardarubigeo(){
+    guardarubigeo(){
         this.cargando=true;
         this.api.post("ubigeo",this.ubigeo)
             .then(respuesta => {
@@ -58,5 +59,4 @@ export class ModalUbigeoComponent implements OnInit {
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
-
 }

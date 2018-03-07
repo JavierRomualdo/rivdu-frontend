@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     public apiService: ApiRequestService,
     public authService: AuthService,
     public toastr: ToastrService,
-    public router: Router,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -37,8 +37,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem(LS.KEY_ID_EMPRESA, respuesta.extraInfo.id);
           localStorage.setItem(LS.KEY_RUC_EMPRESA, respuesta.extraInfo.ruc);
           this.empresaIsTrue = true;
+          this.cargando= false;
         }else{
           this.toastr.error(respuesta.operacionMensaje, 'Error');
+          this.cargando=false;
         }
       })
       .catch(err => this.handleError(err));

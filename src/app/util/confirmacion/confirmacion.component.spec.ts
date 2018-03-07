@@ -1,20 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ModalEmpresaComponent } from './modal-empresa.component';
 
-describe('ModalEmpresaComponent', () => {
-  let component: ModalEmpresaComponent;
-  let fixture: ComponentFixture<ModalEmpresaComponent>;
+import { ConfirmacionComponent } from './confirmacion.component';
+
+describe('ConfirmacionComponent', () => {
+  let component: ConfirmacionComponent;
+  let fixture: ComponentFixture<ConfirmacionComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalEmpresaComponent ]
+      declarations: [ ConfirmacionComponent ]
     })
     .compileComponents();
   }));
+
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalEmpresaComponent);
+    fixture = TestBed.createComponent(ConfirmacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

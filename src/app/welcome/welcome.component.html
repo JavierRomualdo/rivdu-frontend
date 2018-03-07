@@ -60,9 +60,7 @@
           <p>Captador</p>
         </div>
       </div>
-
       <span class="heading">Principal</span>
-
       <ul class="list-unstyled">
         <li *ngFor="let menu of authService.getMenus(); let i = index">
           <a *ngIf="!menu.menuList || menu.menuList.length==0" routerLink={{menu.url}}>
@@ -75,16 +73,17 @@
             </li>
           </ul>
         </li>
-      </ul><span class="heading">Extras</span>
+      </ul>
+      <span class="heading">Extras</span>
     </nav>
-
     <div class="content-inner">
       <router-outlet></router-outlet>
       <footer class="main-footer">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
-              <p>Geektic Soluciones &copy; 2018</p>
+              <p style="float: left">Geektic Soluciones &copy; 2018</p>
+              <p style="float:right">{{mydate | amLocal | amDateFormat: 'YYYY-MM-DD'}}</p>
             </div>
           </div>
         </div>
