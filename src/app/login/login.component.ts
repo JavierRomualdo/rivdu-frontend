@@ -81,7 +81,15 @@ export class LoginComponent implements OnInit {
   }
 
   armarMenu(){
-
+    this.apiService.get("menu/traer/"+this.authService.getUserName())
+      .then(respuesta => {
+        if(respuesta && respuesta.extraInfo){
+          localStorage.setItem(LS.KEY_MENUS,JSON.stringify(respuesta.extraInfo));
+        }else{
+          this.toastr.error(respuesta.operacionMensaje, 'Error');
+        }
+      })
+      .catch(err => this.handleError(err));
   }
 
 }
