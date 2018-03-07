@@ -39,6 +39,7 @@ import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-c
 import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
 import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
+import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,8 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
+    CargandoComponent,
+    ConfirmacionComponent,
     CaptacionesComprasComponent,
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
@@ -88,7 +91,8 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
-    ModalCuentasComponent
+    ModalCuentasComponent,
+    ConfirmacionComponent
   ],
   imports: [
     NgbModule.forRoot(),
