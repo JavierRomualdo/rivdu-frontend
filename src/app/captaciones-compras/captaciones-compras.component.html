@@ -6,30 +6,34 @@
 <section class="dashboard-counts no-padding-bottom">
   <div class="container-fluid">
     <div class="row bg-white has-shadow cursor-pointer">
-      <div class="col-xl-3 col-sm-6" (click)="abrirCaptador()">
+      <div class="col-xl-6 col-sm-6" (click)="abrirCaptador()">
         <div class="item d-flex align-items-center">
-          <div class="icon bg-violet"><i class="fa fa-home"></i></div>
-          <div class="title"><span>Captador</span>
+          <div class="icon bg-violet"><i class="fa fa-user-plus"></i></div>
+          <div class="title"><span>Nueva Compra</span>
             <div class="progress">
               <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-sm-6" (click)="abrirDescuentos()">
+      <div class="col-xl-6 col-sm-6" (click)="abrirDescuentos()">
         <div class="item d-flex align-items-center">
-          <div class="icon bg-green"><i class="fa fa-user-plus"></i></div>
-          <div class="title"><span>Descuentos</span>
+          <div class="icon bg-green"><i class="fa fa-search"></i></div>
+          <div class="title"><span><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse">Consultas</a></span>
             <div class="progress">
               <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-sm-6">
+      <div id="exampledropdownDropdown2" class="collapse col-xl-12 col-sm-12" >
+        <h4>titulo1</h4>
+      </div>
+
+     <!-- <div class="col-xl-3 col-sm-6">
         <div class="item d-flex align-items-center" (click)="abrirEstado()">
-          <div class="icon bg-orange"><i class="fa fa-address-card"></i></div>
-          <div class="title"><span>Estado Civil</span>
+          <div class="icon bg-orange"><i class="fa fa-edit"></i></div>
+          <div class="title"><span>Actulización</span>
             <div class="progress">
               <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
             </div>
@@ -38,14 +42,14 @@
       </div>
       <div class="col-xl-3 col-sm-6">
         <div class="item d-flex align-items-center" (click)="abrirRelacion()">
-          <div class="icon bg-orange"><i class="fa fa-file-archive-o"></i></div>
-          <div class="title"><span>Relacion Personal</span>
+          <div class="icon bg-orange"><i class="fa fa-trash"></i></div>
+          <div class="title"><span>Eliminación</span>
             <div class="progress">
               <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -54,11 +58,11 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-close mb-2">
+         <!-- <div class="card-close mb-2">
             <a id="closeCard1" (click)="abrirCaptadores()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
-          </div>
+          </div>-->
           <div class="card-header d-flex align-items-center">
-            <h3 class="h4">Captadores</h3>
+            <h3 class="h4">Compras</h3>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -66,9 +70,10 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Nombre</th>
+                  <th>Titular</th>
                   <th>Codigo</th>
                   <th>Dni</th>
+                  <th class="opcion">Opciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,6 +82,7 @@
                   <td>Saulo Gomez</td>
                   <td>LIB-562-13-3-17</td>
                   <td>48047084</td>
+                  <td class="opcion"><i class="fa fa-trash"></i></td>
                 </tr>
                 </tbody>
               </table>
