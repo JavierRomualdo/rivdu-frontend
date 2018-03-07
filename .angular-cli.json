@@ -19,10 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "vendor/bootstrap/css/bootstrap.min.css",
         "css/style.default.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "vendor/bootstrap/css/bootstrap.min.css",
         "styles.scss"
       ],
       "scripts": [
@@ -30,7 +30,8 @@
         "vendor/popper.js/umd/popper.min.js",
         "vendor/bootstrap/js/bootstrap.min.js",
         "vendor/jquery.cookie/jquery.cookie.js",
-        "vendor/jquery-validation/jquery.validate.min.js"
+        "vendor/jquery-validation/jquery.validate.min.js",
+        "js/front.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

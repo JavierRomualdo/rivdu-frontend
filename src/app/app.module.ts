@@ -38,6 +38,7 @@ import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/m
 import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
 import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
 import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
+import { CargandoComponent } from './util/cargando/cargando.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ven
     ModalCuentasComponent,
     CaptacionesComprasComponent,
     CaptacionesProyectosComponent,
-    CaptacionesVentasComponent
+    CaptacionesVentasComponent,
+    CargandoComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
