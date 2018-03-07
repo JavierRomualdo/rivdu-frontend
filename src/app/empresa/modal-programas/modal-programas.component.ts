@@ -21,6 +21,9 @@ export class ModalProgramasComponent implements OnInit {
         this.programa = new Programas();
     }
 
+    ngOnInit() {
+    }
+
     guardarProgramas(){
         this.cargando=true;
         this.api.post("programas",this.programa)
