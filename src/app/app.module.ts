@@ -37,6 +37,7 @@ import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/mod
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
 import { ModalGerenteComponent } from './empresa/modal-gerente/modal-gerente.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
+import { MomentModule } from 'angular2-moment';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MomentModule
   ],
   providers: [
     AppConfig,
