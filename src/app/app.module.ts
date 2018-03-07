@@ -35,6 +35,9 @@ import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-pr
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
+import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 
@@ -65,7 +68,11 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ModalCostosComponent,
     ModalCuentasComponent,
     CargandoComponent,
-    ConfirmacionComponent
+    ConfirmacionComponent,
+    CaptacionesComprasComponent,
+    CaptacionesProyectosComponent,
+    CaptacionesVentasComponent,
+    CargandoComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -85,7 +92,7 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
-      ConfirmacionComponent
+    ConfirmacionComponent
   ],
   imports: [
     NgbModule.forRoot(),
