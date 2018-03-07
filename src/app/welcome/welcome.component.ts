@@ -9,9 +9,6 @@ import moment = require("moment/moment");
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-
-  public fecha= moment().format('LT');
-  public hora= moment().format('LT');
   constructor(
     public authService: AuthService,
     public router: Router
