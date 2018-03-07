@@ -27,7 +27,7 @@ export class ModalProgramasComponent implements OnInit {
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.programa = respuesta.extraInfo;
-                    this.toastr.success("Registro guardado exitosamente", 'Exito');
+                    this.toastr.success(respuesta.operacionMensaje, 'Exito');
                     this.activeModal.close(this.programa);
                     this.cargando=false;
                 } else {
