@@ -35,6 +35,9 @@ import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-pr
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
+import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
 
 @NgModule({
@@ -63,6 +66,9 @@ import { CargandoComponent } from './util/cargando/cargando.component';
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
+    CaptacionesComprasComponent,
+    CaptacionesProyectosComponent,
+    CaptacionesVentasComponent,
     CargandoComponent
   ],
   entryComponents: [
