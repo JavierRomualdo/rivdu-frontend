@@ -8,14 +8,14 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Nuevo Ubigeo</h3>
+      <h3 class="h4">Listado de Ubigeos</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
-    <div *ngIf="!cargando" class="card-body pb-0">
-      <form class="form-horizontal">
-
+    <div class="card-body pb-0">
+      <div *ngIf="!cargando && vistaFormulario" >
+      <form class="form-horizontal" *ngIf="!vistalFormulario">
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Id </label>
@@ -23,7 +23,6 @@
             <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
           </div>
         </div>
-
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label" >Codigo</label>
@@ -31,8 +30,6 @@
             <input type="text" class="form-control" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
           </div>
         </div>
-
-
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
@@ -40,25 +37,81 @@
             <input type="text" class="form-control" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
           </div>
         </div>
-
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Tipo de Ubigeo</label>
           <div class="col-sm-9">
             <select class="form-control" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
-
               <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
-
             </select>
           </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" (click)="guardarubigeo()" >Guardar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
         </div>
       </form>
+    </div><!--formularioFrank>
+      <!-- eliminar-->
+      <div class="form-horizontal" *ngIf="!cargando && !vistaFormulario" style="padding: 0px">
+        <section class="tables pt-3 pb-0">
+          <div class="container-fluid" style="padding: 0px">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <h3 class="h4">Ubigeos</h3>
+                  </div>
+                  <div class="card-close mb-2">
+                    <a  class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Busque Codigo Ubigeo" [(ngModel)]="codigo" required>
+                        <input type="text" class="form-control" placeholder="Busque Nombre Ubigeo" [(ngModel)]="nombre" required>
+                        <button class="input-group-addon" (click)="busqueda()" type="button"><i class="material-icons md-18 cursor-pointer">Buscar</i></button>
+                      </div>
+                      <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Codigo</th>
+                          <th>Nombre</th>
+                          <th>TipoUbigeo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="cursor-pointer" *ngFor="let o of ubigeos;let i=index" (click)="elegirUbigeo(o)">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{o.codigo}}</td>
+                          <td>{{o.nombre}}</td>
+                          <td>{{o.idtipoubigeo.nombre}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div>
+        <div class="row mb-3">
+          <div class="col-md-6 table-responsive">
+            <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarUbigeo()"></ngb-pagination>
+          </div>
+          <div class="col-md-6 text-right pr-3">
+            <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>-->
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+        </div>
+      </div>
     </div>
-
-
   </div>
 </div>
