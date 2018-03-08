@@ -35,10 +35,12 @@ import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-pr
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
+import { ModalGerenteComponent } from './empresa/modal-gerente/modal-gerente.component';
 import { CaptacionesComprasComponent } from './captaciones-compras/captaciones-compras.component';
 import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
 import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
 import { CargandoComponent } from './util/cargando/cargando.component';
+import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 
 @NgModule({
@@ -67,6 +69,7 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
+    ModalGerenteComponent,
     CargandoComponent,
     ConfirmacionComponent,
     CaptacionesComprasComponent,
@@ -92,6 +95,7 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
+    ModalGerenteComponent,
     ConfirmacionComponent
   ],
   imports: [
@@ -102,7 +106,8 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MomentModule
   ],
   providers: [
     AppConfig,

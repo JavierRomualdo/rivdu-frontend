@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ApiRequestService } from '../servicios/api-request.service';
 import { HomeService } from '../servicios/home.service';
+import { LS } from '../app-constants';
 import 'rxjs/add/operator/toPromise';
 
 export interface AuthSolicitudParam {
@@ -105,7 +106,6 @@ export class AuthService {
         }else {
             return objJWT.userId;
         }
-
     }
 
     getTipoUser():number {
@@ -131,7 +131,7 @@ export class AuthService {
       }else{
         return false;
       }
-    }
+    };
 
     getToken():string | null {
       let objJWT: ObjetoJWT = this.getObjetoJWT();
@@ -139,12 +139,12 @@ export class AuthService {
         return objJWT.token;
       }
       return null;
-      }
+    };
 
     getMenus():any|null {
-      let objJWT: ObjetoJWT = this.getObjetoJWT();
+      let objJWT: ObjetoJWT = JSON.parse(localStorage.getItem(LS.KEY_MENUS));
       if (objJWT !== null){
-        return objJWT.menus;
+        return objJWT;
       }
       return null;
     }

@@ -4,3 +4,12 @@
 section.dashboard-counts .row {
   padding: 0!important;
 }
+@media (min-width: 576px) {
+  .modal-sm {
+    max-width: 50%!important;
+  }
+  .modal-lg {
+    max-width: 90%!important;
+  }
+}
+

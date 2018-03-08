@@ -14,21 +14,20 @@ import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-com
 
 const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
-    {
+  {
     path: 'welcome',
     component: WelcomeComponent,
     canActivate: [AuthGuardService],
     children: [
       {
+        path: 'empresa', // la ruta real es movimientos/nuevo
+        component: EmpresaComponent
+      },
+      {
         path: '',
         redirectTo: '/welcome/empresa',
         pathMatch: 'full'
       },
-      {
-        path: 'empresa', // la ruta real es movimientos/nuevo
-        component: EmpresaComponent
-      },
-
       {
         path: 'mantcapt', // la ruta real es movimientos/nuevo
         component: MantenimientoCaptacionComponent
@@ -47,7 +46,6 @@ const routes: Routes = [
       }
     ]
   },
-
 	{ path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
 ];
 
