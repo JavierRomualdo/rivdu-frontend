@@ -12,7 +12,7 @@
       <h3 class="h4" id="titulo2"*ngIf="cambiartitulo">Agregar nuevo estado civil</h3>
     </div>
     <div class="card-body pb-0">
-      <form *ngIf="!clicknuevo" class="form-horizontal" name="frm">
+      <form *ngIf="!clicknuevo&&!clickeditar" class="form-horizontal" name="frm">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid">
             <div class="row">
@@ -45,7 +45,7 @@
                           <td>{{li.nombre}}</td>
                           <td style="width: 120px">
                             <a (click)="confirmareliminado(li)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
-                            <i class="fa fa-edit text-primary"></i>
+                            <a (click)="editarestado(li)"><i class="fa fa-edit text-primary" ></i></a>
                           </td>
                         </tr>
                         </tbody>
@@ -65,7 +65,7 @@
 
       <!--<P> formulario Agregar nuevo Estado Civil</P>-->
 
-      <form  *ngIf="clicknuevo"   class="form-horizontal" name="frm">
+      <form  *ngIf="clicknuevo&&!clickeditar"   class="form-horizontal" name="frm">
         <div *ngIf="cargando">
           <app-cargando></app-cargando>
         </div>
@@ -86,6 +86,33 @@
         <div class="line"></div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" (click)="guardarestado()" >Guardar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
+        </div>
+      </form>
+
+      <!-- Formulario Editar  Estado civil -->
+
+      <form  *ngIf="clickeditar&&!clicknuevo"   class="form-horizontal" name="frm">
+        <div *ngIf="cargando">
+          <app-cargando></app-cargando>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Id </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Nombre </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="nombre" [(ngModel)]="estadocivil.nombre" maxlength="30">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" (click)="editarestado()"  >Actualizar</button>
           <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>

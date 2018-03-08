@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import { Estadocliente } from '../../entidades/entidad.estadocliente';
 import {ModalUbigeoComponent} from '../modal-ubigeo/modal-ubigeo.component';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
+import {log} from 'util';
 
 @Component({
   selector: 'app-modal-estadocivil',
@@ -16,9 +17,12 @@ export class ModalEstadocivilComponent implements OnInit {
    public  lista:any=[];
    public cargando:boolean=false;
    public clicknuevo:boolean=false;
+   public clickeditar:boolean=false;
    public listado:boolean=false;
    public cambiartitulo:boolean=false;
    public id:number;
+   public listaestado:any;
+
 
   constructor( public activeModal: NgbActiveModal, public api: ApiRequestService,
                public toastr: ToastrService, public modal: NgbModal) {
@@ -75,6 +79,7 @@ export class ModalEstadocivilComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
+
     abrinuevoestado(){
       this.clicknuevo=true;
       this.cambiartitulo=true;
@@ -84,6 +89,7 @@ export class ModalEstadocivilComponent implements OnInit {
     abrirlistado(){
       this.clicknuevo=false;
       this.cambiartitulo=false;
+      this.clickeditar=false;
 
     };
 
@@ -96,6 +102,30 @@ export class ModalEstadocivilComponent implements OnInit {
         });
     };
 
+    traerParaEdicion(id){
+        this.clickeditar=true;
+        return this.api.post('estadocivil/obtener', {id: id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.listarestados = data.extraInfo;
+
+                    }
+                    else{
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                }
+            )
+            .catch(err => this.handleError(err));
+    }
+
+    editarestado(li):void{
+        this.clickeditar=true;
+        log(li.id);
+    }
+    probar():void{
+        alert("Hola");
+    }
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
