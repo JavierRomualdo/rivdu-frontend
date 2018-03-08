@@ -60,44 +60,34 @@
           <p>Captador</p>
         </div>
       </div>
-
       <span class="heading">Principal</span>
-
       <ul class="list-unstyled">
-        <li class="active"><a routerLink="/"> <i class="fa fa-home"></i>RivDu </a></li>
-        <li><a href="#exampledropdownDropdown0" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-window-close"></i>Mantenimiento </a>
-          <ul id="exampledropdownDropdown0" class="collapse list-unstyled ">
-            <li><a routerLink="mantcapt"><i class="fa fa-adjust"></i> Captaciones</a></li>
-            <li><a routerLink="mantconst"><i class="fa fa-windows"></i> Construccion</a></li>
-            <li><a routerLink="mantteso"><i class="fa fa-file-archive-o"></i> Tesoreria</a></li>
-          </ul>
-        </li>
-        <li><a href="#exampledropdownDropdown1" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>Captaciones </a>
-          <ul id="exampledropdownDropdown1" class="collapse list-unstyled">
-            <li><a routerLink="captcomp"><i class="fa fa-shopping-cart"></i>Compras</a></li>
-            <li><a routerLink=""><i class="fa fa-building"></i>Proyectos</a></li>
-            <li><a routerLink=""><i class="fa fa-credit-card"></i>Ventas</a></li>
-          </ul>
-        </li>
-        <li><a href="forms.html"> <i class="fa fa-table"></i>Administracion </a></li>
-        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-window-close"></i>Tesoreria </a>
-          <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-            <li><a href="#">Page</a></li>
-            <li><a href="#">Page</a></li>
-            <li><a href="#">Page</a></li>
-          </ul>
-        </li>
-        <li><a href="login.html"> <i class="fa fa-address-book-o"></i>Login page </a></li>
-      </ul><span class="heading">Extras</span>
-    </nav>
+        <li *ngFor="let menu of authService.getMenus(); let i = index">
 
+          <a *ngIf="!menu.menuList || menu.menuList.length==0" routerLink={{menu.url}}>
+              <i class="{{menu.icono}}"></i>{{menu.nombre}} </a>
+
+          <a *ngIf="menu.menuList && menu.menuList.length>0" href="#exampledropdownDropdown0-{{i}}" aria-expanded="false" data-toggle="collapse">
+            <i class={{menu.icono}}></i>{{menu.nombre}}</a>
+
+          <ul *ngIf="menu.menuList && menu.menuList.length>0" id="exampledropdownDropdown0-{{i}}" class="collapse list-unstyled">
+            <li *ngFor="let hijo of menu.menuList">
+              <a routerLink={{hijo.url}}><i class={{hijo.icono}}></i> {{hijo.nombre}}</a>
+            </li>
+          </ul>
+
+        </li>
+      </ul>
+      <span class="heading">Extras</span>
+    </nav>
     <div class="content-inner">
       <router-outlet></router-outlet>
       <footer class="main-footer">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
-              <p>Geektic Soluciones &copy; 2018</p>
+              <p style="float: left">Geektic Soluciones &copy; 2018</p>
+              <p style="float:right">{{mydate | amLocal | amDateFormat: 'YYYY-MM-DD'}}</p>
             </div>
           </div>
         </div>

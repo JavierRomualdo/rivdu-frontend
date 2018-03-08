@@ -29,17 +29,15 @@
                         <thead>
                         <tr>
                           <th>#</th>
-                          <th>Codigo</th>
-                          <th>Detalle</th>
+                          <th>Nombre</th>
                           <th>Direccion</th>
                         </tr>
                         </thead>
                         <tbody >
                         <tr class="cursor-pointer" *ngFor="let o of sucursales;let i=index">
                           <th scope="row">{{i+1}}</th>
-                          <td>{{o.ruc}}</td>
-                          <td>{{o.idempresa.oficinaregistral}}L</td>
                           <td>{{o.direccion}}</td>
+                          <td>{{o.idempresa.oficinaregistral}}</td>
                         </tr>
                         </tbody>
                       </table>

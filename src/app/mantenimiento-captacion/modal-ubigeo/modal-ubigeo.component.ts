@@ -13,6 +13,7 @@ import {Tipoubigeo } from  '../../entidades/entidad.tipoubigeo';
   styleUrls: ['./modal-ubigeo.component.css']
 })
 export class ModalUbigeoComponent implements OnInit {
+
   public ubigeo:Ubigeo;
     public ubigeos:Ubigeo[];
     public page:number = 1;
@@ -35,7 +36,7 @@ export class ModalUbigeoComponent implements OnInit {
   ngOnInit() {
      this.traertipos();
      this.listarUbigeo();
-  }
+  };
 
     busqueda():void{
         this.page = 1;
@@ -45,7 +46,8 @@ export class ModalUbigeoComponent implements OnInit {
         };
         this.listarUbigeo();
     };
-  guardarubigeo(){
+
+    guardarubigeo(){
         this.cargando=true;
         this.api.post("ubigeo",this.ubigeo)
             .then(respuesta => {
@@ -102,5 +104,4 @@ export class ModalUbigeoComponent implements OnInit {
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
-
 }

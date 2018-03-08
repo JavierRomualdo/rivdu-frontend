@@ -26,7 +26,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   abrirDatos():void{
-    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
     modalRef.result.then((result) => {
     }, (reason) => {
     });

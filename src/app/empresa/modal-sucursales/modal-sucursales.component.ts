@@ -26,7 +26,9 @@ export class ModalSucursalesComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public api: ApiRequestService,
     public toastr: ToastrService
-  ) { }
+  ) {
+    this.paginacion =new Paginacion();
+  }
 
   ngOnInit() {
     this.listarSucursales();
