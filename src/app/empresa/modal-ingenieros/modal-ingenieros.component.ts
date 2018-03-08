@@ -34,7 +34,6 @@ export class ModalIngenierosComponent implements OnInit {
         private modalService: NgbModal,
         private apiRequest: ApiRequestService,
         public toastr: ToastrService
-
       ) {
         this.ingenieros= [];
         this.paginacion = new Paginacion();
@@ -69,7 +68,6 @@ export class ModalIngenierosComponent implements OnInit {
                     data => {
                         if(data && data.extraInfo){
                             this.cargando = false;
-                          //  this.solicitudExitosa = true;
                             this.vistaFormulario = false;
                             this.ingeniero = data.extraInfo;
                             let producto = this.ingenieros.find(item => item.id === this.ingeniero.id);
@@ -102,19 +100,16 @@ export class ModalIngenierosComponent implements OnInit {
                 )
                 .catch(err => this.handleError(err));
         }
-
     }
-
-     confirmarEliminacion(ingeniero):void{
+    confirmarEliminacion(ingeniero):void{
          const modalRef = this.modalService.open(ConfirmacionComponent);
          modalRef.result.then((result) => {
              this.eliminarIngeniero(ingeniero);
          }, (reason) => {
          });
-    }
+    };
 
     eliminarIngeniero(ingeniero){
-
         this.cargando = true;
         return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
             .then(
@@ -129,7 +124,7 @@ export class ModalIngenierosComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
 
-    }
+    };
 
     abrirModalUbigeo():void{
         const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
@@ -159,8 +154,7 @@ export class ModalIngenierosComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-    }
-
+    };
 
   listarIngenieros(){
       this.cargando= true;
@@ -176,7 +170,6 @@ export class ModalIngenierosComponent implements OnInit {
         })
         .catch(err => this.handleError(err));
   };
-
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
