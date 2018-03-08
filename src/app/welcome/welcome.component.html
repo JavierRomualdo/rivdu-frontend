@@ -63,15 +63,19 @@
       <span class="heading">Principal</span>
       <ul class="list-unstyled">
         <li *ngFor="let menu of authService.getMenus(); let i = index">
+
           <a *ngIf="!menu.menuList || menu.menuList.length==0" routerLink={{menu.url}}>
               <i class="{{menu.icono}}"></i>{{menu.nombre}} </a>
+
           <a *ngIf="menu.menuList && menu.menuList.length>0" href="#exampledropdownDropdown0-{{i}}" aria-expanded="false" data-toggle="collapse">
             <i class={{menu.icono}}></i>{{menu.nombre}}</a>
+
           <ul *ngIf="menu.menuList && menu.menuList.length>0" id="exampledropdownDropdown0-{{i}}" class="collapse list-unstyled">
             <li *ngFor="let hijo of menu.menuList">
               <a routerLink={{hijo.url}}><i class={{hijo.icono}}></i> {{hijo.nombre}}</a>
             </li>
           </ul>
+
         </li>
       </ul>
       <span class="heading">Extras</span>

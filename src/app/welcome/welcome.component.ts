@@ -17,7 +17,7 @@ export class WelcomeComponent implements OnInit {
     if(!this.authService.hayToken()){
       this.router.navigate(['login']);
     } else {
-      this.router.navigate(['/empresa']);
+      this.router.navigate(['/welcome/empresa']);
     }
   }
   }

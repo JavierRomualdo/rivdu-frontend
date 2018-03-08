@@ -31,8 +31,6 @@
         "vendor/bootstrap/js/bootstrap.min.js",
         "vendor/jquery.cookie/jquery.cookie.js",
         "vendor/jquery-validation/jquery.validate.min.js",
-        "../node_modules/moment/min/moment.min.js",
-        "../node_modules/moment/min/moment-with-locales.min.js",
         "js/front.js"
       ],
       "environmentSource": "environments/environment.ts",
