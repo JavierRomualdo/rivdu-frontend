@@ -3,6 +3,7 @@ import { Paginacion } from '../../entidades/entidad.paginacion';
 import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 import { Persona } from '../../entidades/entidad.persona';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
@@ -18,7 +19,7 @@ export class ModalIngenierosComponent implements OnInit {
     @Input() isModalIngeniero;
     public page: number = 1;
     public paginacion: Paginacion;
-    public solicitando = false;
+    public cargando:boolean= false;
     public vistaFormulario = false;
     public dni:string="";
     public nombre:string="";
@@ -61,12 +62,13 @@ export class ModalIngenierosComponent implements OnInit {
     };
 
     guardarIngenieros(){
+        this.cargando= true;
         if(this.ingeniero.id){
             return this.apiRequest.put('ingeniero', this.ingeniero)
                 .then(
                     data => {
                         if(data && data.extraInfo){
-                            this.solicitando = false;
+                            this.cargando = false;
                           //  this.solicitudExitosa = true;
                             this.vistaFormulario = false;
                             this.ingeniero = data.extraInfo;
@@ -76,7 +78,7 @@ export class ModalIngenierosComponent implements OnInit {
                             this.ingeniero =new Persona();
                         }else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
-                            this.solicitando = false;
+                            this.cargando = false;
                         }
                     }
                 )
@@ -86,7 +88,7 @@ export class ModalIngenierosComponent implements OnInit {
                 .then(
                     data => {
                         if(data && data.extraInfo){
-                            this.solicitando = false;
+                            this.cargando = false;
                             //this.solicitudExitosa = true;
                             this.ingenieros.push(data.extraInfo);
                             this.vistaFormulario = false;
@@ -94,7 +96,7 @@ export class ModalIngenierosComponent implements OnInit {
                         }
                         else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
-                            this.solicitando = false;
+                            this.cargando = false;
                         }
                     }
                 )
@@ -103,10 +105,31 @@ export class ModalIngenierosComponent implements OnInit {
 
     }
 
-     /*confirmarEliminacion(ingeniero):void{
-        const modalRef = this.modalService.open();
+     confirmarEliminacion(ingeniero):void{
+         const modalRef = this.modalService.open(ConfirmacionComponent);
+         modalRef.result.then((result) => {
+             this.eliminarIngeniero(ingeniero);
+         }, (reason) => {
+         });
+    }
 
-    }*/
+    eliminarIngeniero(ingeniero){
+
+        this.cargando = true;
+        return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.ingenieros.splice(this.ingenieros.indexOf(ingeniero),1);
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+
+    }
 
     abrirModalUbigeo():void{
         const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
@@ -119,19 +142,19 @@ export class ModalIngenierosComponent implements OnInit {
     };
 
     traerParaEdicion(id){
-        this.solicitando = true;
+        this.cargando = true;
         this.vistaFormulario = true;
         return this.apiRequest.post('ingeniero/obtener', {id:id})
             .then(
                 data => {
                     if(data && data.extraInfo){
-                        this.solicitando = false;
+                        this.cargando = false;
                         this.ingeniero = data.extraInfo;
                     }
                     else{
                         this.toastr.info(data.operacionMensaje,"Informacion");
                         this.vistaFormulario = false;
-                        this.solicitando = false;
+                        this.cargando = false;
                     }
                 }
             )
@@ -140,10 +163,11 @@ export class ModalIngenierosComponent implements OnInit {
 
 
   listarIngenieros(){
+      this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {
             if(data){
-                this.solicitando = false;
+                this.cargando = false;
                 this.paginacion.totalRegistros = data.totalRegistros;
                 this.paginacion.paginaActual = data.paginaActual;
                 this.paginacion.totalPaginas = data.totalPaginas;
