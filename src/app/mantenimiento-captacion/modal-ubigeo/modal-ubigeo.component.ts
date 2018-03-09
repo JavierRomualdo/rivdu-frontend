@@ -57,8 +57,9 @@ export class ModalUbigeoComponent implements OnInit {
 
     }
     confirmarEliminacion(ubigeo):void{
-        const modalRef = this.modalService.open(ConfirmacionComponent);
-        modalRef.result.then((result) => {
+        this.vistaFormulario= true;
+        const modalRef1 = this.modalService.open(ConfirmacionComponent);
+        modalRef1.result.then((result) => {
             this.eliminarUbigeo(ubigeo);
         }, (reason) => {
         });
@@ -80,8 +81,6 @@ export class ModalUbigeoComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-
-
     guardarubigeo(){
         this.cargando=true;
         this.api.post("ubigeo",this.ubigeo)
@@ -89,7 +88,7 @@ export class ModalUbigeoComponent implements OnInit {
                 if(respuesta && respuesta.extraInfo){
                     this.ubigeo = respuesta.extraInfo;
                     this.toastr.success("Registro guardado exitosamente", 'Exito');
-                    this.activeModal.close(this.ubigeo);
+                    this.vistaFormulario = false;
                     this.cargando=false;
                 } else {
                     this.cargando=false;

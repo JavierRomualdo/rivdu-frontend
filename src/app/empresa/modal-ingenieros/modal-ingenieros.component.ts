@@ -117,32 +117,9 @@ export class ModalIngenierosComponent implements OnInit {
         }
     };
 
-    /*guardarIngenieros2(){
-        this.cargando=true;
-        if(this.ingeniero && this.ingeniero.idubigeo && !this.ingeniero.idubigeo.id){
-            this.ingeniero.idubigeo= null;
-        }
-        this.api.post("ingeniero",this.ingeniero)
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.ingeniero = respuesta.extraInfo;
-                    this.toastr.success("Registro guardado exitosamente", 'Exito');
-                    this.vistaFormulario = false;
-                   // this.activeModal.close(this.ingeniero);
-                    this.vistaFormulario = false;
-                    this.cargando=false;
-                } else {
-                    this.cargando=false;
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
-                }
-            })
-            .catch(err => this.handleError(err));
-
-    }*/
-
     confirmarEliminacion(ingeniero):void{
-         const modalRef = this.modalService.open(ConfirmacionComponent);
-         modalRef.result.then((result) => {
+         const modalRef1 = this.modalService.open(ConfirmacionComponent);
+         modalRef1.result.then((result) => {
              this.eliminarIngeniero(ingeniero);
          }, (reason) => {
          });
