@@ -8,8 +8,9 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4" id="titulo" *ngIf="!cambiartitulo">Datos de los Estados Civiles</h3>
-      <h3 class="h4" id="titulo2"*ngIf="cambiartitulo">Agregar nuevo estado civil</h3>
+      <h3 class="h4" id="titulo" *ngIf="!clicknuevo&&!clickeditar">Datos de los Estados Civiles</h3>
+      <h3 class="h4" id="titulo2"*ngIf="!clickeditar&&clicknuevo">Agregar nuevo estado civil</h3>
+      <h3  class="h4" id="titulo3" *ngIf="clickeditar&&!clicknuevo"> Editar estado civil</h3>
     </div>
     <div class="card-body pb-0">
       <form *ngIf="!clicknuevo&&!clickeditar" class="form-horizontal" name="frm">
@@ -45,7 +46,7 @@
                           <td>{{li.nombre}}</td>
                           <td style="width: 120px">
                             <a (click)="confirmareliminado(li)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
-                            <a (click)="editarestado(li)"><i class="fa fa-edit text-primary" ></i></a>
+                            <a (click)="traerParaEdicion(li.id)"><i class="fa fa-edit text-primary" ></i></a>
                           </td>
                         </tr>
                         </tbody>
@@ -100,7 +101,7 @@
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Id </label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
+            <input type="text" class="form-control" name="id"  disabled  [(ngModel)]="estadocivil.id"><small class="help-block-none">Este atributo es generado automaticamente.</small>
           </div>
         </div>
         <div class="line"></div>
@@ -112,7 +113,7 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="editarestado()"  >Actualizar</button>
+          <button type="submit" class="btn btn-primary" (click)="guardarestado()"  >Actualizar</button>
           <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>

@@ -19,7 +19,6 @@ export class ModalEstadocivilComponent implements OnInit {
    public clicknuevo:boolean=false;
    public clickeditar:boolean=false;
    public listado:boolean=false;
-   public cambiartitulo:boolean=false;
    public id:number;
    public listaestado:any;
 
@@ -82,13 +81,11 @@ export class ModalEstadocivilComponent implements OnInit {
 
     abrinuevoestado(){
       this.clicknuevo=true;
-      this.cambiartitulo=true;
-
+      this.estadocivil=new Estadocliente();
     };
 
     abrirlistado(){
       this.clicknuevo=false;
-      this.cambiartitulo=false;
       this.clickeditar=false;
 
     };
@@ -104,11 +101,12 @@ export class ModalEstadocivilComponent implements OnInit {
 
     traerParaEdicion(id){
         this.clickeditar=true;
+        this.clicknuevo=false;
         return this.api.post('estadocivil/obtener', {id: id})
             .then(
                 data => {
                     if(data && data.extraInfo){
-                        this.listarestados = data.extraInfo;
+                        this.estadocivil = data.extraInfo;
 
                     }
                     else{
