@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Paginacion } from '../../entidades/entidad.paginacion';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
+import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { ToastrService } from 'ngx-toastr';
 import { LS } from  '../../app-constants';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
@@ -28,6 +29,8 @@ export class ModalUbigeoComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               public api: ApiRequestService,
+              public apiRequest: ApiRequestService,
+              private modalService: NgbModal,
               public toastr: ToastrService) {
       this.ubigeo=new Ubigeo();
       this.paginacion = new Paginacion();
@@ -46,6 +49,38 @@ export class ModalUbigeoComponent implements OnInit {
         };
         this.listarUbigeo();
     };
+    limpiar():void{
+        this.nombre= "";
+        this.codigo="";
+        this.parametros = {};
+        this.listarUbigeo();
+
+    }
+    confirmarEliminacion(ubigeo):void{
+        const modalRef = this.modalService.open(ConfirmacionComponent);
+        modalRef.result.then((result) => {
+            this.eliminarUbigeo(ubigeo);
+        }, (reason) => {
+        });
+    };
+
+    eliminarUbigeo(ubigeo){
+        this.cargando = true;
+        return this.apiRequest.post('ubigeo/eliminar', {id:ubigeo.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.ubigeos.splice(this.ubigeos.indexOf(ubigeo),1);
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+
 
     guardarubigeo(){
         this.cargando=true;
@@ -69,15 +104,15 @@ export class ModalUbigeoComponent implements OnInit {
         this.api.post('ubigeo/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
             .then(data => {
                 if(data){
-                    this.solicitando = false;
                     this.paginacion.totalRegistros = data.totalRegistros;
                     this.paginacion.paginaActual = data.paginaActual;
                     this.paginacion.totalPaginas = data.totalPaginas;
                     this.ubigeos = data.registros;
-                    this.cargando= false;
+                    this.cargando = false;
                 }
             })
             .catch(err => this.handleError(err));
+            this.cargando = false;
     }
 
     elegirUbigeo(o){
@@ -86,7 +121,9 @@ export class ModalUbigeoComponent implements OnInit {
 
     nuevo(){
         this.vistaFormulario = true;
+        this.cargando = true;
         this.ubigeo = new Ubigeo();
+        this.cargando = false;
     }
 
     traertipos(){
@@ -103,5 +140,6 @@ export class ModalUbigeoComponent implements OnInit {
 
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
+        this.cargando =false;
     }
 }
