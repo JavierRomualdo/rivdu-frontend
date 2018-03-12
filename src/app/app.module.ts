@@ -42,6 +42,7 @@ import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ven
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
+import { ModalCompraformularioComponent } from './captaciones-compras/modal-compraformulario/modal-compraformulario.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     CaptacionesComprasComponent,
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
-    CargandoComponent
+    CargandoComponent,
+    ModalCompraformularioComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -96,7 +98,8 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ModalCostosComponent,
     ModalCuentasComponent,
     ModalGerenteComponent,
-    ConfirmacionComponent
+    ConfirmacionComponent,
+    ModalCompraformularioComponent
   ],
   imports: [
     NgbModule.forRoot(),
