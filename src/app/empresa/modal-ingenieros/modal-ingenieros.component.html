@@ -41,7 +41,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cursor-pointer" *ngFor="let o of ingenieros;let i=index">
+                        <tr class="cursor-pointer" *ngFor="let o of ingenieros;let i=index" (click)="elegirIngeniero(o)">
                           <th scope="row">{{i+1}}</th>
                           <td>{{o.nombre}}</td>
                           <td>{{o.codigo}}</td>
