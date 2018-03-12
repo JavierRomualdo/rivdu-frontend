@@ -54,6 +54,13 @@ export class ModalIngenierosComponent implements OnInit {
         this.listarIngenieros();
     };
 
+    limpiar():void{
+        this.nombre ="";
+        this.dni = "";
+        this.parametros ={};
+        this.listarIngenieros();
+    };
+
     nuevo(){
         this.vistaFormulario=true;
         this.ingeniero= new Persona();
@@ -62,6 +69,9 @@ export class ModalIngenierosComponent implements OnInit {
 
     guardarIngenieros(){
         this.cargando= true;
+        if(this.ingeniero && this.ingeniero.idubigeo && !this.ingeniero.idubigeo.id){
+            this.ingeniero.idubigeo= null;
+        }
         if(this.ingeniero.id){
             return this.apiRequest.put('ingeniero', this.ingeniero)
                 .then(
@@ -73,10 +83,13 @@ export class ModalIngenierosComponent implements OnInit {
                             let producto = this.ingenieros.find(item => item.id === this.ingeniero.id);
                             let index = this.ingenieros.indexOf(producto);
                             this.ingenieros[index] = this.ingeniero;
-                            this.ingeniero =new Persona();
+                            this.ingeniero = new Persona();
                         }else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
                             this.cargando = false;
+                        }
+                        if(this.ingeniero && !this.ingeniero.idubigeo){
+                            this.ingeniero.idubigeo= new Ubigeo();
                         }
                     }
                 )
@@ -87,23 +100,26 @@ export class ModalIngenierosComponent implements OnInit {
                     data => {
                         if(data && data.extraInfo){
                             this.cargando = false;
-                            //this.solicitudExitosa = true;
                             this.ingenieros.push(data.extraInfo);
                             this.vistaFormulario = false;
-                            this.ingeniero = new Persona();
+                            this.ingeniero =new Persona();
                         }
                         else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
                             this.cargando = false;
                         }
+                        if(this.ingeniero && !this.ingeniero.idubigeo){
+                            this.ingeniero.idubigeo= new Ubigeo();
+                        }
                     }
                 )
                 .catch(err => this.handleError(err));
         }
-    }
+    };
+
     confirmarEliminacion(ingeniero):void{
-         const modalRef = this.modalService.open(ConfirmacionComponent);
-         modalRef.result.then((result) => {
+         const modalRef1 = this.modalService.open(ConfirmacionComponent);
+         modalRef1.result.then((result) => {
              this.eliminarIngeniero(ingeniero);
          }, (reason) => {
          });
@@ -123,11 +139,10 @@ export class ModalIngenierosComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-
     };
 
     abrirModalUbigeo():void{
-        const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
+        const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.ingeniero.idubigeo = result;
             console.log("Ha sido cerrado "+result);
@@ -145,6 +160,9 @@ export class ModalIngenierosComponent implements OnInit {
                     if(data && data.extraInfo){
                         this.cargando = false;
                         this.ingeniero = data.extraInfo;
+                        if(this.ingeniero && !this.ingeniero.idubigeo){
+                            this.ingeniero.idubigeo = new Ubigeo();
+                        }
                     }
                     else{
                         this.toastr.info(data.operacionMensaje,"Informacion");
@@ -177,6 +195,7 @@ export class ModalIngenierosComponent implements OnInit {
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
+      this.cargando = false;
   }
 
 }

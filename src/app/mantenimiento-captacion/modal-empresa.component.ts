@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApiRequestService } from '../../servicios/api-request.service';
+import { ApiRequestService } from '../servicios/api-request.service.ts';
 import { ToastrService } from 'ngx-toastr';
-import { LS } from '../../app-constants';
-import { Empresa } from '../../entidades/entidad.empresa';
-import {Persona} from '../../entidades/entidad.persona';
-import {Ubigeo} from '../../entidades/entidad.ubigeo';
-import {EmpresaComponent} from '../../empresa/empresa.component';
-import {ModalIngenierosComponent} from '../../empresa/modal-ingenieros/modal-ingenieros.component';
+import { LS } from '../app-constants';
+import { Empresa } from '../entidades/entidad.empresa.ts';
+import {Persona} from '../entidades/entidad.persona.ts';
+import {Ubigeo} from '../entidades/entidad.ubigeo.ts';
+import {EmpresaComponent} from '../empresa/empresa.component.ts';
+import {ModalIngenierosComponent} from '../empresa/modal-ingenieros/modal-ingenieros.component.ts';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
+import { ModalUbigeoComponent } from 'modal-ubigeo/modal-ubigeo.component.ts';
 
 @Component({
   selector: 'app-modal-empresa',

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ModalEmpresaComponent } from './modal-empresa.component';
+import { ModalEmpresaComponent } from './../../mantenimiento-captacion/modal-empresa.component.ts';
 
 describe('ModalEmpresaComponent', () => {
   let component: ModalEmpresaComponent;

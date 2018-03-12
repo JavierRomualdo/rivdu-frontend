@@ -15,7 +15,7 @@
     </div>
     <div class="card-body pb-0">
       <div *ngIf="!cargando && vistaFormulario" >
-      <form class="form-horizontal" *ngIf="!vistalFormulario">
+      <form class="form-horizontal" #formulario="ngForm"  *ngIf="!vistalFormulario">
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Id </label>
@@ -34,20 +34,20 @@
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
+            <input type="text" class="form-control" required="" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
           </div>
         </div>
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Tipo de Ubigeo</label>
           <div class="col-sm-9">
-            <select class="form-control" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
+            <select class="form-control" required="" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
               <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
             </select>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarubigeo()" >Guardar</button>
+          <button type="submit" class="btn btn-primary" (click)="guardarubigeo()" [disabled]="!formulario.form.valid">Guardar</button>
           <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
         </div>
       </form>
@@ -65,12 +65,12 @@
                   <div class="card-close mb-2">
                     <a  class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" >
                     <div class="table-responsive">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="Busque Codigo Ubigeo" [(ngModel)]="codigo" required>
                         <input type="text" class="form-control" placeholder="Busque Nombre Ubigeo" [(ngModel)]="nombre" required>
-                        <button class="input-group-addon" (click)="busqueda()" type="button"><i class="material-icons md-18 cursor-pointer">Buscar</i></button>
+                        <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
                       </div>
                       <table class="table table-striped" >
                         <thead>
@@ -79,6 +79,7 @@
                           <th>Codigo</th>
                           <th>Nombre</th>
                           <th>TipoUbigeo</th>
+                          <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -87,6 +88,10 @@
                           <td>{{o.codigo}}</td>
                           <td>{{o.nombre}}</td>
                           <td>{{o.idtipoubigeo.nombre}}</td>
+                          <td style="width: 40px">
+                            <a class="btn-link curso-pointer" (click)="confirmarEliminacion(o)" title="eliminar"><i class="fa fa-close  text-danger" style="font-size: 23px;"></i></a>
+                            <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                          </td>
                         </tr>
                         </tbody>
                       </table>
@@ -109,6 +114,7 @@
         </div>
         <div class="modal-footer">
           <!--<button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>-->
+          <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </div>

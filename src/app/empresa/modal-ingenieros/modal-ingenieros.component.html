@@ -10,8 +10,11 @@
     <div class="card-header d-flex align-items-center">
       <h3 class="h4">Datos de los ingenieros</h3>
     </div>
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
     <div class="card-body pb-0">
-      <div *ngIf="!vistaFormulario" class="form-horizontal" style="padding: 2px">
+      <div *ngIf="!cargando && !vistaFormulario" class="form-horizontal" style="padding: 2px">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid" style="padding: 0px">
             <div  class="row">
@@ -43,7 +46,7 @@
                         <tbody>
                         <tr class="cursor-pointer" *ngFor="let o of ingenieros;let i=index" (click)="elegirIngeniero(o)">
                           <th scope="row">{{i+1}}</th>
-                          <td>{{o.nombre}}</td>
+                          <td>{{o.nombre}} {{o.apellido}}</td>
                           <td>{{o.codigo}}</td>
                           <td>{{o.dni}}</td>
                           <td style="width: 40px">
@@ -71,12 +74,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="activeModal.dismiss('Cross click')">Limpiar</button>
+          <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </div>
       </div>
-      <div *ngIf="vistaFormulario">
+      <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">
           <div class="card-header d-flex align-items-center">
             <h5 class="h4" align="left">Nuevo Ingeniero </h5>
