@@ -29,17 +29,15 @@
                         <thead>
                         <tr>
                           <th>#</th>
-                          <th>Codigo</th>
-                          <th>Detalle</th>
+                          <th>Nombre</th>
                           <th>Direccion</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr class="cursor-pointer">
-                          <th scope="row">1</th>
-                          <td>001</td>
-                          <td>OFICINA CENTRAL</td>
-                          <td>Chulucanas</td>
+                        <tbody >
+                        <tr class="cursor-pointer" *ngFor="let o of sucursales;let i=index">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{o.direccion}}</td>
+                          <td>{{o.idempresa.oficinaregistral}}</td>
                         </tr>
                         </tbody>
                       </table>
@@ -50,6 +48,14 @@
             </div>
           </div>
         </section>
+        <div class="row mb-3">
+          <div class="col-md-6 table-responsive">
+            <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarIngenieros()"></ngb-pagination>
+          </div>
+          <div class="col-md-6 text-right pr-3">
+            <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+          </div>
+        </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>

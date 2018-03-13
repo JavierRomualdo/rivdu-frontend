@@ -10,38 +10,52 @@
     <div class="card-header d-flex align-items-center">
       <h3 class="h4">Datos de los ingenieros</h3>
     </div>
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
     <div class="card-body pb-0">
-      <form class="form-horizontal">
+      <div *ngIf="!cargando && !vistaFormulario" class="form-horizontal" style="padding: 2px">
         <section class="tables pt-0 pb-0">
-          <div class="container-fluid">
-            <div class="row">
+          <div class="container-fluid" style="padding: 0px">
+            <div  class="row">
               <div class="col-lg-12">
                 <div class="card">
-                  <div class="card-close mb-2">
-                    <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Ingenieros</h3>
-                  </div>
+                    <div class="card-close mb-2">
+                      <a id="closeCard2" class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">Ingenieros</h3>
+                    </div><!--ingenieros-->
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-striped">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Busque por codigo" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
+                        <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="150" id="cdescr" name="cdscor" required>
+                        <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
+                      </div>
+                        <table class="table table-striped" >
                         <thead>
                         <tr>
                           <th>#</th>
                           <th>Nombre</th>
                           <th>Codigo</th>
                           <th>Dni</th>
+                          <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cursor-pointer">
-                          <th scope="row">1</th>
-                          <td>Marcos Cruzado</td>
-                          <td>18032</td>
-                          <td>45443457</td>
+                        <tr class="cursor-pointer" *ngFor="let o of ingenieros;let i=index">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{o.nombre}} {{o.apellido}}</td>
+                          <td>{{o.codigo}}</td>
+                          <td>{{o.dni}}</td>
+                          <td style="width: 40px">
+                            <a class="btn-link curso-pointer" (click)="confirmarEliminacion(o)" title="eliminar"><i class="fa fa-close  text-danger" style="font-size: 23px;"></i></a>
+                            <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                          </td>
                         </tr>
                         </tbody>
+
                       </table>
                     </div>
                   </div>
@@ -50,11 +64,84 @@
             </div>
           </div>
         </section>
+        <div>
+        <div class="row mb-3">
+          <div class="col-md-6 table-responsive">
+            <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarIngenieros()"></ngb-pagination>
+          </div>
+          <div class="col-md-6 text-right pr-3">
+            <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+          </div>
+        </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>
+          <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
-      </form>
+      </div>
+      </div>
+      <div *ngIf="vistaFormulario && !cargando">
+        <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">
+          <div class="card-header d-flex align-items-center">
+            <h5 class="h4" align="left">Nuevo Ingeniero </h5>
+          </div>
+          <div class="pt-3">
+           <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Nombre</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="nombre" required="" placeholder="Ingrese nombre completo" maxlength="50" [(ngModel)]="ingeniero.nombre">
+            </div>
+          </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Apellido</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="apellido" required="" maxlength="20" [(ngModel)]="ingeniero.apellido" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">D.N.I.</label>
+                <div class="col-sm-9">
+                  <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Correo</label>
+                <div class="col-sm-9">
+                  <input type="text" name="correo"  required="" class="form-control" maxlength="50" [(ngModel)]="ingeniero.correo">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Direccion</label>
+                <div class="col-sm-9">
+                  <input type="text" name="direccion"  required="" class="form-control" maxlength="255" [(ngModel)]="ingeniero.direccion">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Ubigeo</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control" disabled [(ngModel)]="ingeniero.idubigeo.nombre" name="idubigeo">
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-primary"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Telefono</label>
+                <div class="col-sm-9">
+                  <input type="text" name="telefono"  class="form-control" maxlength="15" [(ngModel)]="ingeniero.telefono">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" *ngIf="!ingeniero.id" [disabled]="!formulario.form.valid" >Guardar</button>
+                <button type="submit" class="btn btn-primary" *ngIf="ingeniero.id" [disabled]="!formulario.form.valid">Actualizar</button>
+                <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario = false">Cancelar</button>
+              </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
