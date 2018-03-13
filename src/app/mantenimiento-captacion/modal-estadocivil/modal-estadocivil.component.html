@@ -72,13 +72,6 @@
         </div>
         <div class="line"></div>
         <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Id </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
-          </div>
-        </div>
-        <div class="line"></div>
-        <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
           <div class="col-sm-9">
             <input type="text" class="form-control" name="nombre" [(ngModel)]="estadocivil.nombre" maxlength="30">
@@ -96,13 +89,6 @@
       <form  *ngIf="clickeditar&&!clicknuevo"   class="form-horizontal" name="frm">
         <div *ngIf="cargando">
           <app-cargando></app-cargando>
-        </div>
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Id </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="id"  disabled  [(ngModel)]="estadocivil.id"><small class="help-block-none">Este atributo es generado automaticamente.</small>
-          </div>
         </div>
         <div class="line"></div>
         <div class="form-group row">

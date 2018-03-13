@@ -57,14 +57,14 @@ export class MantenimientoCaptacionComponent implements OnInit {
   }
 
   abrirEstado():void{
-    const modalRef = this.modalService.open(ModalEstadocivilComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalEstadocivilComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
   }
 
   abrirRelacion():void{
-    const modalRef = this.modalService.open(ModalRelacionpersonalComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalRelacionpersonalComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });

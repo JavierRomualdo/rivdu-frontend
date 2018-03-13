@@ -3,7 +3,6 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Relacion} from '../../entidades/entidad.relacion';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
 import {ApiRequestService} from '../../servicios/api-request.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
