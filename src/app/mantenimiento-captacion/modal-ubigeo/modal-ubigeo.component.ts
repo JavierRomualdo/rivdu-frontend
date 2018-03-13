@@ -87,10 +87,6 @@ export class ModalUbigeoComponent implements OnInit {
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.ubigeo = respuesta.extraInfo;
-                    this.toastr.success("R  egistro guardado exitosamente", 'Exito');
-                    this.activeModal.close(this.ubigeo);
-                    this.toastr.success("Registro guardado exitosamente", 'Exito');
-                    this.vistaFormulario = false;
                     this.cargando=false;
                 } else {
                     this.cargando=false;
