@@ -42,6 +42,8 @@ import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ven
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     CaptacionesComprasComponent,
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
-    CargandoComponent
+    CargandoComponent,
+    ModalRolComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -107,7 +110,8 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    MomentModule
+    MomentModule,
+    UiSwitchModule
   ],
   providers: [
     AppConfig,
