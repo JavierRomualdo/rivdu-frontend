@@ -192,6 +192,10 @@ export class ModalIngenierosComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
+    elegirIngeniero(o){
+        this.activeModal.close(o);
+    }
+
   listarIngenieros(){
       this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
