@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ModalEmpresaComponent } from './../mantenimiento-captacion/modal-empresa.component.ts'
+import { ModalEmpresaComponent } from './modal-empresa/modal-empresa.component.ts'
 import {ModalProgramasComponent} from "./modal-programas/modal-programas.component";
 import {ModalIngenierosComponent} from "./modal-ingenieros/modal-ingenieros.component";
 import {ModalSucursalesComponent} from "./modal-sucursales/modal-sucursales.component";
