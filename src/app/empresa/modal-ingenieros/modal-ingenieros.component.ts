@@ -27,6 +27,7 @@ export class ModalIngenierosComponent implements OnInit {
     public ingeniero:Persona;
     public ubigeos:any = [];
     public parametros:any={};
+    public verNuevo:boolean = false;
 
       constructor(
         public activeModal: NgbActiveModal,
@@ -63,6 +64,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     nuevo(){
         this.vistaFormulario=true;
+        this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
     };
@@ -80,8 +82,8 @@ export class ModalIngenierosComponent implements OnInit {
                             this.cargando = false;
                             this.vistaFormulario = false;
                             this.ingeniero = data.extraInfo;
-                            let producto = this.ingenieros.find(item => item.id === this.ingeniero.id);
-                            let index = this.ingenieros.indexOf(producto);
+                            let ingeniero = this.ingenieros.find(item => item.id === this.ingeniero.id);
+                            let index = this.ingenieros.indexOf(ingeniero);
                             this.ingenieros[index] = this.ingeniero;
                             this.ingeniero = new Persona();
                         }else{
@@ -154,6 +156,7 @@ export class ModalIngenierosComponent implements OnInit {
     traerParaEdicion(id){
         this.cargando = true;
         this.vistaFormulario = true;
+        this.verNuevo = true;
         return this.apiRequest.post('ingeniero/obtener', {id:id})
             .then(
                 data => {

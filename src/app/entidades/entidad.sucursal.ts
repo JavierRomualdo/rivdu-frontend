@@ -7,5 +7,5 @@ export class Sucursal {
   estado: boolean;
   nombre: string;
   ubigeo: Ubigeo;
-  idEmpresa: Empresa;
+  idempresa: Empresa;
 }

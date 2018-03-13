@@ -81,8 +81,11 @@
       </div>
       <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">
-          <div class="card-header d-flex align-items-center">
+          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
             <h5 class="h4" align="left">Nuevo Ingeniero </h5>
+          </div>
+          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
+            <h5 class="h4" align="left">Editando Ingeniero</h5>
           </div>
           <div class="pt-3">
            <div class="form-group row">
