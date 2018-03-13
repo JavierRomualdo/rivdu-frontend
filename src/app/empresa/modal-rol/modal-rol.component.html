@@ -8,7 +8,7 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="rol" class="col-form-label">Rol <span class="text-primary">*</span></label>
-      <select style="height: calc(2rem);" class="form-control" id="rol" name="rol" [(ngModel)]="" required>
+      <select style="height: calc(2rem);" class="form-control" id="rol" name="rol" required>
         <option *ngFor="let tip of tiposroles" [ngValue]="tip.id">
           {{ tip.nombre }}
         </option>

@@ -84,8 +84,11 @@
       </div>
       <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">
-          <div class="card-header d-flex align-items-center">
-            <h5 class="h4" align="left">Agregar nueva persona </h5>
+          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
+            <h5 class="h4" align="left">Nuevo Persona </h5>
+          </div>
+          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
+            <h5 class="h4" align="left">Editando Persona</h5>
           </div>
           <div class="pt-3">
               <div class="form-group row">
@@ -177,10 +180,6 @@
                       </table>
                   </div>
               </div>
-
-
-
-
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" *ngIf="!ingeniero.id" [disabled]="!formulario.form.valid" >Guardar</button>
                 <button type="submit" class="btn btn-primary" *ngIf="ingeniero.id" [disabled]="!formulario.form.valid">Actualizar</button>

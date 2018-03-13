@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Paginacion } from '../../entidades/entidad.paginacion';
 import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
+import { Empresa } from '../../entidades/entidad.empresa';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { ToastrService } from 'ngx-toastr';
 import { LS } from  '../../app-constants';
@@ -16,16 +17,17 @@ import {Tipoubigeo } from  '../../entidades/entidad.tipoubigeo';
 export class ModalUbigeoComponent implements OnInit {
 
   public ubigeo:Ubigeo;
-    public ubigeos:Ubigeo[];
-    public page:number = 1;
-    public nombre:string ="";
-    public codigo:string = "";
-    public vistaFormulario = false;
+  public ubigeos:Ubigeo[];
+  public page:number = 1;
+  public nombre:string ="";
+  public codigo:string = "";
+  public vistaFormulario = false;
   public  tipos:any=[];
   public cargando:boolean=false;
   public paginacion: Paginacion;
   public solicitando = false;
-    public parametros:any={};
+  public verNuevo:boolean = false;
+  public parametros:any={};
 
   constructor(public activeModal: NgbActiveModal,
               public api: ApiRequestService,
@@ -49,15 +51,16 @@ export class ModalUbigeoComponent implements OnInit {
         };
         this.listarUbigeo();
     };
+
     limpiar():void{
         this.nombre= "";
         this.codigo="";
         this.parametros = {};
         this.listarUbigeo();
 
-    }
+    };
+
     confirmarEliminacion(ubigeo):void{
-        this.vistaFormulario= true;
         const modalRef1 = this.modalService.open(ConfirmacionComponent);
         modalRef1.result.then((result) => {
             this.eliminarUbigeo(ubigeo);
@@ -82,6 +85,10 @@ export class ModalUbigeoComponent implements OnInit {
     };
 
     guardarubigeo(){
+        var isedicion= false;
+        if(this.ubigeo.id){
+            isedicion=true;
+        }
         this.cargando=true;
         this.api.post("ubigeo",this.ubigeo)
             .then(respuesta => {
@@ -89,6 +96,11 @@ export class ModalUbigeoComponent implements OnInit {
                     this.ubigeo = respuesta.extraInfo;
                     this.toastr.success("Registro guardado exitosamente", 'Exito');
                     this.vistaFormulario = false;
+                    if(!isedicion){
+                        this.ubigeos.push(this.ubigeo);
+                    }else{
+                        this.limpiar();
+                    }
                     this.cargando=false;
                 } else {
                     this.cargando=false;
@@ -96,7 +108,38 @@ export class ModalUbigeoComponent implements OnInit {
                 }
             })
             .catch(err => this.handleError(err));
-    }
+    };
+
+    traerParaEdicion(id){
+        this.cargando = true;
+        this.vistaFormulario = true;
+        this.verNuevo = true;
+        return this.apiRequest.post('ubigeo/obtener', {id:id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.cargando = false;
+                        this.ubigeo = data.extraInfo;
+                        if(this.ubigeo && !this.ubigeo.idtipoubigeo){
+                            this.ubigeo.idtipoubigeo = new Ubigeo();
+                        }
+                        this.llenarCombo(this.ubigeo);
+                    }
+                    else{
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                        this.vistaFormulario = false;
+                        this.cargando = false;
+                    }
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+    llenarCombo(ubigeo){
+        let tipo= ubigeo.idtipoubigeo;
+        let tiposelect = this.tipos.find(item => item.id = tipo.id);
+        this.ubigeo.idtipoubigeo = tiposelect;
+    };
 
     listarUbigeo(){
         this.cargando= true;
@@ -112,18 +155,19 @@ export class ModalUbigeoComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
             this.cargando = false;
-    }
+    };
 
     elegirUbigeo(o){
         this.activeModal.close(o);
-    }
+    };
 
     nuevo(){
         this.vistaFormulario = true;
         this.cargando = true;
+        this.verNuevo = false;
         this.ubigeo = new Ubigeo();
         this.cargando = false;
-    }
+    };
 
     traertipos(){
         this.api.get("tipoubigeo/listar")
@@ -135,10 +179,10 @@ export class ModalUbigeoComponent implements OnInit {
                 }
             })
             .catch(err => this.handleError(err));
-    }
+    };
 
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando =false;
-    }
+    };
 }
