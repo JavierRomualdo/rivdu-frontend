@@ -1,4 +1,5 @@
 import {Ubigeo} from "./entidad.ubigeo";
+import {Persona} from "./entidad.persona";
 
 export class Empresa {
   id:number;
@@ -12,4 +13,5 @@ export class Empresa {
   ruc:string;
   urbanizacion:string;
   idubigeo:Ubigeo;
+  idgerente: Persona;
 }
