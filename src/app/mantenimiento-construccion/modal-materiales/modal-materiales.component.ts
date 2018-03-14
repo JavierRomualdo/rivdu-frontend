@@ -5,6 +5,8 @@ import {ToastrService} from 'ngx-toastr';
 import {Materiales} from '../../entidades/entidad.materiales';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
 
+import { Paginacion } from '../../entidades/entidad.paginacion';
+
 @Component({
   selector: 'app-modal-materiales',
   templateUrl: './modal-materiales.component.html',
@@ -18,29 +20,48 @@ export class ModalMaterialesComponent implements OnInit {
     public listado:boolean=false;
     public  lista:any=[];
 
+    //Variables para realizar la Paginacion
+    public page: number = 1;
+    public paginacion: Paginacion;
+
+    //Variables para realizar la Busqueda
+    public codigo:string="";
+    public detalle:string="";
+    public parametros:any={};
+
     public materiales:Materiales ;
 
-
-  constructor(public activeModal: NgbActiveModal, public api: ApiRequestService,
-              public toastr: ToastrService, public modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal,
+              public api: ApiRequestService,
+              public toastr: ToastrService,
+              public modal: NgbModal) {
 
       this.materiales = new Materiales();
+      this.paginacion = new Paginacion();
 }
-
   ngOnInit() {
     this.listarModalMateriales();
   }
 
+    busqueda(): void {
+        this.page = 1;
+        this.parametros = {
+            "detalle":this.detalle
+        };
+        this.listarModalMateriales();
+    };
+
+
     listarModalMateriales(){
         this.cargando=true;
-        this.api.get("materiales/listar")
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.lista = respuesta.extraInfo;
-                    this.cargando=false;
-                } else {
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+        this.api.post('materiales/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
+            .then(data => {
+                if(data){
                     this.cargando = false;
+                    this.paginacion.totalRegistros = data.totalRegistros;
+                    this.paginacion.paginaActual = data.paginaActual;
+                    this.paginacion.totalPaginas = data.totalPaginas;
+                    this.lista= data.registros;
                 }
             })
             .catch(err => this.handleError(err));
@@ -50,7 +71,7 @@ export class ModalMaterialesComponent implements OnInit {
     abriNuevoModalNuevo(){
         this.clicknuevo=true;
         this.cambiartitulo=true;
-
+        this.materiales=new Materiales();
     };
 
     abrirModalListado(){

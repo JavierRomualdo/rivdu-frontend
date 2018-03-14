@@ -29,6 +29,12 @@
 
               <div class="card-body">
                 <div class="table-responsive">
+
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Busque por Detalle" [(ngModel)]="detalle" maxlength="150" id="detalle" name="detalle" required>
+                    <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
+                  </div>
+
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -61,6 +67,15 @@
         </div>
       </div>
     </section>
+
+    <div class="row mb-3">
+      <div class="col-md-6 table-responsive">
+        <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarModalMateriales()"></ngb-pagination>
+      </div>
+      <div class="col-md-6 text-right pr-3">
+        <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+      </div>
+    </div>
   </form>
 
   <!-- Nuevo Formulario Cargar-->
@@ -79,7 +94,7 @@
     <div class="form-group row">
       <label class="col-sm-3 form-control-label">Detalle </label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" name="detalle" [(ngModel)]="materiales.detalle" maxlength="30">
+        <input type="text" class="form-control" name="detallem" [(ngModel)]="materiales.detalle" maxlength="30">
       </div>
     </div>
     <div class="form-group row">
