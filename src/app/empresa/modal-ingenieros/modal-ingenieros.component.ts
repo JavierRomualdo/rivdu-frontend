@@ -7,6 +7,10 @@ import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.comp
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 import { Persona } from '../../entidades/entidad.persona';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
+import { Rol } from '../../entidades/entidad.rol';
+import {AuthService }  from '../../servicios/auth.service';
+import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
+
 
 
 @Component({
@@ -25,31 +29,40 @@ export class ModalIngenierosComponent implements OnInit {
     public nombre:string="";
     public ingenieros:Persona[];
     public ingeniero:Persona;
-    public ubigeos:any = [];
     public parametros:any={};
+    public verNuevo:boolean = false;
+    public tiposroles:any;
+    public rol: Rol;
+    public idRol: number=0;
+    public confirmarcambioestado:boolean=false;
 
       constructor(
         public activeModal: NgbActiveModal,
         public api: ApiRequestService,
         private modalService: NgbModal,
         private apiRequest: ApiRequestService,
-        public toastr: ToastrService
+        public toastr: ToastrService,
+        public auth: AuthService
       ) {
         this.ingenieros= [];
         this.paginacion = new Paginacion();
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
+        this.rol =new Rol();
       }
 
     ngOnInit() {
-         this.listarIngenieros();
+         this.busqueda();
+        this.traertiposrol();
     }
 
     busqueda(): void {
         this.page = 1;
         this.parametros = {
             "dni":this.dni,
-            "nombre":this.nombre
+            "nombre":this.nombre,
+            "idrol":this.idRol
+
         };
         this.listarIngenieros();
     };
@@ -63,6 +76,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     nuevo(){
         this.vistaFormulario=true;
+        this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
     };
@@ -80,8 +94,8 @@ export class ModalIngenierosComponent implements OnInit {
                             this.cargando = false;
                             this.vistaFormulario = false;
                             this.ingeniero = data.extraInfo;
-                            let producto = this.ingenieros.find(item => item.id === this.ingeniero.id);
-                            let index = this.ingenieros.indexOf(producto);
+                            let ingeniero = this.ingenieros.find(item => item.id === this.ingeniero.id);
+                            let index = this.ingenieros.indexOf(ingeniero);
                             this.ingenieros[index] = this.ingeniero;
                             this.ingeniero = new Persona();
                         }else{
@@ -117,21 +131,26 @@ export class ModalIngenierosComponent implements OnInit {
         }
     };
 
-    confirmarEliminacion(ingeniero):void{
-         const modalRef1 = this.modalService.open(ConfirmacionComponent);
-         modalRef1.result.then((result) => {
-             this.eliminarIngeniero(ingeniero);
-         }, (reason) => {
-         });
+    confirmarcambiodeestado(ingeniero):void{
+        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoingeniero(ingeniero);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            ingeniero.estado = !ingeniero.estado;
+            this.auth.agregarmodalopenclass();
+        });
     };
 
-    eliminarIngeniero(ingeniero){
+    cambiarestadoingeniero(ingeniero){
         this.cargando = true;
         return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
             .then(
                 data => {
                     if(data && data.extraInfo){
-                        this.ingenieros.splice(this.ingenieros.indexOf(ingeniero),1);
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarIngenieros();
                     } else {
                         this.toastr.info(data.operacionMensaje,"Informacion");
                     }
@@ -140,7 +159,6 @@ export class ModalIngenierosComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
-
     abrirModalUbigeo():void{
         const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
@@ -154,6 +172,7 @@ export class ModalIngenierosComponent implements OnInit {
     traerParaEdicion(id){
         this.cargando = true;
         this.vistaFormulario = true;
+        this.verNuevo = true;
         return this.apiRequest.post('ingeniero/obtener', {id:id})
             .then(
                 data => {
@@ -174,7 +193,11 @@ export class ModalIngenierosComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-  listarIngenieros(){
+    elegirIngeniero(o){
+        this.activeModal.close(o);
+    }
+
+    listarIngenieros(){
       this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {
@@ -188,6 +211,28 @@ export class ModalIngenierosComponent implements OnInit {
         })
         .catch(err => this.handleError(err));
   };
+
+    traertiposrol(){
+        this.api.get("tiposroles/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.tiposroles = respuesta.extraInfo;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                }
+            })
+            .catch(err => this.handleError(err));
+    }
+
+    quitarrol(){
+        alert("Quitar rol");
+    }
+    abrirrol():void{
+        const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
+        modalRef.result.then((result) => {
+        }, (reason) => {
+        });
+    }
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');

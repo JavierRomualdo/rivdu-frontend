@@ -22,10 +22,10 @@
                     <input id="ruc" type="text" name="ruc" required="" class="form-control" [(ngModel)]="ruc">
                     <label for="ruc" class="label-material">Ruc de empresa</label>
                   </div>
-                  <button type="submit" class="btn btn-primary" [disabled]="!empresa.form.valid || cargando" >Continuar</button>
-                  <div *ngIf="cargando">
-                    <app-cargando></app-cargando>
-                  </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!empresa.form.valid || cargando" >Continuar</button>
+                    <div *ngIf="cargando">
+                      <app-cargando></app-cargando>
+                    </div>
                 </form>
                 <br><small>¿No tienes una cuenta? </small><a href="#" class="signup">Registrarse</a>
               </div>
