@@ -40,10 +40,12 @@
                         <tbody >
                         <tr class="cursor-pointer" *ngFor="let o of sucursales;let i=index">
                           <th scope="row">{{i+1}}</th>
+                          <td>{{o.nombre}}</td>
                           <td>{{o.direccion}}</td>
-                          <td>{{o.idempresa.oficinaregistral}}</td>
-                          <td style="width: 40px">
-                            <a class="btn-link curso-pointer" (click)="confirmarEliminacion(o)" title="eliminar"><i class="fa fa-close  text-danger" style="font-size: 23px;"></i></a>
+                          <!--<td>{{o.idempresa.oficinaregistral}}</td>-->
+                          <td style="width: 140px">
+                            <!--<a class="btn-link curso-pointer" (click)="confirmarEliminacion(o)" title="eliminar"><i class="fa fa-close  text-danger" style="font-size: 23px;"></i></a>-->
+                            <ui-switch size="small"[(ngModel)]="o.estado" name="estado" (click)="confirmarcambiodeestado(o)">estado</ui-switch>
                             <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
                           </td>
                         </tr>
@@ -71,6 +73,13 @@
             <h5 class="h4" align="left">Editando Sucursal </h5>
           </div>
           <div class="pt-3">
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
+              <div class="col-sm-9" >
+                <ui-switch *ngIf="sucursal.id" [(ngModel)]="sucursal.estado" name="estado">estado</ui-switch>
+                <ui-switch *ngIf="!sucursal.id"  [checked]="true"  name="estado1">estado</ui-switch>
+              </div>
+            </div>
             <div class="form-group row">
               <label class="col-sm-3 form-control-label">Nombre</label>
               <div class="col-sm-9">

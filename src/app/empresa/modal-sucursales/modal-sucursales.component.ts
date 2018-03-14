@@ -7,6 +7,7 @@ import { LS } from '../../app-constants';
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 import { ToastrService } from 'ngx-toastr';
 import { Sucursal } from '../../entidades/entidad.sucursal';
+import {AuthService }  from '../../servicios/auth.service';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
 
@@ -33,6 +34,7 @@ export class ModalSucursalesComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public api: ApiRequestService,
     private modalService: NgbModal,
+    public auth: AuthService,
     private apiRequest: ApiRequestService,
     public toastr: ToastrService
   ) {
@@ -79,21 +81,6 @@ export class ModalSucursalesComponent implements OnInit {
     }, (reason) => {
       console.log("Ha sido cerrado "+reason);
     });
-  };
-
-  listarSucursales(){
-    this.cargando= true;
-    this.api.post('sucursal/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
-        .then(data => {
-          if(data){
-            this.cargando = false;
-            this.paginacion.totalRegistros = data.totalRegistros;
-            this.paginacion.paginaActual = data.paginaActual;
-            this.paginacion.totalPaginas = data.totalPaginas;
-            this.sucursales = data.registros;
-          }
-        })
-        .catch(err => this.handleError(err));
   };
 
   traerParaEdicion(id){
@@ -160,6 +147,50 @@ export class ModalSucursalesComponent implements OnInit {
           .catch(err => this.handleError(err));
     }
   };
+
+    confirmarcambiodeestado(sucursal):void{
+        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoSucursal(sucursal);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            sucursal.estado = !sucursal.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
+
+    cambiarestadoSucursal(sucursal){
+        this.cargando = true;
+        return this.apiRequest.post('sucursal/eliminar', {id:sucursal.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarSucursales();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    }
+
+    listarSucursales(){
+        this.cargando= true;
+        this.api.post('sucursal/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
+            .then(data => {
+                if(data){
+                    this.cargando = false;
+                    this.paginacion.totalRegistros = data.totalRegistros;
+                    this.paginacion.paginaActual = data.paginaActual;
+                    this.paginacion.totalPaginas = data.totalPaginas;
+                    this.sucursales = data.registros;
+                }
+            })
+            .catch(err => this.handleError(err));
+    };
 
   confirmarEliminacion(sucursal){
     const modalRef1 = this.modalService.open(ConfirmacionComponent);

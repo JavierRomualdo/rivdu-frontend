@@ -143,7 +143,6 @@ export class ModalIngenierosComponent implements OnInit {
         });
     };
 
-
     cambiarestadoingeniero(ingeniero){
         this.cargando = true;
         return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
@@ -198,7 +197,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.activeModal.close(o);
     }
 
-  listarIngenieros(){
+    listarIngenieros(){
       this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {

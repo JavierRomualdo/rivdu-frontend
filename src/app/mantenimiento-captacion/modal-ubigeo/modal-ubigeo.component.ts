@@ -6,6 +6,7 @@ import { Empresa } from '../../entidades/entidad.empresa';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { ToastrService } from 'ngx-toastr';
 import { LS } from  '../../app-constants';
+import {AuthService }  from '../../servicios/auth.service';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
 import {Tipoubigeo } from  '../../entidades/entidad.tipoubigeo';
 
@@ -25,6 +26,7 @@ export class ModalUbigeoComponent implements OnInit {
   public  tipos:any=[];
   public cargando:boolean=false;
   public paginacion: Paginacion;
+  public confirmarcambioestado:boolean=false;
   public solicitando = false;
   public verNuevo:boolean = false;
   public parametros:any={};
@@ -33,6 +35,7 @@ export class ModalUbigeoComponent implements OnInit {
               public api: ApiRequestService,
               public apiRequest: ApiRequestService,
               private modalService: NgbModal,
+              public auth: AuthService,
               public toastr: ToastrService) {
       this.ubigeo=new Ubigeo();
       this.paginacion = new Paginacion();
@@ -109,6 +112,36 @@ export class ModalUbigeoComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
     };
+
+
+    confirmarcambiodeestado(ubigeo):void{
+        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoingeniero(ubigeo);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            ubigeo.estado = !ubigeo.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
+
+    cambiarestadoingeniero(ubigeo){
+        this.cargando = true;
+        return this.apiRequest.post('ubigeo/eliminar', {id:ubigeo.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarUbigeo();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    }
 
     traerParaEdicion(id){
         this.cargando = true;
