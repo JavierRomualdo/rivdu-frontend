@@ -8,7 +8,6 @@ import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mante
 import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
 import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { } from ''
 import { AppComponent } from './app.component';
 import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-compras.component';
 

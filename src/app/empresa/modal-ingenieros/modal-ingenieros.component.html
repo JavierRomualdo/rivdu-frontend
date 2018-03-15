@@ -98,7 +98,6 @@
                       <ui-switch  *ngIf="ingeniero.id" [(ngModel)]="ingeniero.estado" name="estado"  >estado</ui-switch>
                       <ui-switch  *ngIf="!ingeniero.id"  [checked]="true"  name="estado1" >estado</ui-switch>
                   </div>
-
                   <label class="col-sm-3 form-control-label">D.N.I. <span class="text-primary">*</span></label>
                   <div class="col-sm-4">
                       <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">

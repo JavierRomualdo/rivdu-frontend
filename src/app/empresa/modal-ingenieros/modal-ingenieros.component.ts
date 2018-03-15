@@ -11,10 +11,6 @@ import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
 import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
 import {ModalRolComponent} from '../modal-rol/modal-rol.component';
-
-
-
-
 @Component({
   selector: 'app-modal-ingenieros',
   templateUrl: './modal-ingenieros.component.html',
@@ -32,6 +28,7 @@ export class ModalIngenierosComponent implements OnInit {
     public ingenieros:Persona[];
     public ingeniero:Persona;
     public parametros:any={};
+    public verNuevo:boolean = false;
     public tiposroles:any;
     public rol: Rol;
     public idRol: number=0;
@@ -40,7 +37,6 @@ export class ModalIngenierosComponent implements OnInit {
     public rolSelected: any ={};
 
     public listaPR:any = [];
-
 
 
       constructor(
@@ -85,6 +81,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     nuevo(){
         this.vistaFormulario=true;
+        this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
         this.listaPR=[];
@@ -186,6 +183,7 @@ export class ModalIngenierosComponent implements OnInit {
     traerParaEdicion(id){
         this.cargando = true;
         this.vistaFormulario = true;
+        this.verNuevo = true;
         return this.apiRequest.post('ingeniero/obtener', {id:id})
             .then(
                 data => {
@@ -211,7 +209,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.activeModal.close(o);
     };
 
-  listarIngenieros(){
+    listarIngenieros(){
       this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {

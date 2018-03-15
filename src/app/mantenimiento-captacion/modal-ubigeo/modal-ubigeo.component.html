@@ -15,21 +15,29 @@
     </div>
     <div class="card-body pb-0">
       <div *ngIf="!cargando && vistaFormulario" >
-      <form class="form-horizontal" #formulario="ngForm"  *ngIf="!vistalFormulario">
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Id </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
-          </div>
+      <form class="form-horizontal" #formulario="ngForm"  *ngIf="!vistalFormulario" (ngSubmit)="guardarubigeo()">
+        <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
+          <h5 class="h4" align="left">Nuevo Ubigeo </h5>
         </div>
-        <div class="line"></div>
+        <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
+          <h5 class="h4" align="left">Editando Ubigeo </h5>
+        </div>
+        <div class="pt-3">
+
         <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
+            <div class="col-sm-9" >
+              <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
+              <ui-switch *ngIf="!ubigeo.id"  [checked]="true"  name="estado1">estado</ui-switch>
+            </div>
+        </div>
+          <div class="form-group row">
           <label class="col-sm-3 form-control-label" >Codigo</label>
           <div class="col-sm-9">
             <input type="text" class="form-control" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
           </div>
-        </div>
+          </div>
+
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
@@ -47,13 +55,15 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarubigeo()" [disabled]="!formulario.form.valid">Guardar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="ubigeo.id" [disabled]="!formulario.form.valid">Actualizar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!ubigeo.id" [disabled]="!formulario.form.valid">Guardar</button>
           <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
+        </div>
         </div>
       </form>
     </div><!--formularioFrank>
       <!-- eliminar-->
-      <div class="form-horizontal" *ngIf="!cargando && !vistaFormulario" style="padding: 0px">
+      <div class="form-horizontal" *ngIf="!cargando && !vistaFormulario"   style="padding: 0px">
         <section class="tables pt-3 pb-0">
           <div class="container-fluid" style="padding: 0px">
             <div class="row">
@@ -79,18 +89,20 @@
                           <th>Codigo</th>
                           <th>Nombre</th>
                           <th>TipoUbigeo</th>
+                          <th>Estado</th>
                           <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cursor-pointer" *ngFor="let o of ubigeos;let i=index" (click)="elegirUbigeo(o)">
+                        <tr class="cursor-pointer" *ngFor="let o of ubigeos;let i=index" >
                           <th scope="row">{{i+1}}</th>
-                          <td>{{o.codigo}}</td>
-                          <td>{{o.nombre}}</td>
-                          <td>{{o.idtipoubigeo.nombre}}</td>
-                          <td style="width: 40px">
-                            <a class="btn-link curso-pointer" (click)="confirmarEliminacion(o)" title="eliminar"><i class="fa fa-close  text-danger" style="font-size: 23px;"></i></a>
-                            <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                          <td (click)="elegirUbigeo(o)">{{o.codigo}}</td>
+                          <td (click)="elegirUbigeo(o)">{{o.nombre}}</td>
+                          <td (click)="elegirUbigeo(o)">{{o.idtipoubigeo.nombre}}</td>
+                          <td (click)="elegirUbigeo(o)">{{o.estado?'HABILITADO':'DESHABILITADO'}}</td>
+                          <td style="width: 140px">
+                            <ui-switch size="small"[(ngModel)]="o.estado" name="estado" (click)="confirmarcambiodeestado(o)">estado</ui-switch>
+                            <a class="btn-link cursor-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
                           </td>
                         </tr>
                         </tbody>
@@ -113,7 +125,6 @@
         </div>
         </div>
         <div class="modal-footer">
-          <!--<button type="submit" class="btn btn-primary" (click)="actualizarprograma()">Aceptar</button>-->
           <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
