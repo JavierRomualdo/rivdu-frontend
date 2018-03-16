@@ -45,6 +45,7 @@ import { ConfirmacionComponent } from './util/confirmacion/confirmacion.componen
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +100,8 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
     ModalCostosComponent,
     ModalCuentasComponent,
     ModalGerenteComponent,
-    ConfirmacionComponent
+    ConfirmacionComponent,
+      ModalRolComponent
   ],
   imports: [
     NgbModule.forRoot(),
