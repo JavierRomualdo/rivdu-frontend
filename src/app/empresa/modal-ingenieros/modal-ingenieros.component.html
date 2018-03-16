@@ -26,9 +26,9 @@
                     <div class="card-header d-flex align-items-center">
                       <h3 class="h4">Listado de Personas</h3>
                     </div><!--ingenieros-->
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <div class="input-group">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="input-group">
                         <input type="text" class="form-control" placeholder="Busque por codigo" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
                         <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="150" id="cdescr" name="cdscor" required>
                         <select class="form-control" placeholder="Filtrar por Rol" style="height: calc(2.5rem);" id="catbus" name="catbus"  required="" name="tiporol"  [(ngModel)]="idRol"  placeholder="Filtrar por Rol" >
@@ -36,7 +36,7 @@
                         </select>
                         <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
                       </div>
-                        <table class="table table-striped" >
+                            <table class="table table-striped" >
                         <thead>
                         <tr>
                           <th>#</th>
@@ -59,8 +59,8 @@
                         </tr>
                         </tbody>
                       </table>
+                        </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@
           <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
-      </div>
+        </div>
       </div>
       <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">

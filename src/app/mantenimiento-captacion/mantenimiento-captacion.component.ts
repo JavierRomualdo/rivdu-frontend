@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ModalCaptadorComponent } from './modal-captador/modal-captador.component'
-import { ModalDescuentosComponent } from "./modal-descuentos/modal-descuentos.component";
+import { ModalEspecificacionesComponent } from "./modal-especificaciones/modal-especificaciones.component";
 import { ModalEstadocivilComponent } from "./modal-estadocivil/modal-estadocivil.component";
 import { ModalRelacionpersonalComponent } from "./modal-relacionpersonal/modal-relacionpersonal.component";
 import { ModalUbigeoComponent } from "./modal-ubigeo/modal-ubigeo.component";
@@ -50,7 +50,7 @@ export class MantenimientoCaptacionComponent implements OnInit {
   }
 
   abrirDescuentos():void{
-    const modalRef = this.modalService.open(ModalDescuentosComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalEspecificacionesComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });

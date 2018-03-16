@@ -113,12 +113,11 @@ export class ModalUbigeoComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-
     confirmarcambiodeestado(ubigeo):void{
         const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
-            this.cambiarestadoingeniero(ubigeo);
+            this.cambiarestadoUbigeo(ubigeo);
             this.auth.agregarmodalopenclass();
         }, (reason) => {
             ubigeo.estado = !ubigeo.estado;
@@ -126,7 +125,7 @@ export class ModalUbigeoComponent implements OnInit {
         });
     };
 
-    cambiarestadoingeniero(ubigeo){
+    cambiarestadoUbigeo(ubigeo){
         this.cargando = true;
         return this.apiRequest.post('ubigeo/eliminar', {id:ubigeo.id})
             .then(
@@ -141,7 +140,7 @@ export class ModalUbigeoComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-    }
+    };
 
     traerParaEdicion(id){
         this.cargando = true;

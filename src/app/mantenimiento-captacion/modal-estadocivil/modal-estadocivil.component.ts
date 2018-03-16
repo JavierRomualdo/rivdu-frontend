@@ -23,8 +23,12 @@ export class ModalEstadocivilComponent implements OnInit {
    public listaestado:any;
 
 
-  constructor( public activeModal: NgbActiveModal, public api: ApiRequestService,
-               public toastr: ToastrService, public modal: NgbModal) {
+  constructor(
+      public activeModal: NgbActiveModal,
+      public api: ApiRequestService,
+      public toastr: ToastrService,
+      public modal: NgbModal
+  ) {
      this.estadocivil = new Estadocliente();
   }
 
@@ -77,7 +81,6 @@ export class ModalEstadocivilComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
     };
-
 
     abrinuevoestado(){
       this.clicknuevo=true;
