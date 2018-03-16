@@ -17,7 +17,7 @@
           <div class="col-lg-6 bg-white">
             <div class="form d-flex align-items-center" *ngIf="!empresaIsTrue">
               <div class="content">
-                <form #empresa="ngForm"(ngSubmit)="consultarEmpresa()">
+                <form #empresa="ngForm" (ngSubmit)="consultarEmpresa()">
                   <div class="form-group">
                     <input id="ruc" type="text" name="ruc" required="" class="form-control" [(ngModel)]="ruc">
                     <label for="ruc" class="label-material">Ruc de empresa</label>

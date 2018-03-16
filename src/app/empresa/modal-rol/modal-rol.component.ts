@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal , NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -12,7 +12,9 @@ export class ModalRolComponent implements OnInit {
 
   constructor( public activeModal: NgbActiveModal,
                public api: ApiRequestService, public toastr: ToastrService,
-               private modalService: NgbModal) { }
+               private modalService: NgbModal) {
+
+  }
 
   ngOnInit() {
       this.traertiposrol();
@@ -28,6 +30,11 @@ export class ModalRolComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
     }
+
+    elegir(rol){
+      this.activeModal.close(rol);
+    }
+
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
 
