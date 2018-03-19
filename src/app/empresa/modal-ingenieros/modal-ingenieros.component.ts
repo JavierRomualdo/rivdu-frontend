@@ -43,6 +43,7 @@ export class ModalIngenierosComponent implements OnInit {
         public activeModal: NgbActiveModal,
         public api: ApiRequestService,
         private modalService: NgbModal,
+        private modal: NgbModal,
         private apiRequest: ApiRequestService,
         public toastr: ToastrService,
         public auth: AuthService
@@ -136,7 +137,7 @@ export class ModalIngenierosComponent implements OnInit {
     };
 
     confirmarcambiodeestado(ingeniero):void{
-        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+       const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
             this.cambiarestadoingeniero(ingeniero);
@@ -165,12 +166,14 @@ export class ModalIngenierosComponent implements OnInit {
     };
 
     abrirModalUbigeo():void{
-        const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'sm', keyboard: false});
+        const modalRef = this.modal.open(ModalUbigeoComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.ingeniero.idubigeo = result;
             console.log("Ha sido cerrado "+result);
+            this.auth.agregarmodalopenclass();
         }, (reason) => {
             console.log("Ha sido cerrado "+reason);
+            this.auth.agregarmodalopenclass();
         });
     };
 

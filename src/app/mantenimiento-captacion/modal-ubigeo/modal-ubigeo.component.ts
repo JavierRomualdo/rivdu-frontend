@@ -35,6 +35,7 @@ export class ModalUbigeoComponent implements OnInit {
               public api: ApiRequestService,
               public apiRequest: ApiRequestService,
               private modalService: NgbModal,
+              public modal: NgbModal,
               public auth: AuthService,
               public toastr: ToastrService) {
       this.ubigeo=new Ubigeo();
@@ -114,7 +115,7 @@ export class ModalUbigeoComponent implements OnInit {
     };
 
     confirmarcambiodeestado(ubigeo):void{
-        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
             this.cambiarestadoUbigeo(ubigeo);
