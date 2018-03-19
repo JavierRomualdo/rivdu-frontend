@@ -4,10 +4,9 @@ import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
 import { LS } from '../../app-constants';
 import { Empresa } from '../../entidades/entidad.empresa';
-import {Persona} from '../../entidades/entidad.persona';
-import {Ubigeo} from '../../entidades/entidad.ubigeo';
-import {EmpresaComponent} from '../empresa.component';
-import {ModalIngenierosComponent} from '../modal-ingenieros/modal-ingenieros.component';
+import { Persona } from '../../entidades/entidad.persona';
+import { Ubigeo } from '../../entidades/entidad.ubigeo';
+import { ModalIngenierosComponent } from '../modal-ingenieros/modal-ingenieros.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 

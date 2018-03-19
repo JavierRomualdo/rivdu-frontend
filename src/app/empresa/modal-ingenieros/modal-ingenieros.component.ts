@@ -9,9 +9,6 @@ import { Persona } from '../../entidades/entidad.persona';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
 import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
-import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
-
-
 
 @Component({
   selector: 'app-modal-ingenieros',
@@ -228,12 +225,13 @@ export class ModalIngenierosComponent implements OnInit {
     quitarrol(){
         alert("Quitar rol");
     }
-    abrirrol():void{
+
+    /*abrirrol():void{
         const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
         modalRef.result.then((result) => {
         }, (reason) => {
         });
-    }
+    }*/
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
