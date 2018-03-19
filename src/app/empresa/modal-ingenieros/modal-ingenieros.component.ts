@@ -9,6 +9,8 @@ import { Persona } from '../../entidades/entidad.persona';
 import { Ubigeo } from '../../entidades/entidad.ubigeo';
 import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
+import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
+import {ModalRolComponent} from '../modal-rol/modal-rol.component';
 
 @Component({
   selector: 'app-modal-ingenieros',
@@ -32,6 +34,10 @@ export class ModalIngenierosComponent implements OnInit {
     public rol: Rol;
     public idRol: number=0;
     public confirmarcambioestado:boolean=false;
+    public listapersonaroles : any = [];
+    public rolSelected: any ={};
+
+    public listaPR:any = [];
 
       constructor(
         public activeModal: NgbActiveModal,
@@ -49,7 +55,7 @@ export class ModalIngenierosComponent implements OnInit {
       }
 
     ngOnInit() {
-         this.busqueda();
+        this.busqueda();
         this.traertiposrol();
     }
 
@@ -59,7 +65,6 @@ export class ModalIngenierosComponent implements OnInit {
             "dni":this.dni,
             "nombre":this.nombre,
             "idrol":this.idRol
-
         };
         this.listarIngenieros();
     };
@@ -76,10 +81,12 @@ export class ModalIngenierosComponent implements OnInit {
         this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
+        this.listaPR=[];
     };
 
     guardarIngenieros(){
         this.cargando= true;
+        this.ingeniero.personarolList = this.listaPR;
         if(this.ingeniero && this.ingeniero.idubigeo && !this.ingeniero.idubigeo.id){
             this.ingeniero.idubigeo= null;
         }
@@ -91,8 +98,8 @@ export class ModalIngenierosComponent implements OnInit {
                             this.cargando = false;
                             this.vistaFormulario = false;
                             this.ingeniero = data.extraInfo;
-                            let ingeniero = this.ingenieros.find(item => item.id === this.ingeniero.id);
-                            let index = this.ingenieros.indexOf(ingeniero);
+                            let persona = this.ingenieros.find(item => item.id === this.ingeniero.id);
+                            let index = this.ingenieros.indexOf(persona);
                             this.ingenieros[index] = this.ingeniero;
                             this.ingeniero = new Persona();
                         }else{
@@ -140,7 +147,6 @@ export class ModalIngenierosComponent implements OnInit {
         });
     };
 
-
     cambiarestadoingeniero(ingeniero){
         this.cargando = true;
         return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
@@ -157,6 +163,7 @@ export class ModalIngenierosComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
+
     abrirModalUbigeo():void{
         const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
@@ -180,6 +187,7 @@ export class ModalIngenierosComponent implements OnInit {
                         if(this.ingeniero && !this.ingeniero.idubigeo){
                             this.ingeniero.idubigeo = new Ubigeo();
                         }
+                        this.listaPR = this.ingeniero.personarolList && this.ingeniero.personarolList.length > 0 ? this.ingeniero.personarolList : [];
                     }
                     else{
                         this.toastr.info(data.operacionMensaje,"Informacion");
@@ -193,9 +201,9 @@ export class ModalIngenierosComponent implements OnInit {
 
     elegirIngeniero(o){
         this.activeModal.close(o);
-    }
+    };
 
-  listarIngenieros(){
+    listarIngenieros(){
       this.cargando= true;
     this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {
@@ -226,12 +234,28 @@ export class ModalIngenierosComponent implements OnInit {
         alert("Quitar rol");
     }
 
-    /*abrirrol():void{
-        const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
+    abrirrol():void{
+        const modalRef = this.modalService.open(ModalRolComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: true});
         modalRef.result.then((result) => {
+            let rol = result;
+            let pr = {
+                personarolPK:{
+                    idrol:rol.id,
+                    idpersona:this.ingeniero.id
+                },
+                estado:true,
+                idrol:rol
+            }
+            let rSelect = this.listaPR.find(item => item.idrol.id === rol.id);
+            if (rSelect && rSelect.idrol && rSelect.idrol.id) {
+                this.toastr.warning('Rol ya existe', 'Aviso');
+            } else {
+                this.listaPR.push(pr);
+
+            }
         }, (reason) => {
         });
-    }*/
+    }
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');

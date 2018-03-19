@@ -4,9 +4,8 @@ export class Especificaciones {
   id: number;
   especificaciones: string;
   estado: boolean;
-  estadocorrupcion: string;
+  categoria: string;
   etapa: string;
   valorm2: number;
   idestructura: Estructura;
-  idprograma: Programas;
 }

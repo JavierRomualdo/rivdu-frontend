@@ -10,4 +10,5 @@ export class Persona {
   idubigeo: Ubigeo;
   nombre: string;
   telefono: string;
+  personarolList: any = {};
 }
