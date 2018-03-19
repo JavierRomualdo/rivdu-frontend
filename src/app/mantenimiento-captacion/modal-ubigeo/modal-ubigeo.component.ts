@@ -169,7 +169,7 @@ export class ModalUbigeoComponent implements OnInit {
 
     llenarCombo(ubigeo){
         let tipo= ubigeo.idtipoubigeo;
-        let tiposelect = this.tipos.find(item => item.id = tipo.id);
+        let tiposelect = this.tipos.find(item => item.id == tipo.id);
         this.ubigeo.idtipoubigeo = tiposelect;
     };
 

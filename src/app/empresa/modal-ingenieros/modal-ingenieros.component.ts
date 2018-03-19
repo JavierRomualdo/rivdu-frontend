@@ -11,6 +11,7 @@ import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
 import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
 import {ModalRolComponent} from '../modal-rol/modal-rol.component';
+
 @Component({
   selector: 'app-modal-ingenieros',
   templateUrl: './modal-ingenieros.component.html',
@@ -38,7 +39,6 @@ export class ModalIngenierosComponent implements OnInit {
 
     public listaPR:any = [];
 
-
       constructor(
         public activeModal: NgbActiveModal,
         public api: ApiRequestService,
@@ -55,11 +55,9 @@ export class ModalIngenierosComponent implements OnInit {
       }
 
     ngOnInit() {
-         this.busqueda();
+        this.busqueda();
         this.traertiposrol();
     }
-
-
 
     busqueda(): void {
         this.page = 1;
@@ -67,7 +65,6 @@ export class ModalIngenierosComponent implements OnInit {
             "dni":this.dni,
             "nombre":this.nombre,
             "idrol":this.idRol
-
         };
         this.listarIngenieros();
     };
@@ -85,9 +82,6 @@ export class ModalIngenierosComponent implements OnInit {
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
         this.listaPR=[];
-
-
-
     };
 
     guardarIngenieros(){
@@ -239,6 +233,7 @@ export class ModalIngenierosComponent implements OnInit {
     quitarrol(){
         alert("Quitar rol");
     }
+
     abrirrol():void{
         const modalRef = this.modalService.open(ModalRolComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: true});
         modalRef.result.then((result) => {
