@@ -124,6 +124,12 @@ export class AuthService {
         this.almacenamiento.setItem(this.usuarioActualKey, dataJWT);
     }
 
+    agregarmodalopenclass():void{
+      let body=document.getElementsByTagName('body')[0];
+      body.classList.remove("modal-open");
+      body.classList.add("modal-open");
+    }
+
     hayToken():boolean {
       let objJWT: ObjetoJWT = this.getObjetoJWT();
       if (objJWT !== null){
@@ -164,11 +170,5 @@ export class AuthService {
             return null;
         }
     };
-
-    agregarmodalopenclass():void{
-        let body=document.getElementsByTagName('body')[0];
-        body.classList.remove("modal-open");
-        body.classList.add("modal-open");
-    }
 
 }
