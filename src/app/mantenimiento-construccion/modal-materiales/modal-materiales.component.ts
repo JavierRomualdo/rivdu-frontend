@@ -4,7 +4,7 @@ import {ApiRequestService} from '../../servicios/api-request.service';
 import {ToastrService} from 'ngx-toastr';
 import {Materiales} from '../../entidades/entidad.materiales';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
-
+import {AuthService}  from '../../servicios/auth.service';
 import { Paginacion } from '../../entidades/entidad.paginacion';
 
 @Component({
@@ -14,11 +14,14 @@ import { Paginacion } from '../../entidades/entidad.paginacion';
 })
 export class ModalMaterialesComponent implements OnInit {
 
-    public cambiartitulo:boolean=false;
-    public clicknuevo:boolean=false;
-    public cargando:boolean=false;
-    public listado:boolean=false;
-    public  lista:any=[];
+    public cambiartitulo: boolean = false;
+    public clicknuevo: boolean = false;
+    public cargando: boolean = false;
+    public listado: boolean = false;
+    public lista: any = [];
+
+    //Estado(Habilitado/Deshabilitadoo)
+    public confirmarcambioestado:boolean=false;
 
     //Variables para realizar la Paginacion
     public page: number = 1;
@@ -29,12 +32,19 @@ export class ModalMaterialesComponent implements OnInit {
     public detalle:string="";
     public parametros:any={};
 
+    //Variables para Modificacion de un Material
+    public vistaFormulario = false;
+    public verNuevo:boolean = false;
+
     public materiales:Materiales ;
 
   constructor(public activeModal: NgbActiveModal,
               public api: ApiRequestService,
               public toastr: ToastrService,
-              public modal: NgbModal) {
+              public modal: NgbModal,
+              private modalService: NgbModal,
+              public auth: AuthService,
+              private apiRequest: ApiRequestService) {
 
       this.materiales = new Materiales();
       this.paginacion = new Paginacion();
@@ -50,7 +60,6 @@ export class ModalMaterialesComponent implements OnInit {
         };
         this.listarModalMateriales();
     };
-
 
     listarModalMateriales(){
         this.cargando=true;
@@ -69,13 +78,13 @@ export class ModalMaterialesComponent implements OnInit {
     };
 
     abriNuevoModalNuevo(){
-        this.clicknuevo=true;
+        this.vistaFormulario=true;
         this.cambiartitulo=true;
         this.materiales=new Materiales();
     };
 
     abrirModalListado(){
-        this.clicknuevo=false;
+        this.vistaFormulario=false;
         this.cambiartitulo=false;
 
     };
@@ -113,6 +122,7 @@ export class ModalMaterialesComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
+    // Eliminado
     confirmarEliminado(li): void {
         const modalRef = this.modal.open(ConfirmacionComponent, {size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
@@ -122,9 +132,60 @@ export class ModalMaterialesComponent implements OnInit {
         });
     };
 
+    cambiarEstadoMaterial(material){
+        this.cargando = true;
+        return this.apiRequest.post('materiales/eliminarConEstado', {id:material.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarModalMateriales();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+    confirmarCambioDeEstado(material):void{
+        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarEstadoMaterial(material);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            material.estado = !material.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
+
+    //Modificar 1 Material
+    traerParaEdicion(id){
+        this.cargando = true;
+        this.vistaFormulario = true;
+        this.verNuevo = true;
+        return this.apiRequest.post('materiales/obtener', {id:id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.cargando = false;
+                        this.materiales = data.extraInfo;
+                    }
+                    else{
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                        this.vistaFormulario = false;
+                        this.cargando = false;
+                    }
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
-    }
+    };
 
 }
