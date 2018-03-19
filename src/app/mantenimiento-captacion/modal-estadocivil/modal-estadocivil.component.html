@@ -40,11 +40,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cursor-pointer"  *ngFor="let li of lista">
+                        <tr class="cursor-pointer"  *ngFor="let li of lista; let i=index">
                           <td>{{li.id}}</td>
                           <td>{{li.nombre}}</td>
                           <td style="width: 120px">
-                            <a (click)="confirmareliminado(li)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                            <ui-switch size="small"[(ngModel)]="li.estado" name="estado-{{i}}" (click)="confirmarcambiodeestado(li)">estado</ui-switch>
                             <a (click)="traerParaEdicion(li.id)"><i class="fa fa-edit text-primary" ></i></a>
                           </td>
                         </tr>

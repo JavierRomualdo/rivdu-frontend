@@ -15,6 +15,7 @@ import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.compon
 export class ModalEstadocivilComponent implements OnInit {
    public estadocivil: Estadocliente;
    public  lista:any=[];
+   public confirmarcambioestado = false;
    public cargando:boolean=false;
    public clicknuevo:boolean=false;
    public clickeditar:boolean=false;
@@ -25,6 +26,7 @@ export class ModalEstadocivilComponent implements OnInit {
   constructor(
       public activeModal: NgbActiveModal,
       public api: ApiRequestService,
+      public apiRequest: ApiRequestService,
       public auth: AuthService,
       public toastr: ToastrService,
       public modal: NgbModal
@@ -35,7 +37,35 @@ export class ModalEstadocivilComponent implements OnInit {
   ngOnInit() {
     this.listarestados();
   }
+    confirmarcambiodeestado(estadocivil){
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoCivil(estadocivil);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            estadocivil.estado = !estadocivil.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
 
+    cambiarestadoCivil(estadocivil){
+        this.cargando = true;
+        return this.apiRequest.get('estadocivil/eliminarestadocliente/'+estadocivil.id)
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarestados();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+
+    };
     listarestados(){
       this.cargando=true;
         this.api.get("estadocivil/listar")
