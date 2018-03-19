@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
+import { AuthService } from '../../servicios/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LS } from '../../app-constants';
 import { Empresa } from '../../entidades/entidad.empresa';
@@ -24,6 +25,7 @@ export class ModalEmpresaComponent implements OnInit {
 
   constructor(public activeModal:NgbActiveModal,
               public api:ApiRequestService,
+              public auth:AuthService,
               public toastr:ToastrService,
               private modalService:NgbModal) {
     this.empresa = new Empresa();
@@ -58,22 +60,22 @@ export class ModalEmpresaComponent implements OnInit {
   }
 
   abrirpersona():void {
-    const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalIngenierosComponent, {windowClass:'nuevo-modal', size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
       this.empresa.idgerente= result;
-      console.log("ha sido cerrado "+result);
+      this.auth.agregarmodalopenclass();
     }, (reason) => {
-      console.log("ha sido cerrado "+ reason);
+      this.auth.agregarmodalopenclass();
     });
   }
 
   ubigeo():void {
-    const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalUbigeoComponent, {windowClass:'nuevo-modal', size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
       this.empresa.idubigeo = result;
-      console.log("Ha sido cerrado " + result);
+      this.auth.agregarmodalopenclass();
     }, (reason) => {
-      console.log("Ha sido cerrado " + reason);
+      this.auth.agregarmodalopenclass();
     });
   }
 
