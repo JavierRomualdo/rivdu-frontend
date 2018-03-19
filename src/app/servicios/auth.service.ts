@@ -165,4 +165,10 @@ export class AuthService {
         }
     };
 
+    agregarmodalopenclass():void{
+        let body=document.getElementsByTagName('body')[0];
+        body.classList.remove("modal-open");
+        body.classList.add("modal-open");
+    }
+
 }

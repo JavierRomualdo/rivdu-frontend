@@ -24,7 +24,7 @@ import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mante
 import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
 import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
 import { ModalUbigeoComponent } from './mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
-import { ModalDescuentosComponent } from './mantenimiento-captacion/modal-descuentos/modal-descuentos.component';
+import { ModalEspecificacionesComponent } from './mantenimiento-captacion/modal-especificaciones/modal-especificaciones.component';
 import { ModalEstadocivilComponent } from './mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component';
 import { ModalRelacionpersonalComponent } from './mantenimiento-captacion/modal-relacionpersonal/modal-relacionpersonal.component';
 import { ModalCaptadorComponent } from './mantenimiento-captacion/modal-captador/modal-captador.component';
@@ -43,6 +43,8 @@ import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 import { ModalCompraformularioComponent } from './captaciones-compras/modal-compraformulario/modal-compraformulario.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,7 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
     MantenimientoConstruccionComponent,
     MantenimientoTesoreriaComponent,
     ModalUbigeoComponent,
-    ModalDescuentosComponent,
+    ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
     ModalCaptadorComponent,
@@ -77,7 +79,8 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
     CargandoComponent,
-    ModalCompraformularioComponent
+    ModalCompraformularioComponent,
+    ModalRolComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -86,7 +89,7 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
     ModalSucursalesComponent,
     ModalApoderadosComponent,
     ModalUbigeoComponent,
-    ModalDescuentosComponent,
+    ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
     ModalCaptadorComponent,
@@ -99,7 +102,8 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
     ModalCuentasComponent,
     ModalGerenteComponent,
     ConfirmacionComponent,
-    ModalCompraformularioComponent
+    ModalCompraformularioComponent,
+    ModalRolComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -110,7 +114,8 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    MomentModule
+    MomentModule,
+    UiSwitchModule
   ],
   providers: [
     AppConfig,

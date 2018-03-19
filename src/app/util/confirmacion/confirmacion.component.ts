@@ -27,6 +27,7 @@ export class ConfirmacionComponent implements OnInit {
     }
 
   ngOnInit() {
+
   }
 
 }
