@@ -42,10 +42,10 @@ import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ven
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
+import { ModalCompraformularioComponent } from './captaciones-compras/modal-compraformulario/modal-compraformulario.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/modal-espeficaciones.component';
-
 
 @NgModule({
   declarations: [
@@ -80,6 +80,7 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
     CargandoComponent,
+    ModalCompraformularioComponent,
     ModalRolComponent,
     ModalEspeficacionesComponent
   ],
@@ -103,7 +104,8 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     ModalCuentasComponent,
     ModalGerenteComponent,
     ConfirmacionComponent,
-      ModalRolComponent
+    ModalCompraformularioComponent,
+    ModalRolComponent
   ],
   imports: [
     NgbModule.forRoot(),
