@@ -1,3 +1,108 @@
-<p>
-  modal-labores works!
-</p>
+<div class="card-header d-flex align-items-center">
+  <h3 class="h4" id="titulo">Mantenimiento de Labores</h3>
+</div>
+<div class="card-close">
+  <div class="dropdown">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+<div class="card-body pb-0">
+  <div  *ngIf="!clicknuevo"  class="form-horizontal">
+    <section class="tables pt-0 pb-0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-close mb-2">
+                <a id="closeCard2" class="btn-link cursor-pointer" (click)="abriNuevoModalNuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+              </div>
+              <div class="card-header d-flex align-items-center">
+                <h3 class="h4">Labores</h3>
+              </div>
+
+              <!--<P> Modal Cargando</P>-->
+              <div *ngIf="cargando"><app-cargando></app-cargando></div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Codigo</th>
+                      <th>Detalle</th>
+                      <th>Costo</th>
+                      <th>Estado</th>
+                      <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="cursor-pointer" *ngFor="let li of lista;let i=index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{li.id}}</td>
+                      <td>{{li.detalle}}</td>
+                      <td>{{li.costo}}</td>
+                      <td style="width: 200px">
+                        {{li.estado?'HABILITADO':'DESHABILITADO'}}
+                      </td>
+                      <td style="width: 140px">
+                        <ui-switch size="small" [(ngModel)]="li.estado" name="estado-{{i}}" (click)="confirmarCambioDeEstado(li)">estado</ui-switch>
+                        <i class="fa fa-edit text-primary" style="font-size: 23px;" (click)="traerParaEdicion(li.id)" title="Modificar"></i>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Nuevo Formulario Cargar-->
+  <div  *ngIf="clicknuevo&&!cargando" >
+      <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarDatosNuevoModal()" name="frm">
+        <div class="card-header d-flex align-items-center" *ngIf="!clicknuevo">
+          <h5 class="h4" align="left">Nuevo Labor </h5>
+        </div>
+        <div class="card-header d-flex align-items-center" *ngIf="clicknuevo">
+          <h5 class="h4" align="left">Editando Labor</h5>
+        </div>
+        <hr>
+        <br>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
+          <div class="col-sm-2" >
+            <ui-switch *ngIf="labores.id" [(ngModel)]="labores.estado" name="estado">estado</ui-switch>
+            <ui-switch *ngIf="!labores.id"  [checked]="true"  name="estado1">estado</ui-switch>
+          </div>
+          <label class="col-sm-1 form-control-label">Codigo </label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="codigo" maxlength="8" disabled><small class="help-block-none">Este atributo es generado automaticamente.</small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Detalle </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="detalle" maxlength="30" [(ngModel)]="labores.detalle" maxlength="30">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Costo</label>
+          <div class="col-sm-9">
+            <input type="number" class="form-control" name="costo" maxlength="10" [(ngModel)]="labores.costo" maxlength="30">
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" (click)="guardarDatosNuevoModal()" >Guardar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="abrirModalListado()">Cancelar</button>
+        </div>
+      </form>
+  </div>
+</div>

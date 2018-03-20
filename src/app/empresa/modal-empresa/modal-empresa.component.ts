@@ -68,7 +68,6 @@ export class ModalEmpresaComponent implements OnInit {
       this.auth.agregarmodalopenclass();
     });
   }
-
   ubigeo():void {
     const modalRef = this.modalService.open(ModalUbigeoComponent, {windowClass:'nuevo-modal', size: 'lg', keyboard: false});
     modalRef.result.then((result) => {

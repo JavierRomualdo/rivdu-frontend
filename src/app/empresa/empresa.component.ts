@@ -18,7 +18,7 @@ export class EmpresaComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public router: Router,
-    private modalService: NgbModal
+    public modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   abrirIngenieros():void{
-    const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'sm', keyboard: false});
+    const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });

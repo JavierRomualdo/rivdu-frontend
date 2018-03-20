@@ -94,7 +94,7 @@
           <div class="col-sm-9">
             <div class="form-group">
               <div class="input-group">
-                <input disabled type="text" class="form-control" name="idgerente" [(ngModel)]="empresa.idgerente.nombre">
+                  <label class="form-control">{{empresa.idgerente.nombre}} {{empresa.idgerente.apellido}} {{"-"}} {{empresa.idgerente.dni}}</label>
                 <div class="input-group-append">
                       <button type="button" class="btn btn-primary" (click)="abrirpersona()"><i class="fa fa-search" ></i></button >
                 </div>

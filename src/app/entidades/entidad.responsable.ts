@@ -1,6 +1,7 @@
 import { Persona } from './entidad.persona';
 import { Programas } from './entidad.programas';
 import { Tipoprofresion } from './entidad.tipoprofesion';
+import {Rol} from './entidad.rol';
 
 export class Responsable {
   id: number;
@@ -8,5 +9,5 @@ export class Responsable {
   estado: boolean;
   idpersona: Persona;
   idprograma: Programas;
-  idtipoprofesion: Tipoprofresion;
+  idrol: Rol;
 }
