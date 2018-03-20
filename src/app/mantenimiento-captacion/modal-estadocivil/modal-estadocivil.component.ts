@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiRequestService} from '../../servicios/api-request.service';
+import {AuthService} from '../../servicios/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import { Estadocliente } from '../../entidades/entidad.estadocliente';
 import {ModalUbigeoComponent} from '../modal-ubigeo/modal-ubigeo.component';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
-import {log} from 'util';
 
 @Component({
   selector: 'app-modal-estadocivil',
@@ -15,6 +15,7 @@ import {log} from 'util';
 export class ModalEstadocivilComponent implements OnInit {
    public estadocivil: Estadocliente;
    public  lista:any=[];
+   public confirmarcambioestado = false;
    public cargando:boolean=false;
    public clicknuevo:boolean=false;
    public clickeditar:boolean=false;
@@ -22,16 +23,49 @@ export class ModalEstadocivilComponent implements OnInit {
    public id:number;
    public listaestado:any;
 
-
-  constructor( public activeModal: NgbActiveModal, public api: ApiRequestService,
-               public toastr: ToastrService, public modal: NgbModal) {
+  constructor(
+      public activeModal: NgbActiveModal,
+      public api: ApiRequestService,
+      public apiRequest: ApiRequestService,
+      public auth: AuthService,
+      public toastr: ToastrService,
+      public modal: NgbModal
+  ) {
      this.estadocivil = new Estadocliente();
   }
 
   ngOnInit() {
     this.listarestados();
   }
+    confirmarcambiodeestado(estadocivil){
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoCivil(estadocivil);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            estadocivil.estado = !estadocivil.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
 
+    cambiarestadoCivil(estadocivil){
+        this.cargando = true;
+        return this.apiRequest.get('estadocivil/eliminarestadocliente/'+estadocivil.id)
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarestados();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+
+    };
     listarestados(){
       this.cargando=true;
         this.api.get("estadocivil/listar")
@@ -41,6 +75,7 @@ export class ModalEstadocivilComponent implements OnInit {
                     this.cargando=false;
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
+                  this.cargando = false;
                 }
             })
             .catch(err => this.handleError(err));
@@ -48,6 +83,7 @@ export class ModalEstadocivilComponent implements OnInit {
     };
 
     eliminarestado(li){
+      this.cargando = true;
       this.api.delete("estadocivil/eliminarestadocliente/"+li.id)
           .then(respuesta => {
               if(respuesta && respuesta.extraInfo){
@@ -55,6 +91,7 @@ export class ModalEstadocivilComponent implements OnInit {
               } else {
                   this.toastr.error(respuesta.operacionMensaje, 'Error');
               }
+            this.cargando=false;
           })
           .catch(err => this.handleError(err));
     };
@@ -78,7 +115,6 @@ export class ModalEstadocivilComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-
     abrinuevoestado(){
       this.clicknuevo=true;
       this.estadocivil=new Estadocliente();
@@ -91,11 +127,13 @@ export class ModalEstadocivilComponent implements OnInit {
     };
 
     confirmareliminado(li): void {
-        const modalRef = this.modal.open(ConfirmacionComponent, {size: 'sm', keyboard: false});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.eliminarestado(li);
             this.toastr.success("Registro eliminado exitosamente", 'Exito');
+            this.auth.agregarmodalopenclass();
         }, (reason) => {
+          this.auth.agregarmodalopenclass();
         });
     };
 
@@ -107,24 +145,24 @@ export class ModalEstadocivilComponent implements OnInit {
                 data => {
                     if(data && data.extraInfo){
                         this.estadocivil = data.extraInfo;
-
-                    }
-                    else{
+                    } else {
                         this.toastr.info(data.operacionMensaje,"Informacion");
                     }
                 }
             )
             .catch(err => this.handleError(err));
-    }
+    };
 
     editarestado(li):void{
         this.clickeditar=true;
-        log(li.id);
     }
+
     probar():void{
         alert("Hola");
     }
+
     private handleError(error: any): void {
+      this.cargando = false;
         this.toastr.error("Error Interno", 'Error');
     }
 

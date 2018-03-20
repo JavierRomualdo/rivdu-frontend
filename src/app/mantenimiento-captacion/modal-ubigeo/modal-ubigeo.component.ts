@@ -35,6 +35,7 @@ export class ModalUbigeoComponent implements OnInit {
               public api: ApiRequestService,
               public apiRequest: ApiRequestService,
               private modalService: NgbModal,
+              public modal: NgbModal,
               public auth: AuthService,
               public toastr: ToastrService) {
       this.ubigeo=new Ubigeo();
@@ -113,12 +114,11 @@ export class ModalUbigeoComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-
     confirmarcambiodeestado(ubigeo):void{
-        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
-            this.cambiarestadoingeniero(ubigeo);
+            this.cambiarestadoUbigeo(ubigeo);
             this.auth.agregarmodalopenclass();
         }, (reason) => {
             ubigeo.estado = !ubigeo.estado;
@@ -126,7 +126,7 @@ export class ModalUbigeoComponent implements OnInit {
         });
     };
 
-    cambiarestadoingeniero(ubigeo){
+    cambiarestadoUbigeo(ubigeo){
         this.cargando = true;
         return this.apiRequest.post('ubigeo/eliminar', {id:ubigeo.id})
             .then(
@@ -141,7 +141,7 @@ export class ModalUbigeoComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-    }
+    };
 
     traerParaEdicion(id){
         this.cargando = true;
@@ -170,7 +170,7 @@ export class ModalUbigeoComponent implements OnInit {
 
     llenarCombo(ubigeo){
         let tipo= ubigeo.idtipoubigeo;
-        let tiposelect = this.tipos.find(item => item.id = tipo.id);
+        let tiposelect = this.tipos.find(item => item.id == tipo.id);
         this.ubigeo.idtipoubigeo = tiposelect;
     };
 

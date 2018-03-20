@@ -10,58 +10,58 @@
     <div class="card-header d-flex align-items-center">
       <h3 class="h4">Listado de Ubigeos</h3>
     </div>
-    <div *ngIf="cargando">
-      <app-cargando></app-cargando>
-    </div>
     <div class="card-body pb-0">
+      <div *ngIf="cargando">
+        <app-cargando></app-cargando>
+      </div>
       <div *ngIf="!cargando && vistaFormulario" >
-      <form class="form-horizontal" #formulario="ngForm"  *ngIf="!vistalFormulario" (ngSubmit)="guardarubigeo()">
-        <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
-          <h5 class="h4" align="left">Nuevo Ubigeo </h5>
-        </div>
-        <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
-          <h5 class="h4" align="left">Editando Ubigeo </h5>
-        </div>
-        <div class="pt-3">
+        <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarubigeo()">
+          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
+            <h5 class="h4" align="left">Nuevo Ubigeo </h5>
+          </div>
+          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
+            <h5 class="h4" align="left">Editando Ubigeo </h5>
+          </div>
+          <div class="pt-3">
 
-        <div class="form-group row">
-            <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
-            <div class="col-sm-9" >
-              <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
-              <ui-switch *ngIf="!ubigeo.id"  [checked]="true"  name="estado1">estado</ui-switch>
-            </div>
-        </div>
           <div class="form-group row">
-          <label class="col-sm-3 form-control-label" >Codigo</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
+              <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
+              <div class="col-sm-9" >
+                <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
+                <ui-switch *ngIf="!ubigeo.id"  [checked]="true"  name="estado1">estado</ui-switch>
+              </div>
           </div>
-          </div>
+            <div class="form-group row">
+            <label class="col-sm-3 form-control-label" >Codigo</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
+            </div>
+            </div>
 
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Nombre </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" required="" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
+          <div class="line"></div>
+          <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Nombre </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" required="" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
+            </div>
           </div>
-        </div>
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Tipo de Ubigeo</label>
-          <div class="col-sm-9">
-            <select class="form-control" required="" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
-              <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
-            </select>
+          <div class="line"></div>
+          <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Tipo de Ubigeo</label>
+            <div class="col-sm-9">
+              <select class="form-control" required="" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
+                <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" *ngIf="ubigeo.id" [disabled]="!formulario.form.valid">Actualizar</button>
-          <button type="submit" class="btn btn-primary" *ngIf="!ubigeo.id" [disabled]="!formulario.form.valid">Guardar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
-        </div>
-        </div>
-      </form>
-    </div><!--formularioFrank>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" *ngIf="ubigeo.id" [disabled]="!formulario.form.valid">Actualizar</button>
+            <button type="submit" class="btn btn-primary" *ngIf="!ubigeo.id" [disabled]="!formulario.form.valid">Guardar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
+          </div>
+          </div>
+        </form>
+      </div><!--formularioFrank>
       <!-- eliminar-->
       <div class="form-horizontal" *ngIf="!cargando && !vistaFormulario"   style="padding: 0px">
         <section class="tables pt-3 pb-0">

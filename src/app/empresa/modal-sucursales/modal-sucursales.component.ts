@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal , NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { Paginacion } from '../../entidades/entidad.paginacion';
 import { Empresa } from '../../entidades/entidad.empresa';
@@ -35,6 +35,7 @@ export class ModalSucursalesComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public api: ApiRequestService,
     private modalService: NgbModal,
+    private modal:NgbModal,
     public auth: AuthService,
     private apiRequest: ApiRequestService,
     public toastr: ToastrService
@@ -75,12 +76,14 @@ export class ModalSucursalesComponent implements OnInit {
   };
 
   abrirModalUbigeo():void{
-    const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'sm', keyboard: false});
+    const modalRef = this.modal.open(ModalUbigeoComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
       this.sucursal.ubigeo = result;
       console.log("Ha sido cerrado "+result);
+      this.auth.agregarmodalopenclass();
     }, (reason) => {
       console.log("Ha sido cerrado "+reason);
+      this.auth.agregarmodalopenclass();
     });
   };
 
@@ -149,10 +152,10 @@ export class ModalSucursalesComponent implements OnInit {
     }
   };
 
-    confirmarcambiodeestado(sucursal):void{
-        const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
-        modalRef.result.then((result) => {
-            this.confirmarcambioestado = true;
+  confirmarcambiodeestado(sucursal):void{
+       const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+       modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
             this.cambiarestadoSucursal(sucursal);
             this.auth.agregarmodalopenclass();
         }, (reason) => {
@@ -161,7 +164,7 @@ export class ModalSucursalesComponent implements OnInit {
         });
     };
 
-    cambiarestadoSucursal(sucursal){
+  cambiarestadoSucursal(sucursal){
         this.cargando = true;
         return this.apiRequest.post('sucursal/eliminar', {id:sucursal.id})
             .then(
@@ -178,7 +181,7 @@ export class ModalSucursalesComponent implements OnInit {
             .catch(err => this.handleError(err));
     }
 
-    listarSucursales(){
+  listarSucursales(){
         this.cargando= true;
         this.api.post('sucursal/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
             .then(data => {
@@ -219,5 +222,6 @@ export class ModalSucursalesComponent implements OnInit {
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
+    this.cargando = false;
   };
 }

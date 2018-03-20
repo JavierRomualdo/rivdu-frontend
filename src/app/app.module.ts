@@ -24,7 +24,7 @@ import { MantenimientoCaptacionComponent } from './mantenimiento-captacion/mante
 import { MantenimientoConstruccionComponent } from './mantenimiento-construccion/mantenimiento-construccion.component';
 import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mantenimiento-tesoreria.component';
 import { ModalUbigeoComponent } from './mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
-import { ModalDescuentosComponent } from './mantenimiento-captacion/modal-descuentos/modal-descuentos.component';
+import { ModalEspecificacionesComponent } from './mantenimiento-captacion/modal-especificaciones/modal-especificaciones.component';
 import { ModalEstadocivilComponent } from './mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component';
 import { ModalRelacionpersonalComponent } from './mantenimiento-captacion/modal-relacionpersonal/modal-relacionpersonal.component';
 import { ModalCaptadorComponent } from './mantenimiento-captacion/modal-captador/modal-captador.component';
@@ -62,7 +62,7 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     MantenimientoConstruccionComponent,
     MantenimientoTesoreriaComponent,
     ModalUbigeoComponent,
-    ModalDescuentosComponent,
+    ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
     ModalCaptadorComponent,
@@ -90,7 +90,7 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     ModalSucursalesComponent,
     ModalApoderadosComponent,
     ModalUbigeoComponent,
-    ModalDescuentosComponent,
+    ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
     ModalCaptadorComponent,

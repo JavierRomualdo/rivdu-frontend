@@ -13,7 +13,10 @@
       <h3  class="h4" id="titulo3" *ngIf="clickeditar&&!clicknuevo"> Editar estado civil</h3>
     </div>
     <div class="card-body pb-0">
-      <form *ngIf="!clicknuevo&&!clickeditar" class="form-horizontal" name="frm">
+      <div *ngIf="cargando">
+        <app-cargando></app-cargando>
+      </div>
+      <form *ngIf="!clicknuevo && !clickeditar && !cargando" class="form-horizontal" name="frm">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid">
             <div class="row">
@@ -25,10 +28,6 @@
                   <div class="card-header d-flex align-items-center">
                     <h3 class="h4">Estado Civil</h3>
                   </div>
-
-                  <!--<P> Modal Cargando</P>-->
-                  <div *ngIf="cargando"><app-cargando></app-cargando></div>
-
                   <!--<P> Div Listado de EstadosCiviles</P>-->
                   <div *ngIf="!cargando"   class="card-body">
                     <div class="table-responsive" >
@@ -41,11 +40,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="cursor-pointer"  *ngFor="let li of lista">
+                        <tr class="cursor-pointer"  *ngFor="let li of lista; let i=index">
                           <td>{{li.id}}</td>
                           <td>{{li.nombre}}</td>
                           <td style="width: 120px">
-                            <a (click)="confirmareliminado(li)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                            <ui-switch size="small"[(ngModel)]="li.estado" name="estado-{{i}}" (click)="confirmarcambiodeestado(li)">estado</ui-switch>
                             <a (click)="traerParaEdicion(li.id)"><i class="fa fa-edit text-primary" ></i></a>
                           </td>
                         </tr>
@@ -59,24 +58,11 @@
           </div>
         </section>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" >Aceptar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Ok</button>
         </div>
       </form>
-
       <!--<P> formulario Agregar nuevo Estado Civil</P>-->
-
-      <form  *ngIf="clicknuevo&&!clickeditar"   class="form-horizontal" name="frm">
-        <div *ngIf="cargando">
-          <app-cargando></app-cargando>
-        </div>
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Id </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="id"  disabled ><small class="help-block-none">Este atributo es generado automaticamente.</small>
-          </div>
-        </div>
+      <form  *ngIf="clicknuevo && !clickeditar && !cargando"   class="form-horizontal" name="frm">
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
@@ -90,15 +76,9 @@
           <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>
-
       <!-- Formulario Editar  Estado civil -->
-
-      <form  *ngIf="clickeditar&&!clicknuevo"   class="form-horizontal" name="frm">
-        <div *ngIf="cargando">
-          <app-cargando></app-cargando>
-        </div>
+      <form  *ngIf="clickeditar && !clicknuevo && !cargando"   class="form-horizontal" name="frm">
         <div class="line"></div>
-
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
           <div class="col-sm-9">
@@ -111,10 +91,6 @@
           <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>
-
     </div>
-
-
-
   </div>
 </div>

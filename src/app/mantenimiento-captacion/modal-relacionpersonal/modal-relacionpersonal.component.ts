@@ -3,6 +3,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Relacion} from '../../entidades/entidad.relacion';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component';
 import {ApiRequestService} from '../../servicios/api-request.service';
+import {AuthService} from '../../servicios/auth.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -21,9 +22,11 @@ export class ModalRelacionpersonalComponent implements OnInit {
     public id:number;
     public listaestado:any;
 
-
-    constructor( public activeModal: NgbActiveModal, public api: ApiRequestService,
-                 public toastr: ToastrService, public modal: NgbModal) {
+    constructor( public activeModal: NgbActiveModal,
+                 public api: ApiRequestService,
+                 public auth: AuthService,
+                 public toastr: ToastrService,
+                 public modal: NgbModal) {
         this.relacioncliente = new Relacion();
     }
 
@@ -40,6 +43,7 @@ export class ModalRelacionpersonalComponent implements OnInit {
                     this.cargando=false;
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
+                  this.cargando = false;
                 }
             })
             .catch(err => this.handleError(err));
@@ -47,6 +51,7 @@ export class ModalRelacionpersonalComponent implements OnInit {
     };
 
     eliminarrelacion(li){
+      this.cargando = true;
         this.api.delete("relacion/eliminarestadocliente/"+li.id)
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
@@ -54,6 +59,7 @@ export class ModalRelacionpersonalComponent implements OnInit {
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
                 }
+              this.cargando=false;
             })
             .catch(err => this.handleError(err));
     };
@@ -90,11 +96,13 @@ export class ModalRelacionpersonalComponent implements OnInit {
     };
 
     confirmareliminado(li): void {
-        const modalRef = this.modal.open(ConfirmacionComponent, {size: 'sm', keyboard: false});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.eliminarrelacion(li);
             this.toastr.success("Registro eliminado exitosamente", 'Exito');
+            this.auth.agregarmodalopenclass();
         }, (reason) => {
+          this.auth.agregarmodalopenclass();
         });
     };
 
@@ -106,9 +114,7 @@ export class ModalRelacionpersonalComponent implements OnInit {
                 data => {
                     if(data && data.extraInfo){
                         this.relacioncliente = data.extraInfo;
-
-                    }
-                    else{
+                    }else{
                         this.toastr.info(data.operacionMensaje,"Informacion");
                     }
                 }
@@ -120,12 +126,13 @@ export class ModalRelacionpersonalComponent implements OnInit {
         this.clickeditar=true;
 
     }
+
     probar():void{
         alert("Hola");
     }
+
     private handleError(error: any): void {
+      this.cargando = false;
         this.toastr.error("Error Interno", 'Error');
     }
-
-
 }
