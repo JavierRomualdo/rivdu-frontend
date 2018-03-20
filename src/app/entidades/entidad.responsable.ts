@@ -7,6 +7,6 @@ export class Responsable {
   codigocip: number;
   estado: boolean;
   idpersona: Persona;
-  idprograma: Programas;
-  idtipoprofesion: Tipoprofresion;
+idprograma: Programas;
+idtipoprofesion: Tipoprofresion;
 }
