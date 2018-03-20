@@ -8,9 +8,9 @@
     </button>
   </div>
 </div>
-
+<div *ngIf="cargando"><app-cargando></app-cargando></div>
 <div class="card-body pb-0">
-  <div  *ngIf="!clicknuevo"  class="form-horizontal">
+  <div  *ngIf="!clicknuevo&& !cargando"  class="form-horizontal">
     <section class="tables pt-0 pb-0">
       <div class="container-fluid">
         <div class="row">
@@ -22,10 +22,7 @@
               <div class="card-header d-flex align-items-center">
                 <h3 class="h4">Labores</h3>
               </div>
-
               <!--<P> Modal Cargando</P>-->
-              <div *ngIf="cargando"><app-cargando></app-cargando></div>
-
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-striped">
@@ -63,7 +60,6 @@
       </div>
     </section>
   </div>
-
   <!-- Nuevo Formulario Cargar-->
   <div  *ngIf="clicknuevo&&!cargando" >
       <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarDatosNuevoModal()" name="frm">
@@ -80,10 +76,6 @@
           <div class="col-sm-2" >
             <ui-switch *ngIf="labores.id" [(ngModel)]="labores.estado" name="estado">estado</ui-switch>
             <ui-switch *ngIf="!labores.id"  [checked]="true"  name="estado1">estado</ui-switch>
-          </div>
-          <label class="col-sm-1 form-control-label">Codigo </label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="codigo" maxlength="8" disabled><small class="help-block-none">Este atributo es generado automaticamente.</small>
           </div>
         </div>
         <div class="form-group row">
