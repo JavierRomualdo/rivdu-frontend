@@ -44,6 +44,7 @@ import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
+import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/modal-espeficaciones.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
     CargandoComponent,
-    ModalRolComponent
+    ModalRolComponent,
+    ModalEspeficacionesComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,

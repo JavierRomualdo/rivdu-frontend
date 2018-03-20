@@ -30,6 +30,7 @@ export class ModalSucursalesComponent implements OnInit {
   public parametros:any = {};
   public empresa:Empresa;
   public verNuevo:boolean= false;
+  public confirmarcambioestado:boolean=false;
   constructor(
     public activeModal: NgbActiveModal,
     public api: ApiRequestService,
@@ -151,7 +152,7 @@ export class ModalSucursalesComponent implements OnInit {
     confirmarcambiodeestado(sucursal):void{
         const modalRef = this.modalService.open(ConfirmacionComponent,{windowClass:'nuevo-modal'});
         modalRef.result.then((result) => {
-            this.confirmarcambioestado=true;
+            this.confirmarcambioestado = true;
             this.cambiarestadoSucursal(sucursal);
             this.auth.agregarmodalopenclass();
         }, (reason) => {

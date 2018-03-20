@@ -11,6 +11,8 @@ import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
 import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
 import {ModalRolComponent} from '../modal-rol/modal-rol.component';
+
+
 @Component({
   selector: 'app-modal-ingenieros',
   templateUrl: './modal-ingenieros.component.html',
@@ -184,7 +186,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.cargando = true;
         this.vistaFormulario = true;
         this.verNuevo = true;
-        return this.apiRequest.post('ingeniero/obtener', {id:id})
+        return this.apiRequest.post('ingeniero/obtener', {id: id})
             .then(
                 data => {
                     if(data && data.extraInfo){
@@ -251,6 +253,7 @@ export class ModalIngenierosComponent implements OnInit {
                 estado:true,
                 idrol:rol
             }
+
             let rSelect = this.listaPR.find(item => item.idrol.id === rol.id);
             if (rSelect && rSelect.idrol && rSelect.idrol.id) {
                 this.toastr.warning('Rol ya existe', 'Aviso');

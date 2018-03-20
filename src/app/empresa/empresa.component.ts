@@ -18,7 +18,7 @@ export class EmpresaComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public router: Router,
-    private modalService: NgbModal
+    public modalService: NgbModal
   ) { }
 
   ngOnInit() {

@@ -67,7 +67,6 @@ export class ModalEmpresaComponent implements OnInit {
       console.log("ha sido cerrado "+ reason);
     });
   }
-
   ubigeo():void {
     const modalRef = this.modalService.open(ModalUbigeoComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
