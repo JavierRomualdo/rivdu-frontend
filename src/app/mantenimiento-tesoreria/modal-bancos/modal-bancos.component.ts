@@ -32,6 +32,7 @@ export class ModalBancosComponent implements OnInit {
       public auth: AuthService
   ) {
     this.banco= new Cuentabanco();
+
   }
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class ModalBancosComponent implements OnInit {
 
   cambiarestadoBanco(banco){
     this.cargando = true;
-    return this.apiRequest.get('cuentabanco/eliminarestadobanco/'+banco.id)
+    return this.apiRequest.get('cuentabanco/eliminarestadocliente/'+banco.id)
         .then(
             data => {
               if(data && data.extraInfo){
@@ -92,10 +93,14 @@ export class ModalBancosComponent implements OnInit {
   };
 
   traerParaEdicion(id){
+      this.cargando = true;
+      this.vistaFormulario = true;
+      this.verNuevo=true;
     return this.api.post('cuentabanco/obtener', {id: id})
         .then(
             data => {
               if(data && data.extraInfo){
+                this.cargando = false;
                 this.banco = data.extraInfo;
               } else {
                 this.toastr.info(data.operacionMensaje,"Informacion");

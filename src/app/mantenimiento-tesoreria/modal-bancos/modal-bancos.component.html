@@ -34,10 +34,11 @@
                           <th>#</th>
                           <th>Banco</th>
                           <th>Cuenta</th>
+                          <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody >
-                        <tr class="cursor-pointer" *ngFor="let o of banco;let i=index">
+                        <tr class="cursor-pointer" *ngFor="let o of lista;let i=index">
                           <th scope="row">{{i+1}}</th>
                           <td>{{o.nombre}}</td>
                           <td>{{o.numerocuenta}}</td>
