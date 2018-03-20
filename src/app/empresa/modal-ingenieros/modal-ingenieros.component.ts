@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Paginacion } from '../../entidades/entidad.paginacion';
-import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal , NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
@@ -181,7 +181,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.cargando = true;
         this.vistaFormulario = true;
         this.verNuevo = true;
-        return this.apiRequest.post('ingeniero/obtener', {id:id})
+        return this.apiRequest.post('ingeniero/obtener', {id: id})
             .then(
                 data => {
                     if(data && data.extraInfo){
@@ -249,6 +249,7 @@ export class ModalIngenierosComponent implements OnInit {
                 estado:true,
                 idrol:rol
             }
+
             let rSelect = this.listaPR.find(item => item.idrol.id === rol.id);
             if (rSelect && rSelect.idrol && rSelect.idrol.id) {
                 this.toastr.warning('Rol ya existe', 'Aviso');
