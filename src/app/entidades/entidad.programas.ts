@@ -1,3 +1,6 @@
+import {Persona} from './entidad.persona';
+import {Responsable} from './entidad.responsable';
+
 export class Programas {
   id: number;
   codigoet: string;
@@ -7,4 +10,5 @@ export class Programas {
   importe: number;
   maximovalor: number;
   nombre: string;
+    responsableList:Responsable[];
 }
