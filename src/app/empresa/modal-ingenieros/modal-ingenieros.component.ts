@@ -19,7 +19,8 @@ import {ModalRolComponent} from '../modal-rol/modal-rol.component';
 })
 export class ModalIngenierosComponent implements OnInit {
 
-    @Input() isModalIngeniero;
+    @Input() responsable;
+    @Input() proveedores;
     public page: number = 1;
     public paginacion: Paginacion;
     public cargando:boolean= false;
@@ -56,6 +57,12 @@ export class ModalIngenierosComponent implements OnInit {
       }
 
     ngOnInit() {
+        if(this.responsable){
+              this.idRol =3;
+        }
+        if (this.proveedores) {
+            this.idRol = 7;
+        }
         this.busqueda();
         this.traertiposrol();
     }
