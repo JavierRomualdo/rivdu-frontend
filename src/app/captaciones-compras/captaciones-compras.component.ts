@@ -16,7 +16,7 @@ export class CaptacionesComprasComponent implements OnInit {
   ngOnInit() {
   }
 
-  abrirNuevaCompra(): void{
+  abrirNuevaCompra(): void {
     const modalRef = this.modalService.open(ModalCompraformularioComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {

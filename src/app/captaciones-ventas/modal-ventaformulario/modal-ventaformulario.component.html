@@ -1,0 +1,282 @@
+<div class="">
+  <div class="card mb-0">
+    <div class="card-close">
+      <div class="dropdown">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="h4">Mantenimiento de Venta</h3>
+    </div>
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
+    <div class="card-body mr-2 ml-2">
+      <form class="">
+        <div class="form-group row">
+          <!--Consolidado-->
+          <div class="card border-dark mb-3 col-sm-12">
+            <div class="card-header">
+              Consolidado
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <label class="col-sm-1 form-control-label">Registro:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="registro">
+                </div>
+                <label class="col-sm-1 form-control-label">Vendedor:</label>
+                <div class="col-sm 7">
+                    <div class="input-group">
+                      <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                      <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-1 form-control-label">Status:</label>
+                <div class="col-sm-3">
+                  <select class="form-control">
+                    <option *ngFor="let statu of listaStatus">{{statu.nombre}}</option>
+                  </select>
+                </div>
+                <label class="col-sm-1 form-control-label">Elegible:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="elegible">
+                </div>
+                <label class="col-sm-1 form-control-label">Programa:</label>
+                <div class="col-sm-3">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Titular-->
+          <div class="card col-sm-12 mb-3">
+            <div class="card-header">Titular</div>
+            <div class="card-body">
+              <div class="row">
+                      <!--<input type="text" class="form-control" disabled [(ngModel)]="persona.nombre" name="idpersona" placeholder="Seleccione el ubigeo">-->
+                      <div class="col-sm 6">
+                        <label class="form-control-label">Persona:</label>
+                          <div class="input-group">
+                          <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                          <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
+                          </div>
+                      </div>
+                    <div class="col-sm-6">
+                      <label class="form-control-label">Estado Civil</label>
+                      <select class="form-control">
+                        <option *ngFor="let est of listaEstados">{{est.nombre}}</option>
+                      </select>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <!--Conyuge / Carga Familiar-->
+          <div class="card col-sm-12 mb-3">
+            <div class="card-close mb-2">
+              <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
+            </div>
+            <div class="card-header">Conyuge / Carga Familiar</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="table-responsive col-sm-12" >
+                  <table class="table table-striped" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th >#</th>
+                        <th>Nombre</th>
+                        <th>Parentesco</th>
+                        <th style="width: 120px">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="cursor-pointer">
+                        <td>#</td>
+                        <td>#</td>
+                        <td width="320px">
+                          <select class="form-control">
+                            <option><!--{{ o.nombre}}--></option><!--*ngFor="let o of relacion"-->
+                          </select>
+                        </td>
+                        <td style="width: 120px">
+                          <a><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                            <i class="fa fa-edit text-primary"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Predio-->
+          <div class="card col-sm-12 mb-3">
+            <div class="card-header">Predio</div>
+            <div class="card-body">
+              <div class="row">
+                <ngb-tabset class="col-sm-12">
+                  <ngb-tab title="General">
+                    <ng-template ngbTabContent>
+                      <br/>
+                      <div class="row">
+                        <label class="col-sm-2 form-control-label">Partida:</label>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control" name="partida" placeholder="Ingrese partida">
+                        </div>
+                        <label class="col-sm-2 form-control-label">Ubigeo:</label>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" disabled [(ngModel)]="ubigeo.nombre" name="idubigeo" placeholder="Seleccione el ubigeo">
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-2 form-control-label">Ubicacion</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese ubicacion">
+                        </div>
+                      </div><br/>
+                      <div class="row">
+                        <label class="col-sm-1 form-control-label">Mz:</label>
+                        <div class="col-sm-1">
+                          <input type="text" class="form-control" name="mz" placeholder="Mz.">
+                        </div>
+                        <label class="col-sm-1 form-control-label">Lote:</label>
+                        <div class="col-sm-1">
+                          <input type="text" class="form-control" name="lote" placeholder="Lote">
+                        </div>
+                        <label class="col-sm-1 form-control-label">SubLote:</label>
+                        <div class="col-sm-1">
+                          <input type="text" class="form-control" name="sublote" placeholder="Sub">
+                        </div>
+                        <label class="col-sm-1 form-control-label">Frente</label>
+                        <div class="col-sm-5">
+                          <input type="text" class="form-control" name="frente" placeholder="Frente">
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Colindantes</ng-template>
+                    <ng-template ngbTabContent>
+                      <br/>
+                      <div class="row">
+                        <label class="col-sm-4 form-control-label">Area:</label>
+                        <label class="col-sm-2 form-control-label">Frente:</label>
+                        <label class="col-sm-2 form-control-label">Derecha:</label>
+                        <label class="col-sm-2 form-control-label">Izquierda:</label>
+                        <label class="col-sm-2 form-control-label">Fondo:</label>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control" name="area" value="0.00">
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="frente1"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="derecha1"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="izquierda1"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="fondo1"></textarea>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="frente2"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="derecha2"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="izquierda2"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                          <textarea class="form-control" rows="2" cols="8" name="fondo2"></textarea>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Servicios</ng-template>
+                    <ng-template ngbTabContent>
+                      <br/>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="i-checks">
+                            <input id="checkAgua" type="checkbox" value="" class="checkbox-template">
+                            <label for="checkAgua">Servicio de Agua</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="checkDesague" type="checkbox" value="" class="checkbox-template">
+                            <label for="checkDesague">Servicio de Desagüe</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="checkLuz" type="checkbox" value="" class="checkbox-template">
+                            <label for="checkLuz">Servicio de Luz</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="checkDesague" type="checkbox" value="" class="checkbox-template">
+                            <label for="checkFactibilidad">Cuenta con Factibilidad</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label class="col-sm-2 form-control-label">Codigo SNIP:</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="snip" placeholder="Ingrese codigo SNIP">
+                          </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+              </div>
+              <hr/>
+              <div class="row">
+                <label class="col-sm-1 form-control-label">Precio:</label>
+                <div class="col-sm 7">
+                    <div class="input-group">
+                      <label class="form-control">{{precioTerreno}}</label>
+                      <button type="button" class="btn btn-primary"  (click)="abrirModalPrecios()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---->
+          <!--<div class="card col-sm-12 mb-3">
+            <div class="card-close mb-2">
+              <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
+            <!--</div>
+            <div class="card-header">Conyuge / </div>
+            <div class="card-body">
+              <div class="row">
+
+              </div>
+            </div>
+          </div>-->
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Aceptar</button>
+          <button type="button" class="btn btn-outline-dark">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
