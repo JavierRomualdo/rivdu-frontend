@@ -45,7 +45,8 @@
                       <div class="col-sm 6">
                         <label class="form-control-label">Persona:</label>
                           <div class="input-group">
-                          <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                          <label class="form-control">{{persona.nombre}} {{persona.apellido}}
+                          {{"-"}} {{persona.dni}}</label>
                           <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                           </div>
                       </div>
@@ -79,17 +80,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="cursor-pointer">
-                        <td>#</td>
-                        <td>#</td>
+                      <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
+                        <td>{{i+1}}</td>
+                        <td><label class="form-control">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
                         <td width="320px">
                           <select class="form-control">
                             <option *ngFor="let o of relacion">{{o.nombre}}</option>
                           </select>
                         </td>
                         <td style="width: 120px">
-                          <a><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
-                            <i class="fa fa-edit text-primary"></i>
+                          <a><i class="fa fa-close text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
+
                         </td>
                       </tr>
                     </tbody>
@@ -235,8 +236,8 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Aceptar</button>
-          <button type="button" class="btn btn-outline-dark">Cancelar</button>
+        <button type="submit" class="btn btn-primary" >Guardar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
     </div>

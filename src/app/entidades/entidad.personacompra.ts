@@ -5,7 +5,7 @@ import { Estadocliente } from './entidad.estadocliente';
 
 export class Personacompra {
   id: number;
-  idcompra: Compra;
+  idcompra: number;
   idpersona: Persona;
   idrelacion: Relacion;
   idestadocliente: Estadocliente;
