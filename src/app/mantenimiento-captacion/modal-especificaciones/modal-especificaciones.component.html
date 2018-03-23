@@ -44,11 +44,11 @@
                              <tbody>
                                 <tr class="cursor-pointer" *ngFor="let o of especificaciones;let i=index">
                                   <td>{{i+1}}</td>
-                                  <td>{{o.idestructura.nombre}}</td>
-                                  <td>{{o.etapa}}</td>
-                                  <td>{{o.especificaciones}}</td>
-                                  <td>{{o.categoria}}</td>
-                                  <td>{{o.valorm2}}</td>
+                                  <td (click)="elegirEspecificacion(o)">{{o.idestructura.nombre}}</td>
+                                  <td (click)="elegirEspecificacion(o)">{{o.etapa}}</td>
+                                  <td (click)="elegirEspecificacion(o)">{{o.especificaciones}}</td>
+                                  <td (click)="elegirEspecificacion(o)">{{o.categoria}}</td>
+                                  <td (click)="elegirEspecificacion(o)">{{o.valorm2}}</td>
                                   <td>{{o.estado?'HABILITADO':'DESHABILITADO'}}</td>
                                   <td scope="row "  style="width: 140px">
                                     <ui-switch size="small"[(ngModel)]="o.estado" name="estado" (click)="confirmarcambiodeestado(o)">estado</ui-switch>

@@ -67,16 +67,23 @@
                   <tr>
                     <th>#</th>
                     <th>Nombre</th>
-                    <th>Codigo</th>
                     <th>Importe</th>
+                    <th>Codigo</th>
+                    <th>Estado</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="cursor-pointer" (click)="abrirPrograma()">
-                    <th scope="row">1</th>
-                    <td>Programa CSP</td>
-                    <td>LIB-562-13-3-17</td>
-                    <td>18565.00</td>
+                  <tr class="cursor-pointer" *ngFor="let o of lista;let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{o.nombre}}</td>
+                    <td>{{o.importe}}</td>
+                    <td>{{o.codigoet}}</td>
+                    <td>{{o.estado}}</td>
+                    <td scope="row "  style="width: 140px">
+                      <ui-switch size="small"  name="estado" (click)="confirmarcambiodeestado(o)" >estado</ui-switch>
+                      <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
