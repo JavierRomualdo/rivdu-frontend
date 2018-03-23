@@ -76,7 +76,8 @@ export class EmpresaComponent implements OnInit {
     }, (reason) => {
     });
   }
-    confirmarcambiodeestado(programa):void{
+
+  confirmarcambiodeestado(programa):void{
         const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
@@ -87,23 +88,8 @@ export class EmpresaComponent implements OnInit {
             this.auth.agregarmodalopenclass();
         });
     };
-    cambiarestadoprograma(programa){
-        this.cargando = true;
-        return this.api.post('ingeniero/eliminar', {id: programa.id})
-            .then(
-                data => {
-                    if(data && data.extraInfo){
-                        this.toastr.success(data.operacionMensaje," Exito");
-                        this.listarprogramas();
-                    } else {
-                        this.toastr.info(data.operacionMensaje,"Informacion");
-                    }
-                    this.cargando = false;
-                }
-            )
-            .catch(err => this.handleError(err));
-    }
-    listarprogramas(){
+
+  listarprogramas(){
         this.cargando=true;
         this.api.get("programas/listar")
             .then(respuesta => {
@@ -118,19 +104,8 @@ export class EmpresaComponent implements OnInit {
             .catch(err => this.handleError(err));
 
     };
-    confirmarcambiodeestado(programa):void{
-        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
-        modalRef.result.then((result) => {
-            this.confirmarcambioestado=true;
-            this.cambiarestadoprograma(this.programa);
-            this.auth.agregarmodalopenclass();
-        }, (reason) => {
-            programa.estado = !programa.estado;
-            this.auth.agregarmodalopenclass();
-        });
-    };
 
-    traerParaEdicion(id){
+  traerParaEdicion(id){
         const modalRef = this.modal.open(ModalProgramasComponent, {size: 'sm', keyboard: false});
         modalRef.componentInstance.edit = id;
         modalRef.result.then((result) => {
@@ -139,7 +114,7 @@ export class EmpresaComponent implements OnInit {
         });
     }
 
-    cambiarestadoprograma(programa){
+  cambiarestadoprograma(programa){
         this.cargando = true;
         return this.api.post('programas/eliminar', {id:programa.id})
             .then(
@@ -156,8 +131,9 @@ export class EmpresaComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-    private handleError(error: any): void {
+  private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
     }
-    }
+
+  }
