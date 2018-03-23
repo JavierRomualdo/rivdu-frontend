@@ -8,7 +8,9 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Especificaciones Tecnicas</h3>
+      <h3 class="h4" *ngIf="!vistaFormulario">Especificaciones Tecnicas</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && !verNuevo">Nuevas Especificaciones</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && verNuevo">Editando Especificaciones</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
@@ -19,7 +21,7 @@
               <div class="container-fluid" style="padding: 0px">
                 <div class="row">
                   <div class="col-lg-12">
-                    <div class="card">
+                    <div class="card mb-0">
                       <div class="card-close mb-2">
                         <a id="closeCard2" class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
                       </div>
@@ -60,26 +62,18 @@
                         </div>
                       </div>
                     </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss('Cross click')">Ok</button>
+                    </div>
                   </div>
                 </div>
               </div>
           </section>
-          <div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Ok</button>
-            </div>
-          </div>
         </div>
         <div *ngIf="vistaFormulario && !cargando">
           <!--Formulario-->
           <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarEspecificaciones()">
-              <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
-              <h5 class="h4" align="left">Nuevas Especificaciones </h5>
-            </div>
-              <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
-              <h5 class="h4" align="left">Editando Especificaciones </h5>
-            </div>
-              <div class="pt-3">
+              <div class="card p-3 mb-0">
                 <div class="form-group row">
                   <div class="col-sm-6" >
                     <label class="form-control-label">Estado <span class="text-primary">*</span> </label><br>
@@ -88,7 +82,7 @@
                   </div>
                   <div class="col-sm-6">
                     <label class="form-control-label">Estructura</label>
-                    <select class="form-control" required="" name="tipoestructura" [(ngModel)]="especificacion.idestructura" >
+                    <select class="form-control form-control-sm" required="" name="tipoestructura" [(ngModel)]="especificacion.idestructura" >
                          <option  [ngValue]="tip" *ngFor="let tip of lista" >{{tip.nombre}}</option>
                     </select>
                   </div>
@@ -96,30 +90,30 @@
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label class="form-control-label">Categoria</label>
-                        <input type="text" class="form-control" name="categoria" required="" placeholder="Ingrese nombre completo" maxlength="1" [(ngModel)]="especificacion.categoria">
+                        <input type="text" class="form-control form-control-sm" name="categoria" required="" placeholder="Ingrese nombre completo" maxlength="1" [(ngModel)]="especificacion.categoria">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-control-label">Valorm2</label>
-                        <input type="number" class="form-control" name="valormetro" required="" placeholder="Costo" (ngModelChange)="validarValor()" maxlength="100" [(ngModel)]="especificacion.valorm2">
+                        <input type="number" class="form-control form-control-sm" name="valormetro" required="" placeholder="Costo" (ngModelChange)="validarValor()" maxlength="100" [(ngModel)]="especificacion.valorm2">
                     </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <label class="form-control-label">Etapa</label>
-                    <input type="text" class="form-control" name="estructura" required="" placeholder="Ingrese nombre completo" maxlength="100" [(ngModel)]="especificacion.etapa">
+                    <input type="text" class="form-control form-control-sm" name="estructura" required="" placeholder="Ingrese nombre completo" maxlength="100" [(ngModel)]="especificacion.etapa">
                   </div>
                  </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
                        <label class="form-control-label">Especificaciones</label>
-                       <input type="text" class="form-control" name="especificaciones" required="" placeholder="Ingrese nombre completo" maxlength="100" [(ngModel)]="especificacion.especificaciones">
+                       <input type="text" class="form-control form-control-sm" name="especificaciones" required="" placeholder="Ingrese nombre completo" maxlength="100" [(ngModel)]="especificacion.especificaciones">
                     </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" *ngIf="!especificacion.id" [disabled]="!formulario.form.valid" >Guardar</button>
-                  <button type="submit" class="btn btn-primary" *ngIf="especificacion.id" [disabled]="!formulario.form.valid">Actualizar</button>
-                  <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario = false">Cancelar</button>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-sm" *ngIf="!especificacion.id" [disabled]="!formulario.form.valid" >Guardar</button>
+                <button type="submit" class="btn btn-primary btn-sm" *ngIf="especificacion.id" [disabled]="!formulario.form.valid">Actualizar</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="vistaFormulario = false">Cancelar</button>
               </div>
           </form>
         </div>
