@@ -8,81 +8,70 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Listado de Ubigeos</h3>
+      <h3 class="h4" *ngIf="!vistaFormulario">Listado de Ubigeos</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && !verNuevo">Nuevo Ubigeo</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && verNuevo">Editando Ubigeo</h3>
     </div>
-    <div class="card-body pb-0">
-      <div *ngIf="cargando">
-        <app-cargando></app-cargando>
-      </div>
-      <div *ngIf="!cargando && vistaFormulario" >
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
+    <div class="card-body pb-0" *ngIf="!cargando">
+      <div *ngIf="vistaFormulario" >
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarubigeo()">
-          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
-            <h5 class="h4" align="left">Nuevo Ubigeo </h5>
-          </div>
-          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
-            <h5 class="h4" align="left">Editando Ubigeo </h5>
-          </div>
-          <div class="pt-3">
-
-          <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
-              <div class="col-sm-9" >
-                <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
-                <ui-switch *ngIf="!ubigeo.id"  [checked]="true"  name="estado1">estado</ui-switch>
-              </div>
-          </div>
+          <div class="card p-3 mb-0">
             <div class="form-group row">
-            <label class="col-sm-3 form-control-label" >Codigo</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
+              <div class="col-sm-6" >
+                  <label class="form-control-label">Estado <span class="text-primary">*</span> </label>
+                  <div>
+                    <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
+                    <ui-switch *ngIf="!ubigeo.id"  [checked]="true"  name="estado1">estado</ui-switch>
+                  </div>
+                </div>
+              <div class="col-sm-6" >
+                <label class="form-control-label">Codigo <span class="text-primary">*</span> </label>
+                <input type="text" class="form-control form-control-sm" name="codigo" maxlength="10" [(ngModel)]="ubigeo.codigo">
+              </div>
             </div>
-            </div>
-
-          <div class="line"></div>
-          <div class="form-group row">
-            <label class="col-sm-3 form-control-label">Nombre </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" required="" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
-            </div>
-          </div>
-          <div class="line"></div>
-          <div class="form-group row">
-            <label class="col-sm-3 form-control-label">Tipo de Ubigeo</label>
-            <div class="col-sm-9">
-              <select class="form-control" required="" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
-                <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
-              </select>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label class="form-control-label">Tipo de Ubigeo <span class="text-primary">*</span></label>
+                <select class="form-control form-control-sm" required="" name="tipoubigeo" [(ngModel)]="ubigeo.idtipoubigeo" >
+                  <option  [ngValue]="tip" *ngFor="let tip of tipos" >{{tip.nombre}}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-control-label">Nombre <span class="text-primary">*</span></label>
+                <input type="text" class="form-control form-control-sm" required="" name="nombre" [(ngModel)]="ubigeo.nombre" maxlength="100">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" *ngIf="ubigeo.id" [disabled]="!formulario.form.valid">Actualizar</button>
-            <button type="submit" class="btn btn-primary" *ngIf="!ubigeo.id" [disabled]="!formulario.form.valid">Guardar</button>
-            <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario= false">Cancelar</button>
-          </div>
+            <button type="submit" class="btn btn-primary btn-sm" *ngIf="ubigeo.id" [disabled]="!formulario.form.valid">Actualizar</button>
+            <button type="submit" class="btn btn-primary btn-sm" *ngIf="!ubigeo.id" [disabled]="!formulario.form.valid">Guardar</button>
+            <button type="button" class="btn btn-outline-dark btn-sm" (click)="vistaFormulario= false">Cancelar</button>
           </div>
         </form>
-      </div><!--formularioFrank>
-      <!-- eliminar-->
-      <div class="form-horizontal" *ngIf="!cargando && !vistaFormulario"   style="padding: 0px">
-        <section class="tables pt-3 pb-0">
+      </div><!--formularioFrank-->
+      <div class="form-horizontal" *ngIf="!vistaFormulario" style="padding: 0px">
+        <section class="tables pt-0 pb-0">
           <div class="container-fluid" style="padding: 0px">
             <div class="row">
               <div class="col-lg-12">
-                <div class="card">
+                <div class="card mb-0">
                   <div class="card-header d-flex align-items-center">
                     <h3 class="h4">Ubigeos</h3>
                   </div>
                   <div class="card-close mb-2">
                     <a  class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
                   </div>
-                  <div class="card-body" >
-                    <div class="table-responsive">
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Busque Codigo Ubigeo" [(ngModel)]="codigo" required>
-                        <input type="text" class="form-control" placeholder="Busque Nombre Ubigeo" [(ngModel)]="nombre" required>
-                        <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
-                      </div>
-                      <table class="table table-striped" >
+                  <div class="card-body pb-2" >
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Busque Codigo Ubigeo" [(ngModel)]="codigo" required>
+                      <input type="text" class="form-control" placeholder="Busque Nombre Ubigeo" [(ngModel)]="nombre" required>
+                      <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
+                    </div>
+                    <div class="table-responsive pt-3">
+                      <table class="table table-striped table-bordered table-hover table-sm" >
                         <thead>
                         <tr>
                           <th>#</th>
@@ -109,25 +98,25 @@
                       </table>
                     </div>
                   </div>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-6 table-responsive">
+                        <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarUbigeo()"></ngb-pagination>
+                      </div>
+                      <div class="col-md-6 text-right pr-3">
+                        <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm" (click)="limpiar()">Limpiar</button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <div>
-        <div class="row mb-3">
-          <div class="col-md-6 table-responsive">
-            <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarUbigeo()"></ngb-pagination>
-          </div>
-          <div class="col-md-6 text-right pr-3">
-            <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
-          </div>
-        </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="limpiar()">Limpiar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
-        </div>
       </div>
     </div>
   </div>

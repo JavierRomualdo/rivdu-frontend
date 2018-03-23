@@ -8,4 +8,5 @@ export class Especificaciones {
   etapa: string;
   valorm2: number;
   idestructura: Estructura;
+  idprograma: Programas;
 }
