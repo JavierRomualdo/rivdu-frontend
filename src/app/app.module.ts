@@ -46,6 +46,8 @@ import { ModalCompraformularioComponent } from './captaciones-compras/modal-comp
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/modal-espeficaciones.component';
+import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
+import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     CargandoComponent,
     ModalCompraformularioComponent,
     ModalRolComponent,
-    ModalEspeficacionesComponent
+    ModalEspeficacionesComponent,
+    ModalVentaformularioComponent,
+    ModalPreciosComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -105,6 +109,8 @@ import { ModalEspeficacionesComponent } from './empresa/modal-espeficaciones/mod
     ModalGerenteComponent,
     ConfirmacionComponent,
     ModalCompraformularioComponent,
+    ModalVentaformularioComponent,
+    ModalPreciosComponent,
     ModalRolComponent
   ],
   imports: [
