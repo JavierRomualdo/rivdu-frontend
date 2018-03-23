@@ -5,7 +5,6 @@ export class Predio {
   id:number;
   partida: string;
   idubigeo: Ubigeo;
-  idCompra: Compra;
   ubicacion: string;
   mz: string;
   lote: string;

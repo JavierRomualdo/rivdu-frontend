@@ -112,7 +112,7 @@
                       <div class="row">
                         <label class="col-sm-2 form-control-label">Partida:</label>
                         <div class="col-sm-4">
-                          <input type="text" class="form-control" name="partida" placeholder="Ingrese partida">
+                          <input type="text" class="form-control" name="partida" placeholder="Ingrese partida" [(ngModel)]="predio.partida">
                         </div>
                         <label class="col-sm-2 form-control-label">Ubigeo:</label>
                         <div class="col-sm-4">
@@ -129,25 +129,25 @@
                       <div class="row">
                         <label class="col-sm-2 form-control-label">Ubicacion</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese ubicacion">
+                          <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese ubicacion" [(ngModel)]="predio.ubicacion">
                         </div>
                       </div><br/>
                       <div class="row">
                         <label class="col-sm-1 form-control-label">Mz:</label>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control" name="mz" placeholder="Mz.">
+                          <input type="text" class="form-control" name="mz" placeholder="Mz." [(ngModel)]="predio.mz">
                         </div>
                         <label class="col-sm-1 form-control-label">Lote:</label>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control" name="lote" placeholder="Lote">
+                          <input type="text" class="form-control" name="lote" placeholder="Lote"[(ngModel)]="predio.lote">
                         </div>
                         <label class="col-sm-1 form-control-label">SubLote:</label>
                         <div class="col-sm-1">
-                          <input type="text" class="form-control" name="sublote" placeholder="Sub">
+                          <input type="text" class="form-control" name="sublote" placeholder="Sub" [(ngModel)]="predio.sublote">
                         </div>
                         <label class="col-sm-1 form-control-label">Frente</label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control" name="frente" placeholder="Frente">
+                          <input type="text" class="form-control" name="frente" placeholder="Frente" [(ngModel)]="predio.frente">
                         </div>
                       </div>
                     </ng-template>
@@ -236,7 +236,7 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" >Guardar</button>
+        <button type="submit" class="btn btn-primary" (click)="guardarCompra()">Guardar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
