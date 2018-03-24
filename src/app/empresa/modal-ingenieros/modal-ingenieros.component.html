@@ -1,6 +1,6 @@
 <div class="">
   <div class="card mb-0">
-    <div class="card-close">
+    <div class="card-close" *ngIf="!proveedores">
       <div class="dropdown">
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
@@ -100,7 +100,14 @@
                   </div>
                   <label class="col-sm-3 form-control-label">D.N.I. <span class="text-primary">*</span></label>
                   <div class="col-sm-4">
-                      <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
+                      <div class="form-group">
+                          <div class="input-group">
+                             <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
+                              <div class="input-group-append">
+                                  <button type="button" class="btn btn-primary"  (click)="busquedaPorDni(ingeniero.dni)"><i class="fa fa-search"></i></button>
+                              </div>
+                          </div>
+                      </div>
                   </div>
               </div>
            <div class="form-group row">
@@ -155,7 +162,7 @@
                   </div>
               </div>
               <div class="form-row" >
-                  <div class="col table-responsive"  *ngIf="listaPR && listaPR.length>0"  >
+                  <div class="col table-responsive"  *ngIf="(listaPR && listaPR.length>0)"  >
                       <table class="table table-sigro table-hover"  >
                           <thead class="thead-inverse" >
                           <tr>
@@ -164,7 +171,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr class="cursor-pointer"  *ngFor="let item of listaPR; let i = index;">
+                          <tr class="cursor-pointer" *ngFor="let item of listaPR; let i = index;">
                               <td>
                                   {{item.idrol.nombre}}
                               </td>

@@ -31,12 +31,14 @@ export class ModalIngenierosComponent implements OnInit {
     public ingeniero:Persona;
     public parametros:any={};
     public verNuevo:boolean = false;
-    public tiposroles:any;
+    public tiposroles:any=[];
     public rol: Rol;
     public idRol: number=0;
     public confirmarcambioestado:boolean=false;
     public listapersonaroles : any = [];
     public rolSelected: any ={};
+    //Para agregar Rol a listarNuevoModal
+    public mostrarRolResponsable:boolean = true;
 
     public listaPR:any = [];
 
@@ -57,6 +59,7 @@ export class ModalIngenierosComponent implements OnInit {
       }
 
     ngOnInit() {
+        this.traertiposrol();
         if(this.responsable){
               this.idRol =3;
         }
@@ -64,7 +67,6 @@ export class ModalIngenierosComponent implements OnInit {
             this.idRol = 7;
         }
         this.busqueda();
-        this.traertiposrol();
     }
 
     busqueda(): void {
@@ -89,7 +91,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
-        this.listaPR=[];
+        this.listaPR = this.listaPR && this.listaPR.length>0 ? this.listaPR : [];
     };
 
     guardarIngenieros(){
@@ -215,7 +217,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     listarIngenieros(){
       this.cargando= true;
-    this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
+      this.api.post('ingeniero/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
         .then(data => {
             if(data){
                 this.cargando = false;
@@ -233,6 +235,32 @@ export class ModalIngenierosComponent implements OnInit {
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.tiposroles = respuesta.extraInfo;
+                    if(this.responsable){
+                        this.idRol =3;
+                        let rolselect = this.tiposroles.find(item=> item.id == 3);
+                        let pr = {
+                            personarolPK:{
+                                idrol:rolselect.id,
+                                idpersona:this.ingeniero.id
+                            },
+                            estado:true,
+                            idrol:rolselect
+                        };
+                        this.listaPR.push(pr);
+                    }
+                    if(this.proveedores){
+                        this.idRol =7;
+                        let rolselect = this.tiposroles.find(item=> item.id == 7);
+                        let pr = {
+                            personarolPK:{
+                                idrol:rolselect.id,
+                                idpersona:this.ingeniero.id
+                            },
+                            estado:true,
+                            idrol:rolselect
+                        };
+                        this.listaPR.push(pr);
+                    }
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
                 }
@@ -263,9 +291,38 @@ export class ModalIngenierosComponent implements OnInit {
             } else {
                 this.listaPR.push(pr);
 
+
             }
         }, (reason) => {
         });
+    }
+
+    busquedaPorDni(dni) {
+        this.cargando = true;
+        this.vistaFormulario = true;
+        this.verNuevo = true;
+        this.apiRequest.post('ingeniero/validarDni', {dni: dni})
+            .then(respuesta => {
+                if (respuesta && respuesta.extraInfo) {
+                    this.ingeniero = respuesta.extraInfo;
+                    this.cargando = false;
+                    this.listaPR = this.ingeniero.personarolList && this.ingeniero.personarolList.length > 0 ? this.ingeniero.personarolList : [];
+                    if(this.responsable){
+                        this.mostrarRolResponsable = false;
+                    }
+                }
+                else {
+                    this.toastr.info(respuesta.operacionMensaje,"Informacion");
+                    this.vistaFormulario = true;
+                    this.cargando = false;
+                    this.ingeniero =new Persona();
+                    this.ingeniero.idubigeo = new Ubigeo();
+                    if(this.responsable){
+                        this.mostrarRolResponsable = true;
+                    }
+                } this.cargando = false;
+            })
+            .catch(err => this.handleError(err));
     }
 
   private handleError(error: any): void {
