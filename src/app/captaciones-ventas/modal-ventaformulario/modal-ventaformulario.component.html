@@ -8,65 +8,81 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Mantenimiento de Compra</h3>
+      <h3 class="h4">Mantenimiento de Venta</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
     <div class="card-body mr-2 ml-2">
       <form class="">
-        <p>La compra se esta realizando por <strong>{{authService.getNombrecompleto()}}</strong></p>
         <div class="form-group row">
+          <!--Consolidado-->
           <div class="card border-dark mb-3 col-sm-12">
             <div class="card-header">
-              Captador o comisionista
+              Consolidado
             </div>
             <div class="card-body">
               <div class="row">
-                <label class="col-sm-2 form-control-label">Captador:</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" name="camptador">
+                <label class="col-sm-1 form-control-label">Registro:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="registro">
                 </div>
-                <label class="col-sm-2 form-control-label">Comision:</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" name="captador">
+                <label class="col-sm-1 form-control-label">Vendedor:</label>
+                <div class="col-sm 7">
+                    <div class="input-group">
+                      <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                      <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-1 form-control-label">Status:</label>
+                <div class="col-sm-3">
+                  <select class="form-control">
+                    <option *ngFor="let statu of listaStatus">{{statu.nombre}}</option>
+                  </select>
+                </div>
+                <label class="col-sm-1 form-control-label">Elegible:</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="elegible">
+                </div>
+                <label class="col-sm-1 form-control-label">Programa:</label>
+                <div class="col-sm-3">
+                  <select class="form-control">
+                    <option></option>
+                  </select>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!--<div class="line"></div>-->
-        <div class="form-group row">
+          <!--Titular-->
           <div class="card col-sm-12 mb-3">
-            <div class="card-header">Propietario</div>
+            <div class="card-header">Titular</div>
             <div class="card-body">
               <div class="row">
                       <!--<input type="text" class="form-control" disabled [(ngModel)]="persona.nombre" name="idpersona" placeholder="Seleccione el ubigeo">-->
                       <div class="col-sm 6">
                         <label class="form-control-label">Persona:</label>
                           <div class="input-group">
-                          <label class="form-control">{{persona.nombre}} {{persona.apellido}}
-                          {{"-"}} {{persona.dni}}</label>
+                          <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
                           <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                           </div>
                       </div>
                     <div class="col-sm-6">
                       <label class="form-control-label">Estado Civil</label>
                       <select class="form-control">
-                        <option *ngFor="let est of lista">{{est.nombre}}</option>
+                        <option *ngFor="let est of listaEstados">{{est.nombre}}</option>
                       </select>
                     </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="line"></div>
-        <div class="form-group row">
+          <!--Conyuge / Carga Familiar-->
           <div class="card col-sm-12 mb-3">
             <div class="card-close mb-2">
-              <a id="closeCard2" class="btn-link cursor-pointer"  (click)="abrirModalPropietario()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+              <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
             </div>
-            <div class="card-header">Propietario / Relacion</div>
+            <div class="card-header">Conyuge / Carga Familiar</div>
             <div class="card-body">
               <div class="row">
                 <div class="table-responsive col-sm-12" >
@@ -80,17 +96,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
-                        <td>{{i+1}}</td>
-                        <td><label class="form-control">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
+                      <tr class="cursor-pointer">
+                        <td>#</td>
+                        <td>#</td>
                         <td width="320px">
                           <select class="form-control">
-                            <option *ngFor="let o of relacion">{{o.nombre}}</option>
+                            <option><!--{{ o.nombre}}--></option><!--*ngFor="let o of relacion"-->
                           </select>
                         </td>
                         <td style="width: 120px">
-                          <a><i class="fa fa-close text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
-
+                          <a><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                            <i class="fa fa-edit text-primary"></i>
                         </td>
                       </tr>
                     </tbody>
@@ -99,8 +115,7 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group row">
+          <!--Predio-->
           <div class="card col-sm-12 mb-3">
             <div class="card-header">Predio</div>
             <div class="card-body">
@@ -232,12 +247,34 @@
                   </ngb-tab>
                 </ngb-tabset>
               </div>
+              <hr/>
+              <div class="row">
+                <label class="col-sm-1 form-control-label">Precio:</label>
+                <div class="col-sm 7">
+                    <div class="input-group">
+                      <label class="form-control">{{precioTerreno}}</label>
+                      <button type="button" class="btn btn-primary"  (click)="abrirModalPrecios()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
+          <!---->
+          <!--<div class="card col-sm-12 mb-3">
+            <div class="card-close mb-2">
+              <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
+            <!--</div>
+            <div class="card-header">Conyuge / </div>
+            <div class="card-body">
+              <div class="row">
+
+              </div>
+            </div>
+          </div>-->
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" >Guardar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Aceptar</button>
+          <button type="button" class="btn btn-outline-dark">Cancelar</button>
         </div>
       </form>
     </div>

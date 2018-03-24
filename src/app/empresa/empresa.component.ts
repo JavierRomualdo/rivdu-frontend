@@ -7,6 +7,12 @@ import {ModalProgramasComponent} from "./modal-programas/modal-programas.compone
 import {ModalIngenierosComponent} from "./modal-ingenieros/modal-ingenieros.component";
 import {ModalSucursalesComponent} from "./modal-sucursales/modal-sucursales.component";
 import {ModalApoderadosComponent} from "./modal-apoderados/modal-apoderados.component";
+import {ConfirmacionComponent} from '../util/confirmacion/confirmacion.component';
+import {ApiRequestService} from '../servicios/api-request.service';
+import {ToastrService} from 'ngx-toastr';
+import {Persona} from '../entidades/entidad.persona';
+import {Programas} from '../entidades/entidad.programas';
+import {Ubigeo} from '../entidades/entidad.ubigeo';
 
 @Component({
   selector: 'app-empresa',
@@ -15,14 +21,25 @@ import {ModalApoderadosComponent} from "./modal-apoderados/modal-apoderados.comp
 })
 export class EmpresaComponent implements OnInit {
 
+     public confirmarcambioestado:boolean=false;
+     public cargando:boolean=false;
+    public programa:Programas[];
+    public  lista:any=[];
+    public vistaFormulario = false;
+    public verNuevo=false;
+
   constructor(
     public authService: AuthService,
     public router: Router,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private modal: NgbModal,
+    public auth: AuthService,
+    public toastr: ToastrService,
+    public api: ApiRequestService
   ) { }
 
   ngOnInit() {
-
+     this.listarprogramas();
   }
 
   abrirDatos():void{
@@ -60,4 +77,63 @@ export class EmpresaComponent implements OnInit {
     });
   }
 
-}
+  confirmarcambiodeestado(programa):void{
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoprograma(programa);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            programa.estado = !programa.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
+
+  listarprogramas(){
+        this.cargando=true;
+        this.api.get("programas/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.lista = respuesta.extraInfo;
+                    this.cargando=false;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                    this.cargando = false;
+                }
+            })
+            .catch(err => this.handleError(err));
+
+    };
+
+  traerParaEdicion(id){
+        const modalRef = this.modal.open(ModalProgramasComponent, {size: 'sm', keyboard: false});
+        modalRef.componentInstance.edit = id;
+        modalRef.result.then((result) => {
+            //this.cambiarestadoprograma(this.programa);
+        }, (reason) => {
+        });
+    }
+
+  cambiarestadoprograma(programa){
+        this.cargando = true;
+        return this.api.post('programas/eliminar', {id:programa.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarprogramas();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+  private handleError(error: any): void {
+        this.toastr.error("Error Interno", 'Error');
+        this.cargando = false;
+    }
+
+  }
