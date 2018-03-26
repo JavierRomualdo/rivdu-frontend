@@ -31,6 +31,7 @@ export class ModalCompraformularioComponent implements OnInit {
   public predio:Predio;
   public compra:Compra;
   public todocompra:Savecompradto;
+  public listacompra:Savecompradto;
   public persona:Persona;
   public idpersona:Persona;
   public relacionPropietario:Personacompra[]=[];
@@ -50,6 +51,7 @@ export class ModalCompraformularioComponent implements OnInit {
       this.compra= new Compra();
       this.predio= new Predio();
       this.todocompra = new Savecompradto();
+      this.listacompra= new Savecompradto();
   }
 
   ngOnInit() {
@@ -73,6 +75,7 @@ export class ModalCompraformularioComponent implements OnInit {
             this.cargando = false;
     };
 
+
   guardarCompra(){
       this.todocompra.personacompra=this.relacionPropietario;
       this.todocompra.personacompra2=this.personacompra2;
@@ -91,7 +94,8 @@ export class ModalCompraformularioComponent implements OnInit {
           })
           .catch(err => this.handleError(err));
 
-  }
+  };
+
   listarRelacionParentesco(){
         this.cargando = true;
         this.api.get("relacion/listar")
