@@ -56,12 +56,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="cursor-pointer" ><!--(click)="abrirCaptadores()"-->
-                  <th scope="row">1</th>
-                  <td>Saulo Gomez</td>
+                <tr class="cursor-pointer" *ngFor="let o of listacompra; let i=index"><!--(click)="abrirCaptadores()"-->
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{o.titular.nombre}}</td>
                   <td>LIB-562-13-3-17</td>
-                  <td>48047084</td>
-                  <td class="opcion"><i class="fa fa-trash"></i></td>
+                  <td>Nosale</td>
+                  <td class="opcion"  (click)="listarcompras()"><i class="fa fa-trash"></i></td>
                 </tr>
                 </tbody>
               </table>
