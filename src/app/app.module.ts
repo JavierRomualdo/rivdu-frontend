@@ -42,9 +42,13 @@ import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ven
 import { CargandoComponent } from './util/cargando/cargando.component';
 import { MomentModule } from 'angular2-moment';
 import { ConfirmacionComponent } from './util/confirmacion/confirmacion.component';
+import { ModalCompraformularioComponent } from './captaciones-compras/modal-compraformulario/modal-compraformulario.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
-
+import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
+import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
+import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +83,12 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
     CaptacionesProyectosComponent,
     CaptacionesVentasComponent,
     CargandoComponent,
-    ModalRolComponent
+    ModalCompraformularioComponent,
+    ModalRolComponent,
+    ModalVentaformularioComponent,
+    ModalPreciosComponent,
+    CaptacionesExpedientesComponent,
+    ListaProgramasComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -101,7 +110,11 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
     ModalCuentasComponent,
     ModalGerenteComponent,
     ConfirmacionComponent,
-      ModalRolComponent
+    ModalCompraformularioComponent,
+    ModalVentaformularioComponent,
+    ModalPreciosComponent,
+    ModalRolComponent,
+    ListaProgramasComponent
   ],
   imports: [
     NgbModule.forRoot(),

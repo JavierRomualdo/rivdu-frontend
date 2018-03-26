@@ -151,7 +151,7 @@ export class ModalEstadocivilComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-    }
+    };
 
     editarestado(li):void{
         this.clickeditar=true;

@@ -10,9 +10,11 @@ import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mante
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppComponent } from './app.component';
 import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
 
 const routes: Routes = [
-	{ path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'welcome',
     component: WelcomeComponent,
@@ -41,25 +43,33 @@ const routes: Routes = [
       },
       {
         path: 'captcomp',
-        component:CaptacionesComprasComponent
+        component: CaptacionesComprasComponent
+      },
+      {
+        path: 'captvent',
+        component: CaptacionesVentasComponent
+      },
+      {
+        path: 'captexpe',
+        component: CaptacionesExpedientesComponent
       }
     ]
   },
-	{ path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
+  { path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forRoot(
-			routes,
-			{
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
         useHash : true
-			}
-		)
-	],
-	exports: [
-		RouterModule
-	],
-	providers: []
+      }
+    )
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: []
 })
 export class AppRouterModule { }

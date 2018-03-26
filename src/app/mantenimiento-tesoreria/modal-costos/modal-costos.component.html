@@ -1,3 +1,93 @@
-<p>
-  modal-costos works!
-</p>
+<div class="">
+  <div class="card mb-0">
+    <div class="card-close">
+      <div class="dropdown">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="h4">Mantenimiento de Centros de Costos</h3>
+    </div>
+    <div *ngIf="cargando">
+      <app-cargando></app-cargando>
+    </div>
+    <div class="card-body pb-0">
+      <div *ngIf="!cargando && !vistaFormulario" class="form-horizontal" style="padding: 2px">
+        <section class="tables pt-0 pb-0">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-close mb-2">
+                    <a id="closeCard2" class="btn-link cursor-pointer"   (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+                  </div>
+                  <div class="card-header d-flex align-items-center">
+                    <h3 class="h4">Centros de Costos</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Detalle</th>
+                          <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr class="cursor-pointer" *ngFor="let o of costos;let i=index">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{o.detalle}}</td>
+                          <td style="width: 140px">
+                            <ui-switch size="small"[(ngModel)]="o.estado" name="estado" (click)="confirmarcambiodeestado(o)">estado</ui-switch>
+                            <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>s
+        </section>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Ok</button>
+        </div>
+      </div>
+      <div *ngIf="vistaFormulario && !cargando">
+        <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarCostos()">
+          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
+            <h5 class="h4" align="left">Nueva Costo </h5>
+          </div>
+          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
+            <h5 class="h4" align="left">Editando Costo </h5>
+          </div>
+          <div class="pt-3">
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
+              <div class="col-sm-9" >
+                <ui-switch *ngIf="costo.id" [(ngModel)]="costo.estado" name="estado">estado</ui-switch>
+                <ui-switch *ngIf="!costo.id"  [checked]="true"  name="estado1">estado</ui-switch>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Detalle Costo</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="nombre" required="" placeholder="Ingrese el nombre del banco" maxlength="100" [(ngModel)]="costo.detalle">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" *ngIf="!costo.id" [disabled]="!formulario.form.valid" >Guardar</button>
+              <button type="submit" class="btn btn-primary" *ngIf="costo.id" [disabled]="!formulario.form.valid">Actualizar</button>
+              <button type="button" class="btn btn-outline-dark" (click)="vistaFormulario = false">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

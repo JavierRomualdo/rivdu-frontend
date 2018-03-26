@@ -17,32 +17,32 @@
     </div>
 
     <div *ngIf="!cargando" class="card-body pb-0">
-      <form class="form-horizontal">
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Nombre</label>
-          <div class="col-sm-9">
-            <input  maxlength="50" type="text" class="form-control" name="nombre" [(ngModel)]="programa.nombre">
-          </div>
-        </div>
+      <form *ngIf="!cargando " class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarProgramas()">
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Codigo</label>
           <div class="col-sm-9">
-            <input maxlength="15" type="text" class="form-control" name="codigo" [(ngModel)]="programa.codigoet" ><small class="help-block-none">Este atributo es fundamental, se recomienda no cambiarlo.</small>
+            <input maxlength="15" type="text" class="form-control" name="codigo" required [maxlength]="10" [(ngModel)]="programa.codigoet" ><small class="help-block-none">Este atributo es fundamental, se recomienda no cambiarlo.</small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Nombre</label>
+          <div class="col-sm-9">
+            <input  maxlength="50" type="text" class="form-control" name="nombre" required [maxlength]="20" [(ngModel)]="programa.nombre">
           </div>
         </div>
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Max. Valor terreno</label>
           <div class="col-sm-9">
-            <input maxlength="19" type="number" name="maximovalor" [(ngModel)]="programa.maximovalor" class="form-control">
+            <input maxlength="19" type="number" name="maximovalor" required [maxlength]="10" [(ngModel)]="programa.maximovalor" class="form-control">
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Importe Bono Familiar</label>
           <div class="col-sm-9">
-            <input   maxlength="19" type="number" name="importe" [(ngModel)]="programa.importe" class="form-control">
+            <input   maxlength="19" type="number" name="importe" required [(ngModel)]="programa.importe" class="form-control">
           </div>
         </div>
         <div class="line"></div>
@@ -51,10 +51,10 @@
           <div class="col-sm-9">
             <div class="row">
               <div class="col-md-6">
-                <input maxlength="20" type="text" [(ngModel)]="programa.correlativocontrato1" class="form-control" name="manzana">
+                <input maxlength="20" type="text" required [(ngModel)]="programa.correlativocontrato1" class="form-control" name="manzana">
               </div>
               <div class="col-md-6">
-                <input maxlength="20" type="text" [(ngModel)]="programa.correlativocontrato2" class="form-control" name="lote">
+                <input maxlength="20" type="text" required [(ngModel)]="programa.correlativocontrato2" class="form-control" name="lote">
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-close mb-2">
-                    <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Agregar a programa</a>
+                    <a id="closeCard2" (click)="abrirIngenieros()"  class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Agregar a programa</a>
                   </div>
                   <div class="card-header d-flex align-items-center">
                     <h3 class="h4">Ingenieros</h3>
@@ -77,16 +77,28 @@
                           <tr>
                             <th>#</th>
                             <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Roles</th>
                             <th>Codigo</th>
-                            <th>Dni</th>
+                            <th>Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="cursor-pointer">
-                            <th scope="row">1</th>
-                            <td>Marcos Cruzado</td>
-                            <td>18032</td>
-                            <td>45443457</td>
+                          <tr class="cursor-pointer" *ngFor="let item of listaRP; let i = index;"  >
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{ item.idpersona.nombre}} {{item.idpersona.apellido}}</td>
+                            <td>{{item.idpersona.dni}}</td>
+                            <td >
+                              <select class="form-control"  required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol">
+                                 <option [ngValue]="prol.idrol" *ngFor="let prol of item.idpersona.personarolList" >{{prol.idrol.nombre}}</option>
+                              </select>
+                            </td>
+                            <td >
+                              <input type="number" [(ngModel)]="item.codigocip" maxlength="10" required name="cod-{{i}}" >
+                            </td>
+                            <td >
+                              <a (click)="quitarresposable(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -103,7 +115,7 @@
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-close mb-2">
-                    <a id="closeCard1" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
+                    <a id="closeCard1" (click)="abrirEspecificaciones()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
                   </div>
                   <div class="card-header d-flex align-items-center">
                     <h3 class="h4">Especificaciones Técnicas</h3>
@@ -119,16 +131,18 @@
                           <th>Especificaciones</th>
                           <th>*</th>
                           <th>Valor M2</th>
+                          <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                          <tr class="cursor-pointer">
-                            <th scope="row">1</th>
-                            <td>Estructura</td>
-                            <td>Muros y columnas</td>
-                            <td>PLACA DE CONCRETO ALBAÑILERIA ARMADA LADRILLO O SIMILAR CON COLUMNAS Y VIGAS</td>
-                            <td>C</td>
-                            <td>190.57</td>
+                          <tr class="cursor-pointer" *ngFor="let item1 of listaET; let i = index;" >
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item1.idespecificacion.idestructura.nombre}}</td>
+                            <td>{{item1.idespecificacion.etapa}}</td>
+                            <td>{{item1.idespecificacion.especificaciones}}</td>
+                            <td>{{item1.idespecificacion.categoria}}</td>
+                            <td>{{item1.idespecificacion.valorm2}}</td>
+                            <td><a (click)="quitarespecificacion(item1)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a></td>
                           </tr>
                         </tbody>
                       </table>
@@ -140,7 +154,8 @@
           </div>
         </section>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarProgramas()">Aceptar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!programa.id" [disabled]="!formulario.form.valid">Aceptar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="programa.id" [disabled]="!formulario.form.valid">Actualizar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>

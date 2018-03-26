@@ -183,6 +183,9 @@ export class ModalEspecificacionesComponent implements OnInit {
           this.especificacion.valorm2 = 0;
       }
   }
+    elegirEspecificacion(o){
+        this.activeModal.close(o);
+    };
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
     this.cargando =false;
