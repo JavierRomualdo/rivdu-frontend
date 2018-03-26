@@ -15,62 +15,59 @@
     </div>
     <div class="card-body mr-2 ml-2">
       <form class="">
-        <p>La compra se esta realizando por <strong>{{authService.getNombrecompleto()}}</strong></p>
-        <div class="form-group row">
+        <div class="card border-dark mb-3 col-sm-12">
+          <div class="card-body text-center">
+            <b>La compra se esta realizando por {{authService.getNombrecompleto()}}</b>
+          </div>
+        </div>
+        <div>
+          <h6>CAPTADOR O COMISIONISTA</h6>
           <div class="card border-dark mb-3 col-sm-12">
-            <div class="card-header">
-              Captador o comisionista
-            </div>
             <div class="card-body">
               <div class="row">
-                <label class="col-sm-2 form-control-label">Captador:</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" name="camptador">
+                <div class="col-sm-6">
+                  <label class="form-control-label">Captador:</label>
+                  <input type="text" class="form-control form-control-sm" name="camptador">
                 </div>
-                <label class="col-sm-2 form-control-label">Comision:</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" name="captador">
+                <div class="col-sm-6">
+                  <label class="form-control-label">Comision:</label>
+                  <input type="text" class="form-control form-control-sm" name="captador">
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!--<div class="line"></div>-->
-        <div class="form-group row">
+        <div>
+          <h6>PROPIETARIO</h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-header">Propietario</div>
             <div class="card-body">
               <div class="row">
-                      <!--<input type="text" class="form-control" disabled [(ngModel)]="persona.nombre" name="idpersona" placeholder="Seleccione el ubigeo">-->
-                      <div class="col-sm 6">
-                        <label class="form-control-label">Persona:</label>
-                          <div class="input-group">
-                          <label class="form-control">{{persona.nombre}} {{persona.apellido}}
-                          {{"-"}} {{persona.dni}}</label>
-                          <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
-                          </div>
-                      </div>
-                    <div class="col-sm-6">
-                      <label class="form-control-label">Estado Civil</label>
-                      <select class="form-control">
-                        <option *ngFor="let est of lista">{{est.nombre}}</option>
-                      </select>
+                <div class="col-sm 6">
+                  <label class="form-control-label">Persona:</label>
+                    <div class="input-group">
+                      <label class="form-control form-control-sm">{{persona.nombre}} {{persona.apellido}} {{"-"}} {{persona.dni}}</label>
+                      <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                     </div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-control-label">Estado Civil</label>
+                  <select class="form-control form-control-sm">
+                    <option *ngFor="let est of lista">{{est.nombre}}</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="line"></div>
-        <div class="form-group row">
+        <div>
+          <h6>PROPIETARIO / RELACION
+            <a id="closeCard2" style="float:right;" class="btn-link cursor-pointer" (click)="abrirModalPropietario()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+          </h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-close mb-2">
-              <a id="closeCard2" class="btn-link cursor-pointer"  (click)="abrirModalPropietario()"><i class="fa fa-plus-circle"></i> Nuevo</a>
-            </div>
-            <div class="card-header">Propietario / Relacion</div>
             <div class="card-body">
               <div class="row">
                 <div class="table-responsive col-sm-12" >
-                  <table class="table table-striped" id="tabla1">
+                  <table class="table table-striped table-bordered table-sm" id="tabla1">
                     <thead>
                       <tr>
                         <th >#</th>
@@ -83,14 +80,13 @@
                       <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
                         <td>{{i+1}}</td>
                         <td><label class="form-control">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
-                        <td width="320px">
-                          <select class="form-control">
+                        <td>
+                          <select class="form-control form-control-sm">
                             <option *ngFor="let o of relacion">{{o.nombre}}</option>
                           </select>
                         </td>
-                        <td style="width: 120px">
-                          <a><i class="fa fa-close text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
-
+                        <td style="width: 30px;">
+                          <a><i class="fa fa-close fa-2x text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
                         </td>
                       </tr>
                     </tbody>
@@ -100,9 +96,9 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div>
+          <h6>PREDIO</h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-header">Predio</div>
             <div class="card-body">
               <div class="row">
                 <ngb-tabset class="col-sm-12">
@@ -110,44 +106,44 @@
                     <ng-template ngbTabContent>
                       <br/>
                       <div class="row">
-                        <label class="col-sm-2 form-control-label">Partida:</label>
-                        <div class="col-sm-4">
-                          <input type="text" class="form-control" name="partida" placeholder="Ingrese partida">
+                        <div class="col-sm-6">
+                          <label class="form-control-label">Partida:</label>
+                          <input type="text" class="form-control form-control-sm" name="partida" placeholder="Ingrese partida" [(ngModel)]="predio.partida">
                         </div>
-                        <label class="col-sm-2 form-control-label">Ubigeo:</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <div class="input-group">
-                                  <input type="text" class="form-control" disabled [(ngModel)]="ubigeo.nombre" name="idubigeo" placeholder="Seleccione el ubigeo">
-                                  <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
-                                  </div>
+                              <label class="form-control-label">Ubigeo:</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" disabled [(ngModel)]="ubigeo.nombre" name="idubigeo" placeholder="Seleccione el ubigeo">
+                                <div class="input-group-append">
+                                  <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
                                 </div>
                               </div>
+                            </div>
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-2 form-control-label">Ubicacion</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese ubicacion">
+                        <div class="col-sm-12">
+                          <label class="form-control-label">Ubicacion</label>
+                          <input type="text" class="form-control form-control-sm" name="ubicacion" placeholder="Ingrese ubicacion" [(ngModel)]="predio.ubicacion">
                         </div>
                       </div><br/>
                       <div class="row">
-                        <label class="col-sm-1 form-control-label">Mz:</label>
-                        <div class="col-sm-1">
-                          <input type="text" class="form-control" name="mz" placeholder="Mz.">
+                        <div class="col-sm-2">
+                          <label class="form-control-label">Mz:</label>
+                          <input type="text" class="form-control form-control-sm" name="mz" placeholder="Mz." [(ngModel)]="predio.mz">
                         </div>
-                        <label class="col-sm-1 form-control-label">Lote:</label>
-                        <div class="col-sm-1">
-                          <input type="text" class="form-control" name="lote" placeholder="Lote">
+                        <div class="col-sm-2">
+                          <label class="form-control-label">Lote:</label>
+                          <input type="text" class="form-control form-control-sm" name="lote" placeholder="Lote"[(ngModel)]="predio.lote">
                         </div>
-                        <label class="col-sm-1 form-control-label">SubLote:</label>
-                        <div class="col-sm-1">
-                          <input type="text" class="form-control" name="sublote" placeholder="Sub">
+                        <div class="col-sm-2">
+                          <label class="form-control-label">SubLote:</label>
+                          <input type="text" class="form-control form-control-sm" name="sublote" placeholder="Sub" [(ngModel)]="predio.sublote">
                         </div>
-                        <label class="col-sm-1 form-control-label">Frente</label>
-                        <div class="col-sm-5">
-                          <input type="text" class="form-control" name="frente" placeholder="Frente">
+                        <div class="col-sm-6">
+                          <label class="form-control-label">Frente</label>
+                          <input type="text" class="form-control form-control-sm" name="frente" placeholder="Frente" [(ngModel)]="predio.frente">
                         </div>
                       </div>
                     </ng-template>
@@ -236,7 +232,7 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" >Guardar</button>
+        <button type="submit" class="btn btn-primary" (click)="guardarCompra()">Guardar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>

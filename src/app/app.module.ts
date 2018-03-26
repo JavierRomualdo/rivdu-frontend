@@ -47,6 +47,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
 import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
+import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
     ModalCompraformularioComponent,
     ModalRolComponent,
     ModalVentaformularioComponent,
-    ModalPreciosComponent
+    ModalPreciosComponent,
+    CaptacionesExpedientesComponent,
+    ListaProgramasComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -109,7 +113,8 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
-    ModalRolComponent
+    ModalRolComponent,
+    ListaProgramasComponent
   ],
   imports: [
     NgbModule.forRoot(),

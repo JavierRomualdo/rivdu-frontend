@@ -12,4 +12,5 @@ export class Savecompradto{
     servicios: Servicio [];
     captador: Captador;
     personacompra: Personacompra [];
+    personacompra2: Personacompra [];
 }
