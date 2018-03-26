@@ -35,7 +35,6 @@ export class ModalCompraformularioComponent implements OnInit {
   public idpersona:Persona;
   public relacionPropietario:Personacompra[]=[];
 
-
   constructor(
     public activeModal: NgbActiveModal,
     public authService: AuthService,
@@ -85,9 +84,6 @@ export class ModalCompraformularioComponent implements OnInit {
                   this.todocompra = respuesta.extraInfo;
                   this.toastr.success("Registro guardado exitosamente", 'Exito');
                   this.cargando = false;
-                  //this.listado = true;
-                  //this.listarCuentas();
-                  //this.vistaFormulario = false;
               } else {
                   this.cargando=false;
                   this.toastr.error(respuesta.operacionMensaje, 'Error');
@@ -126,17 +122,15 @@ export class ModalCompraformularioComponent implements OnInit {
 
   quitarPropietario(o){
         this.relacionPropietario.splice(this.relacionPropietario.indexOf(o),1);
-    }
-      //this.relacionPropietario =[];
-      //this.productos.splice(this.productos.indexOf(producto),1);
+  };
+
   abrirModalPersona():void{
       const modalRef = this.modal.open(ModalIngenierosComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             for(let  i=0 ; i < this.relacionPropietario.length; i++){
                 if(this.relacionPropietario[i].idpersona.id ==result.id){
-                    this.toastr.warning("Persona ya se encuentra seleccionada");
+                    this.toastr.warning("Persona ya se encuentra seleccionada.", "Aviso");
                 }else{
-                    //this.persona = result;
                     let personaCompra2 =new Personacompra();
                     personaCompra2.id = null;
                     personaCompra2.idpersona = result;
@@ -154,10 +148,8 @@ export class ModalCompraformularioComponent implements OnInit {
                 this.persona=this.personacompra2[0].idpersona;
             }
             this.auth.agregarmodalopenclass();
-            console.log("Ha sido cerrado "+result);
         }, (reason) => {
             console.log("Ha sido cerrado "+reason);
-            this.auth.agregarmodalopenclass();
         });
     };
 
@@ -165,7 +157,7 @@ export class ModalCompraformularioComponent implements OnInit {
         const modalRef = this.modal.open(ModalIngenierosComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             if(result.id==this.persona.id || this.validarRepetidos(result)){
-               this.toastr.warning("No se puede apilar");
+               this.toastr.warning("Esta persona ha sido elegida como el titular de la compra");
             }else{
                 let relacionPropietario = new Personacompra();
                 relacionPropietario.id=null;
@@ -174,9 +166,7 @@ export class ModalCompraformularioComponent implements OnInit {
                 this.relacionPropietario.push(relacionPropietario);
             }
             this.auth.agregarmodalopenclass();
-            console.log("Ha sido cerrado "+result);
         }, (reason) => {
-            console.log("Ha sido cerrado "+reason);
             this.auth.agregarmodalopenclass();
         });
     };
@@ -185,7 +175,6 @@ export class ModalCompraformularioComponent implements OnInit {
         var rpt =false;
         for(let i= 0; i < this.relacionPropietario.length; i++){
             if(this.relacionPropietario[i].idpersona.id == result.id){
-                this.toastr.warning("Esta persona ya esta seleccionada");
                 rpt= true;
                 return rpt;
             }
@@ -198,9 +187,7 @@ export class ModalCompraformularioComponent implements OnInit {
       modalRef.result.then((result) => {
           this.ubigeo = result;
           this.auth.agregarmodalopenclass();
-          console.log("Ha sido cerrado "+result);
       }, (reason) => {
-          console.log("Ha sido cerrado "+reason);
           this.auth.agregarmodalopenclass();
       });
     };

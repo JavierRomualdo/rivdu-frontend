@@ -11,6 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AppComponent } from './app.component';
 import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-compras.component';
 import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'captvent',
         component: CaptacionesVentasComponent
+      },
+      {
+        path: 'captexpe',
+        component: CaptacionesExpedientesComponent
       }
     ]
   },
