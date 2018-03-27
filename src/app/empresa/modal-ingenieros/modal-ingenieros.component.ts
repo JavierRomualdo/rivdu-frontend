@@ -39,6 +39,8 @@ export class ModalIngenierosComponent implements OnInit {
     public rolSelected: any ={};
     //Para agregar Rol a listarNuevoModal
     public mostrarRolResponsable:boolean = true;
+    //para limpiar el campo de rol
+    public ver:boolean =true;
 
     public listaPR:any = [];
 
@@ -82,7 +84,13 @@ export class ModalIngenierosComponent implements OnInit {
     limpiar():void{
         this.nombre ="";
         this.dni = "";
-        this.parametros ={};
+        this.parametros = {
+            "dni":null,
+            "nombre":null,
+            "idrol":0
+        };
+        this.idRol = null;
+        this.ver = false;
         this.listarIngenieros();
     };
 
