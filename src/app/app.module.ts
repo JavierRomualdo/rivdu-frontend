@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { AppRouterModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -47,6 +48,21 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
 import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
+import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
+
+import {SidebarModule} from 'primeng/sidebar';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {TableModule} from 'primeng/table';
+import {TreeTableModule} from 'primeng/treetable';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {TreeNode} from 'primeng/api';
+import {NodeService} from './servicios/node.service';
+
+import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
+import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
+import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +100,12 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
     ModalCompraformularioComponent,
     ModalRolComponent,
     ModalVentaformularioComponent,
-    ModalPreciosComponent
+    ModalPreciosComponent,
+    CaptacionesExpedientesComponent,
+    ListaProgramasComponent,
+    ExpedientesComprasComponent,
+    ExpedientesProyectosComponent,
+    ExpedientesVentasComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -109,7 +130,8 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
-    ModalRolComponent
+    ModalRolComponent,
+    ListaProgramasComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -121,15 +143,23 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MomentModule,
-    UiSwitchModule
+    UiSwitchModule,
+    SidebarModule,
+    ButtonModule,
+    DialogModule,
+    TableModule,
+    TreeTableModule,
+    ContextMenuModule
   ],
   providers: [
     AppConfig,
     AuthService,
     HomeService,
+    HttpClient,
     ApiRequestService,
     AuthGuardService,
-    NgbActiveModal
+    NgbActiveModal,
+    NodeService
   ],
   bootstrap: [AppComponent]
 })
