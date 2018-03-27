@@ -4,6 +4,9 @@ import { ModalLaboresComponent } from './modal-labores/modal-labores.component'
 import { ModalMaterialesComponent } from "./modal-materiales/modal-materiales.component";
 import { ModalProveedoresComponent } from "./modal-proveedores/modal-proveedores.component";
 import { ModalResponsablesComponent } from "./modal-responsables/modal-responsables.component";
+import {ModalIngenierosComponent} from "../empresa/modal-ingenieros/modal-ingenieros.component";
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 @Component({
   selector: 'app-mantenimiento-construccion',
@@ -17,17 +20,11 @@ export class MantenimientoConstruccionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  }
 
-  abrirProveedores():void{
-    const modalRef = this.modalService.open(ModalProveedoresComponent, {size: 'lg', keyboard: false});
-    modalRef.result.then((result) => {
-    }, (reason) => {
-    });
   }
-
-  abrirResponsables():void{
-    const modalRef = this.modalService.open(ModalResponsablesComponent, {size: 'lg', keyboard: false});
+  abrirResponsables(): void {
+    const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'lg', keyboard: false});
+    modalRef.componentInstance.responsable = true;
     modalRef.result.then((result) => {
     }, (reason) => {
     });

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { AppRouterModule } from './app-routing.module';
@@ -162,6 +162,7 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     HttpClient,
     ApiRequestService,
     AuthGuardService,
+    NgbActiveModal,
     NodeService
   ],
   bootstrap: [AppComponent]

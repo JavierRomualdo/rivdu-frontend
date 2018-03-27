@@ -3,6 +3,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiRequestService} from '../../servicios/api-request.service';
 import {ToastrService} from 'ngx-toastr';
 import {Responsable} from '../../entidades/entidad.responsable';
+import {ModalEstadocivilComponent} from "../../mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component";
 
 @Component({
   selector: 'app-modal-responsables',
@@ -19,16 +20,20 @@ export class ModalResponsablesComponent implements OnInit {
 
     public responsable:Responsable;
 
-  constructor(public activeModal: NgbActiveModal, public api: ApiRequestService,
-              public toastr: ToastrService, public modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal,
+              public api: ApiRequestService,
+              public toastr: ToastrService,
+              public modal: NgbModal,
+              private modalService: NgbModal) {
     this.responsable = new Responsable();
+
 
   }
 
   ngOnInit() {
   }
 
-    listarModalResponsable(){
+  /*  listarModalResponsable(){
         this.cargando=true;
         this.api.get("responsable/listar")
             .then(respuesta => {
@@ -45,8 +50,10 @@ export class ModalResponsablesComponent implements OnInit {
     };
 
     abriNuevoModalNuevo(){
-        this.clicknuevo=true;
-        this.cambiartitulo=true;
+        const modalRef = this.modalService.open(ModalEstadocivilComponent, {size: 'lg', keyboard: false});
+        modalRef.result.then((result) => {
+        }, (reason) => {
+        });
 
     };
 
@@ -77,6 +84,7 @@ export class ModalResponsablesComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
+*/
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
