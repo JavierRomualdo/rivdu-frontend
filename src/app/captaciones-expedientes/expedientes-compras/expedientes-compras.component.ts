@@ -126,7 +126,8 @@ export class ExpedientesComprasComponent implements OnInit {
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'persona', header: 'Nombre' },
-      { field: 'fecharegistro', header: 'Fecha' }
+      { field: 'fecharegistro', header: 'Fecha Alta' },
+      { field: 'fechacompra', header: 'Fecha Transferencia' }
     ];
   }
 
