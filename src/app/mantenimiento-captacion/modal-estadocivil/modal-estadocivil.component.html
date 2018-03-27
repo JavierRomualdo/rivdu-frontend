@@ -1,4 +1,4 @@
-<div class="">
+ <div class="">
   <div class="card mb-0">
     <div class="card-close">
       <div class="dropdown">
@@ -30,7 +30,7 @@
                   </div>
                   <!--<P> Div Listado de EstadosCiviles</P>-->
                   <div *ngIf="!cargando"   class="card-body">
-                    <div class="table-responsive" >
+                    <div class="table-responsive pt-3" >
                       <table class="table table-striped" id="tabla1">
                         <thead>
                         <tr>
@@ -45,7 +45,7 @@
                           <td>{{li.nombre}}</td>
                           <td style="width: 120px">
                             <ui-switch size="small"[(ngModel)]="li.estado" name="estado-{{i}}" (click)="confirmarcambiodeestado(li)">estado</ui-switch>
-                            <a (click)="traerParaEdicion(li.id)"><i class="fa fa-edit text-primary" ></i></a>
+                            <a (click)="traerParaEdicion(li.id)"><i class="fa fa-edit fa-2x text-primary" ></i></a>
                           </td>
                         </tr>
                         </tbody>
@@ -72,8 +72,8 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarestado()" >Guardar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" (click)="guardarestado()">Guardar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>
       <!-- Formulario Editar  Estado civil -->
@@ -87,8 +87,8 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarestado()"  >Actualizar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="abrirlistado()">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" (click)="guardarestado()">Actualizar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="abrirlistado()">Cancelar</button>
         </div>
       </form>
     </div>
