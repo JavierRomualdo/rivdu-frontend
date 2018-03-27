@@ -31,7 +31,7 @@
                             <div class="input-group">
                         <input type="text" class="form-control" placeholder="Busque por codigo" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
                         <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="150" id="cdescr" name="cdscor" required>
-                        <select class="form-control" placeholder="Filtrar por Rol" style="height: calc(2.5rem);" id="catbus" name="catbus"  required="" name="tiporol"  [(ngModel)]="idRol"  placeholder="Filtrar por Rol" [disabled] = "responsable || proveedores || !captador">
+                        <select class="form-control" placeholder="Filtrar por Rol" style="height: calc(2.5rem);" id="catbus" name="catbus"  required="" name="tiporol"  [(ngModel)]="idRol"  placeholder="Filtrar por Rol" [disabled] = "responsable || proveedores || captadores">
                           <option [ngValue]="tip.id" *ngFor="let tip of tiposroles"  >{{tip.nombre}}</option>
                         </select>
                         <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>

@@ -89,15 +89,50 @@ export class ModalIngenierosComponent implements OnInit {
     limpiar():void{
         this.nombre ="";
         this.dni = "";
-        this.parametros = {
-            "dni":null,
-            "nombre":null,
-            "idrol":0
+        this.nombre ="";
+        this.dni = "";
+        if (this.idRol == 2){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":2
+            };
+            this.idRol = 2;
+            this.ver = false;
+            this.listarIngenieros();
+        }
+        if (this.idRol == 3){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":3
+            };
+            this.idRol = 3;
+            this.ver = false;
+            this.listarIngenieros();
+        }
+        if (this.idRol == 7){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":7
+            };
+            this.idRol = 7;
+            this.ver = false;
+            this.listarIngenieros();
+        }else{
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":0
+            };
+            this.idRol = null;
+            this.ver = false;
+            this.listarIngenieros();
         };
-        this.idRol = null;
-        this.ver = false;
-        this.listarIngenieros();
-    };
+        }
+
+
 
     nuevo(){
         this.vistaFormulario=true;
