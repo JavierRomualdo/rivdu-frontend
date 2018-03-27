@@ -60,6 +60,7 @@ import {ContextMenuModule} from 'primeng/contextmenu';
 import {TreeNode} from 'primeng/api';
 import {NodeService} from './servicios/node.service';
 import {PaginatorModule} from 'primeng/paginator';
+import {TreeModule} from 'primeng/tree';
 
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
@@ -151,7 +152,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     TableModule,
     TreeTableModule,
     ContextMenuModule,
-    PaginatorModule
+    PaginatorModule,
+    TreeModule
   ],
   providers: [
     AppConfig,

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <p-table [columns]="cols" [value]="listacompra" dataKey="name" [paginator]="true" [rows]="10">
+          <p-table [columns]="cols" [value]="listacompra" dataKey="name">
             <ng-template pTemplate="caption1">
               <div style="text-align: center">
                 Compras
@@ -17,52 +17,50 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
               <tr>
-                <th style="width: 2.25em"></th>
+                <th style="width: 3.25em"></th>
                 <th *ngFor="let col of columns">
                   {{col.header}}
                 </th>
+                <th style="width: 90px">Opciones</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
               <tr>
                 <td>
                   <a href="#" [pRowToggler]="rowData">
-                    <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                    <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down fa-2x' : 'fa fa-fw fa-chevron-circle-right fa-2x'"></i>
                   </a>
                 </td>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
+                <td style="width:90px;">
+                  <i class="fa fa-edit fa-2x text-primary cursor-pointer"></i>
+                </td>
               </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
               <tr>
-                <td [attr.colspan]="columns.length + 1">
-                  <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                    <p-treeTable [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm">
-                      <p-column field="name" header="Name"></p-column>
-                      <p-column field="size" header="Size"></p-column>
-                      <p-column field="type" header="Type"></p-column>
-                    </p-treeTable>
+                <td [attr.colspan]="columns.length + 2">
+                  <div class="ui-g ui-fluid text-center" style="font-size:16px;padding:20px">
+                    
+                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
                     <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+                    <p-contextMenu #cm [model]="items"></p-contextMenu>
+
                   </div>
                 </td>
               </tr>
             </ng-template>
           </p-table>
-          <p-paginator [rows]="10" totalRecords="paginacion.totalRegistros" pageLinkSize="3" (onPageChange)="paginate($event)"></p-paginator>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-6 table-responsive">
-            <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="busqueda()"></ngb-pagination>
-          </div>
-          <div class="col-md-6 text-right pr-3">
-            <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
-          </div>
+          <p-paginator [rows]="10" totalRecords="paginacion.totalRegistros" pageLinkSize="3" (onPageChange)="busqueda()"></p-paginator>
         </div>
       </div>
     </div>
   </div>
 </section>
+<p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+
