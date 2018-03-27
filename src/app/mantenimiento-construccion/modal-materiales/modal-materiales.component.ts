@@ -77,6 +77,7 @@ export class ModalMaterialesComponent implements OnInit {
 
     };
 
+
     abriNuevoModalNuevo(){
         this.vistaFormulario=true;
         this.cambiartitulo=true;

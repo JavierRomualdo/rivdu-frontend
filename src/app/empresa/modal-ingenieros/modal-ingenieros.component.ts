@@ -21,6 +21,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     @Input() responsable;
     @Input() proveedores;
+    @Input() captadores;
     public page: number = 1;
     public paginacion: Paginacion;
     public cargando:boolean= false;
@@ -62,12 +63,16 @@ export class ModalIngenierosComponent implements OnInit {
 
     ngOnInit() {
         this.traertiposrol();
+        if (this.captadores){
+            this.idRol = 2;
+        }
         if(this.responsable){
               this.idRol =3;
         }
         if (this.proveedores) {
             this.idRol = 7;
         }
+
         this.busqueda();
     }
 
@@ -243,6 +248,19 @@ export class ModalIngenierosComponent implements OnInit {
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.tiposroles = respuesta.extraInfo;
+                    if(this.captadores){
+                        this.idRol =2;
+                        let rolselect = this.tiposroles.find(item=> item.id == 2);
+                        let pr = {
+                            personarolPK:{
+                                idrol:rolselect.id,
+                                idpersona:this.ingeniero.id
+                            },
+                            estado:true,
+                            idrol:rolselect
+                        };
+                        this.listaPR.push(pr);
+                    }
                     if(this.responsable){
                         this.idRol =3;
                         let rolselect = this.tiposroles.find(item=> item.id == 3);
