@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { AppRouterModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -50,6 +51,19 @@ import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
 import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
 import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
 
+import {SidebarModule} from 'primeng/sidebar';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {TableModule} from 'primeng/table';
+import {TreeTableModule} from 'primeng/treetable';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {TreeNode} from 'primeng/api';
+import {NodeService} from './servicios/node.service';
+
+import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
+import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
+import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +102,10 @@ import { ListaProgramasComponent } from './component/lista-programas/lista-progr
     ModalVentaformularioComponent,
     ModalPreciosComponent,
     CaptacionesExpedientesComponent,
-    ListaProgramasComponent
+    ListaProgramasComponent,
+    ExpedientesComprasComponent,
+    ExpedientesProyectosComponent,
+    ExpedientesVentasComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -126,14 +143,22 @@ import { ListaProgramasComponent } from './component/lista-programas/lista-progr
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MomentModule,
-    UiSwitchModule
+    UiSwitchModule,
+    SidebarModule,
+    ButtonModule,
+    DialogModule,
+    TableModule,
+    TreeTableModule,
+    ContextMenuModule
   ],
   providers: [
     AppConfig,
     AuthService,
     HomeService,
+    HttpClient,
     ApiRequestService,
-    AuthGuardService
+    AuthGuardService,
+    NodeService
   ],
   bootstrap: [AppComponent]
 })
