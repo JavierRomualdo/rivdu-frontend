@@ -7,23 +7,18 @@
         </button>
       </div>
     </div>
-    <div class="card-header d-flex align-items-center" ngIf="!verNuevo">
+    <div class="card-header d-flex align-items-center" >
       <h3 class="h4">Mantenimiento de Compra</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
     <div class="card-body mr-2 ml-2">
-      <form class="">
+      <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarCompra()">
         <div class="card border-dark mb-3 col-sm-12">
           <div class="card-body text-center">
             <b>La compra se esta realizando por {{authService.getNombrecompleto()}}</b>
-            <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
-              <h5 class="h4" align="left">Nueva Compra </h5>
-            </div>
-            <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
-              <h5 class="h4" align="left">Editando Compra </h5>
-            </div>
+
           </div>
         </div>
         <div>
@@ -33,11 +28,11 @@
               <div class="row">
                 <div class="col-sm-6">
                   <label class="form-control-label">Captador:</label>
-                  <input type="text" class="form-control form-control-sm" name="camptador">
+                  <input type="text" class="form-control form-control-sm" name="camptador" [(ngModel)]="captador.nombre">
                 </div>
                 <div class="col-sm-6">
                   <label class="form-control-label">Comision:</label>
-                  <input type="text" class="form-control form-control-sm" name="captador">
+                  <input type="number" class="form-control form-control-sm" name="captador" [(ngModel)]="captador.comision">
                 </div>
               </div>
             </div>
@@ -238,7 +233,8 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" (click)="guardarCompra()">Guardar</button>
+        <button type="submit" class="btn btn-primary"  *ngIf="!compra.id" [disabled]="!formulario.form.valid">Guardar</button>
+        <!---<button type="submit" class="btn btn-primary" *ngIf="compra.id" (click)="guardarCompra()">Actualizar</button>-->
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
