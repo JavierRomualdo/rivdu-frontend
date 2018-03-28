@@ -79,9 +79,9 @@
                     <td>{{o.nombre}}</td>
                     <td>{{o.importe}}</td>
                     <td>{{o.codigoet}}</td>
-                    <td>{{o.estado}}</td>
+                    <td>{{o.estado?'HABILITADO':'DESHABILITADO'}}</td>
                     <td scope="row "  style="width: 140px">
-                      <ui-switch size="small"  name="estado" (click)="confirmarcambiodeestado(o)" >estado</ui-switch>
+                      <ui-switch size="small"  name="estado" (click)="confirmarcambiodeestado(o)" [(ngModel)]="o.estado" >estado</ui-switch>
                       <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
                     </td>
                   </tr>
