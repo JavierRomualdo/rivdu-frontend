@@ -28,6 +28,7 @@ export class ModalCompraformularioComponent implements OnInit {
   public personacompra2:Personacompra[]=[];
   public rel:Relacion;
   public cargando:boolean =false;
+  public vistaFormulario:boolean = false;
   public ubigeo:Ubigeo;
   public predio:Predio;
   public compra:Compra;

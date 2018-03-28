@@ -52,6 +52,10 @@ export class CaptacionesComprasComponent implements OnInit {
     });
   };
 
+  abrirEdicionCompra(){
+    
+  };
+
   /*listarcompras(){
     this.cargando = true;
     this.api.get("compra/listar")
