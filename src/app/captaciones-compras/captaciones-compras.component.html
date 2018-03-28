@@ -9,7 +9,7 @@
       <div class="col-xl-6 col-sm-6" (click)="abrirNuevaCompra()">
         <div class="item d-flex align-items-center">
           <div class="icon bg-violet"><i class="fa fa-user-plus"></i></div>
-          <div class="title"><span>Nueva Compra</span>
+           <div class="title"><span>Nueva Compra</span>
             <div class="progress">
               <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
             </div>
@@ -51,24 +51,31 @@
                   <th>#</th>
                   <th>Titular</th>
                   <th>Codigo</th>
-                  <th>Dni</th>
                   <th class="opcion">Opciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="cursor-pointer" *ngFor="let o of listacompra; let i=index"><!--(click)="abrirCaptadores()"-->
                   <th scope="row">{{i+1}}</th>
-                  <td>{{o.titular.nombre}}</td>
+                  <td>{{o.persona}}</td>
                   <td>LIB-562-13-3-17</td>
-                  <td>Nosale</td>
                   <td class="opcion"  (click)="listarcompras()"><i class="fa fa-trash"></i></td>
                 </tr>
                 </tbody>
               </table>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 table-responsive">
+                <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarcompras()"></ngb-pagination>
+              </div>
+              <div class="col-md-6 text-right pr-3">
+                <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </section>
