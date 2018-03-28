@@ -43,90 +43,60 @@ export class ExpedientesComprasComponent implements OnInit {
       {label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)},
       {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)}
     ];
-    this.files1 = [
-      {
-        "data":{
-          "name":"Documents",
-          "size":"75kb",
-          "type":"Folder"
+    this.files1 =
+      [
+        {
+          "label": "Documents",
+          "data": "Documents Folder",
+          "expandedIcon": "fa-folder-open",
+          "collapsedIcon": "fa-folder",
+          "children": [{
+            "label": "Work",
+            "data": "Work Folder",
+            "expandedIcon": "fa-folder-open",
+            "collapsedIcon": "fa-folder",
+            "children": [{"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"}]
+          },
+            {
+              "label": "Home",
+              "data": "Home Folder",
+              "expandedIcon": "fa-folder-open",
+              "collapsedIcon": "fa-folder",
+              "children": [{"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"}]
+            }]
         },
-        "children":[
-          {
-            "data":{
-              "name":"Work",
-              "size":"55kb",
-              "type":"Folder"
-            },
-            "children":[
-              {
-                "data":{
-                  "name":"Expenses.doc",
-                  "size":"30kb",
-                  "type":"Document"
-                }
-              },
-              {
-                "data":{
-                  "name":"Resume.doc",
-                  "size":"25kb",
-                  "type":"Resume"
-                }
-              }
-            ]
-          },
-          {
-            "data":{
-              "name":"Home",
-              "size":"20kb",
-              "type":"Folder"
-            },
-            "children":[
-              {
-                "data":{
-                  "name":"Invoices",
-                  "size":"20kb",
-                  "type":"Text"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "data":{
-          "name":"Pictures",
-          "size":"150kb",
-          "type":"Folder"
+        {
+          "label": "Pictures",
+          "data": "Pictures Folder",
+          "expandedIcon": "fa-folder-open",
+          "collapsedIcon": "fa-folder",
+          "children": [
+            {"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"},
+            {"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"},
+            {"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"}]
         },
-        "children":[
-          {
-            "data":{
-              "name":"barcelona.jpg",
-              "size":"90kb",
-              "type":"Picture"
-            }
+        {
+          "label": "Movies",
+          "data": "Movies Folder",
+          "expandedIcon": "fa-folder-open",
+          "collapsedIcon": "fa-folder",
+          "children": [{
+            "label": "Al Pacino",
+            "data": "Pacino Movies",
+            "children": [{"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"}]
           },
-          {
-            "data":{
-              "name":"primeui.png",
-              "size":"30kb",
-              "type":"Picture"
-            }
-          },
-          {
-            "data":{
-              "name":"optimus.jpg",
-              "size":"30kb",
-              "type":"Picture"
-            }
-          }
-        ]
-      }
-    ];
+            {
+              "label": "Robert De Niro",
+              "data": "De Niro Movies",
+              "children": [{"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"}]
+            }]
+        }
+      ];
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'persona', header: 'Nombre' },
-      { field: 'fecharegistro', header: 'Fecha' }
+      { field: 'fecharegistro', header: 'Fecha Alta' },
+      { field: 'fechacompra', header: 'Fecha Transferencia' }
     ];
   }
 

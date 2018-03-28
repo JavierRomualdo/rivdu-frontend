@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { AppRouterModule } from './app-routing.module';
@@ -59,6 +59,8 @@ import {TreeTableModule} from 'primeng/treetable';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {TreeNode} from 'primeng/api';
 import {NodeService} from './servicios/node.service';
+import {PaginatorModule} from 'primeng/paginator';
+import {TreeModule} from 'primeng/tree';
 
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
@@ -149,7 +151,9 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     DialogModule,
     TableModule,
     TreeTableModule,
-    ContextMenuModule
+    ContextMenuModule,
+    PaginatorModule,
+    TreeModule
   ],
   providers: [
     AppConfig,
@@ -158,6 +162,7 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     HttpClient,
     ApiRequestService,
     AuthGuardService,
+    NgbActiveModal,
     NodeService
   ],
   bootstrap: [AppComponent]
