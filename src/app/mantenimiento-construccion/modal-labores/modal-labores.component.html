@@ -1,5 +1,6 @@
 <div class="card-header d-flex align-items-center">
   <h3 class="h4" id="titulo">Mantenimiento de Labores</h3>
+
 </div>
 <div class="card-close">
   <div class="dropdown">
@@ -63,12 +64,6 @@
   <!-- Nuevo Formulario Cargar-->
   <div  *ngIf="clicknuevo&&!cargando" >
       <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarDatosNuevoModal()" name="frm">
-        <div class="card-header d-flex align-items-center" *ngIf="!clicknuevo">
-          <h5 class="h4" align="left">Nuevo Labor </h5>
-        </div>
-        <div class="card-header d-flex align-items-center" *ngIf="clicknuevo">
-          <h5 class="h4" align="left">Editando Labor</h5>
-        </div>
         <hr>
         <br>
         <div class="form-group row">
