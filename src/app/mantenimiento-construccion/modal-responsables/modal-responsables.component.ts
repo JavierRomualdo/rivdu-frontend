@@ -12,8 +12,6 @@ import {ModalEstadocivilComponent} from "../../mantenimiento-captacion/modal-est
 })
 export class ModalResponsablesComponent implements OnInit {
 
-    public cambiartitulo:boolean=false;
-    public clicknuevo:boolean=false;
     public cargando:boolean=false;
     public listado:boolean=false;
     public  lista:any=[];
@@ -26,68 +24,14 @@ export class ModalResponsablesComponent implements OnInit {
               public modal: NgbModal,
               private modalService: NgbModal) {
     this.responsable = new Responsable();
-
-
   }
 
   ngOnInit() {
   }
 
-  /*  listarModalResponsable(){
-        this.cargando=true;
-        this.api.get("responsable/listar")
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.lista = respuesta.extraInfo;
-                    this.cargando=false;
-                } else {
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
-                    this.cargando = false;
-                }
-            })
-            .catch(err => this.handleError(err));
-
-    };
-
-    abriNuevoModalNuevo(){
-        const modalRef = this.modalService.open(ModalEstadocivilComponent, {size: 'lg', keyboard: false});
-        modalRef.result.then((result) => {
-        }, (reason) => {
-        });
-
-    };
-
-    abrirModalListado(){
-        this.clicknuevo=false;
-        this.cambiartitulo=false;
-
-    };
-
-    guardarDatosNuevoModal(){
-        this.cargando=true;
-        this.api.post("responsable",this.responsable)
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.responsable = respuesta.extraInfo;
-                    this.toastr.success("Registro guardado exitosamente", 'Exito');
-                    this.cargando = false;
-                    this.listado = true;
-                    this.abrirModalListado();
-                    this.listarModalResponsable();
-
-                } else {
-                    this.cargando=false;
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
-
-                }
-            })
-            .catch(err => this.handleError(err));
-    };
-
-*/
-    private handleError(error: any): void {
+  private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
-    }
+  }
 
 }
