@@ -21,6 +21,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     @Input() responsable;
     @Input() proveedores;
+    @Input() captadores;
     public page: number = 1;
     public paginacion: Paginacion;
     public cargando:boolean= false;
@@ -62,12 +63,16 @@ export class ModalIngenierosComponent implements OnInit {
 
     ngOnInit() {
         this.traertiposrol();
+        if (this.captadores){
+            this.idRol = 2;
+        }
         if(this.responsable){
               this.idRol =3;
         }
         if (this.proveedores) {
             this.idRol = 7;
         }
+
         this.busqueda();
     }
 
@@ -84,15 +89,50 @@ export class ModalIngenierosComponent implements OnInit {
     limpiar():void{
         this.nombre ="";
         this.dni = "";
-        this.parametros = {
-            "dni":null,
-            "nombre":null,
-            "idrol":0
+        this.nombre ="";
+        this.dni = "";
+        if (this.idRol == 2){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":2
+            };
+            this.idRol = 2;
+            this.ver = false;
+            this.listarIngenieros();
+        }
+        if (this.idRol == 3){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":3
+            };
+            this.idRol = 3;
+            this.ver = false;
+            this.listarIngenieros();
+        }
+        if (this.idRol == 7){
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":7
+            };
+            this.idRol = 7;
+            this.ver = false;
+            this.listarIngenieros();
+        }else{
+            this.parametros = {
+                "dni":null,
+                "nombre":null,
+                "idrol":0
+            };
+            this.idRol = null;
+            this.ver = false;
+            this.listarIngenieros();
         };
-        this.idRol = null;
-        this.ver = false;
-        this.listarIngenieros();
-    };
+        }
+
+
 
     nuevo(){
         this.vistaFormulario=true;
@@ -243,6 +283,19 @@ export class ModalIngenierosComponent implements OnInit {
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.tiposroles = respuesta.extraInfo;
+                    if(this.captadores){
+                        this.idRol =2;
+                        let rolselect = this.tiposroles.find(item=> item.id == 2);
+                        let pr = {
+                            personarolPK:{
+                                idrol:rolselect.id,
+                                idpersona:this.ingeniero.id
+                            },
+                            estado:true,
+                            idrol:rolselect
+                        };
+                        this.listaPR.push(pr);
+                    }
                     if(this.responsable){
                         this.idRol =3;
                         let rolselect = this.tiposroles.find(item=> item.id == 3);
