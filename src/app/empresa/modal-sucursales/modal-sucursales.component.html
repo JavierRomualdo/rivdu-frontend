@@ -8,7 +8,9 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Editando surcursales</h3>
+      <h3 class="h4" *ngIf="!vistaFormulario">Listado de sucursales</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && !verNuevo">Nuevo sucursal</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && verNuevo">Editando sucursal</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
