@@ -23,8 +23,8 @@ export class ModalUbigeoComponent implements OnInit {
   public nombre:string ="";
   public codigo:string = "";
   public vistaFormulario = false;
-  public  tipos:any=[];
-  public cargando:boolean=false;
+  public tipos:any=[];
+  public cargando=false;
   public paginacion: Paginacion;
   public confirmarcambioestado:boolean=false;
   public solicitando = false;
@@ -187,7 +187,6 @@ export class ModalUbigeoComponent implements OnInit {
                 }
             })
             .catch(err => this.handleError(err));
-            this.cargando = false;
     };
 
     elegirUbigeo(o){
@@ -196,10 +195,8 @@ export class ModalUbigeoComponent implements OnInit {
 
     nuevo(){
         this.vistaFormulario = true;
-        this.cargando = true;
         this.verNuevo = false;
         this.ubigeo = new Ubigeo();
-        this.cargando = false;
     };
 
     traertipos(){

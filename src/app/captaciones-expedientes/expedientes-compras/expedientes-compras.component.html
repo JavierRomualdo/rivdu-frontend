@@ -1,0 +1,66 @@
+<section class="tables">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <p-table [columns]="cols" [value]="listacompra" dataKey="name">
+            <ng-template pTemplate="caption1">
+              <div style="text-align: center">
+                Compras
+              </div>
+            </ng-template>
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 3.25em"></th>
+                <th *ngFor="let col of columns">
+                  {{col.header}}
+                </th>
+                <th style="width: 90px">Opciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+              <tr>
+                <td>
+                  <a href="#" [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down fa-2x' : 'fa fa-fw fa-chevron-circle-right fa-2x'"></i>
+                  </a>
+                </td>
+                <td *ngFor="let col of columns">
+                  {{rowData[col.field]}}
+                </td>
+                <td style="width:90px;">
+                  <i class="fa fa-edit fa-2x text-primary cursor-pointer"></i>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+              <tr>
+                <td [attr.colspan]="columns.length + 2">
+                  <div class="ui-g ui-fluid text-center" style="font-size:16px;padding:20px">
+
+                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+                    <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+                    <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <p-paginator [rows]="10" totalRecords="paginacion.totalRegistros" pageLinkSize="3" (onPageChange)="busqueda()"></p-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+

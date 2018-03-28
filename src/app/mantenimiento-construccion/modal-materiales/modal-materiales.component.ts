@@ -77,6 +77,7 @@ export class ModalMaterialesComponent implements OnInit {
 
     };
 
+
     abriNuevoModalNuevo(){
         this.vistaFormulario=true;
         this.cambiartitulo=true;
@@ -124,7 +125,7 @@ export class ModalMaterialesComponent implements OnInit {
 
     // Eliminado
     confirmarEliminado(li): void {
-        const modalRef = this.modal.open(ConfirmacionComponent, {size: 'sm', keyboard: false});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.eliminarEstado(li);
             this.toastr.success("Registro eliminado exitosamente", 'Exito');

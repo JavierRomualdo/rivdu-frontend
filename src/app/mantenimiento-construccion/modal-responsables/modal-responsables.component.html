@@ -23,8 +23,8 @@
                 <h3 class="h4">Responsables</h3>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped">
+                <div class="table-responsive pt-3">
+                  <table class="table table-striped table-bordered table-hover table-sm">
                     <thead>
                     <tr>
                       <th>#</th>
@@ -50,21 +50,12 @@
       </div>
     </section>
   </form>
-
   <!-- Nuevo Formulario Cargar-->
-
   <form  *ngIf="clicknuevo"   class="form-horizontal" name="frm">
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
-
     <div class="line"></div>
-    <div class="form-group row">
-      <label class="col-sm-3 form-control-label">Codigo </label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" name="codigo"  disabled><small class="help-block-none">Este atributo es generado automaticamente.</small>
-      </div>
-    </div>
     <div class="form-group row">
       <label class="col-sm-3 form-control-label">Detalle </label>
       <div class="col-sm-9">

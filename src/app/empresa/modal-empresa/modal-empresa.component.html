@@ -104,12 +104,12 @@
         </div>
         <div class="modal-footer">
           <div *ngIf="!cargando">
-            <button type="submit" class="btn btn-primary" [disabled]="!empresan.form.valid || cargando">Aceptar</button>
+            <button type="submit" class="btn btn-primary btn-sm" [disabled]="!empresan.form.valid || cargando">Aceptar</button>
             <div *ngIf="cargando">
               <app-cargando></app-cargando>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')" >Cancelar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss('Cross click')" >Cancelar</button>
         </div>
       </form>
     </div>

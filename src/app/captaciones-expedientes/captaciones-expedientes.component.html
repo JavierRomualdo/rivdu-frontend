@@ -1,0 +1,54 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">
+      Expedientes <i class="fa fa-cogs text-primary cursor-pointer" (click)="opciones()" style="float: right"></i>
+    </h2>
+  </div>
+</header>
+
+<p-dialog header="Elige Opcion" [(visible)]="opcion" modal="modal" [responsive]="true" [width]="550" [minY]="20">
+  <p-table [columns]="cols" [value]="programas" dataKey="name">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 2.25em"></th>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+      <tr>
+        <td>
+          <a href="#" [pRowToggler]="rowData">
+            <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+          </a>
+        </td>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+      <tr>
+        <td [attr.colspan]="columns.length + 1">
+          <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+            <div class="ui-g-4" style="text-align:center">
+              <button class="btn btn-primary btn-sm" routerLink="compras" (click)="opcion=false">Compras</button>
+            </div>
+            <div class="ui-g-4" style="text-align:center">
+              <button class="btn btn-primary btn-sm" routerLink="proyectos" (click)="opcion=false">Proyectos</button>
+            </div>
+            <div class="ui-g-4" style="text-align:center">
+              <button class="btn btn-primary btn-sm" routerLink="ventas" (click)="opcion=false">Ventas</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="opcion=false" label="Ok"></button>
+  </p-footer>
+</p-dialog>
+
+<router-outlet></router-outlet>

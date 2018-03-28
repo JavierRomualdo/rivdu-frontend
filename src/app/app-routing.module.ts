@@ -10,9 +10,14 @@ import { MantenimientoTesoreriaComponent } from './mantenimiento-tesoreria/mante
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppComponent } from './app.component';
 import {CaptacionesComprasComponent} from './captaciones-compras/captaciones-compras.component';
+import { CaptacionesVentasComponent } from './captaciones-ventas/captaciones-ventas.component';
+import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
+import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
+import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
+import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
 
 const routes: Routes = [
-	{ path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'welcome',
     component: WelcomeComponent,
@@ -41,25 +46,52 @@ const routes: Routes = [
       },
       {
         path: 'captcomp',
-        component:CaptacionesComprasComponent
+        component: CaptacionesComprasComponent
+      },
+      {
+        path: 'captvent',
+        component: CaptacionesVentasComponent
+      },
+      {
+        path: 'captexpe',
+        component: CaptacionesExpedientesComponent,
+        children: [
+          {
+            path: 'compras', // la ruta real es movimientos/nuevo
+            component: ExpedientesComprasComponent
+          },
+          {
+            path: '',
+            redirectTo: '/welcome/captexpe',
+            pathMatch: 'full'
+          },
+          {
+            path: 'ventas', // la ruta real es movimientos/nuevo
+            component: ExpedientesVentasComponent
+          },
+          {
+            path: 'proyectos', // la ruta real es movimientos/nuevo
+            component: ExpedientesProyectosComponent
+          }
+        ]
       }
     ]
   },
-	{ path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
+  { path: '', redirectTo: '/welcome/empresa', pathMatch: 'full' }
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forRoot(
-			routes,
-			{
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
         useHash : true
-			}
-		)
-	],
-	exports: [
-		RouterModule
-	],
-	providers: []
+      }
+    )
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: []
 })
 export class AppRouterModule { }

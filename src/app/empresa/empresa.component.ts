@@ -10,9 +10,7 @@ import {ModalApoderadosComponent} from "./modal-apoderados/modal-apoderados.comp
 import {ConfirmacionComponent} from '../util/confirmacion/confirmacion.component';
 import {ApiRequestService} from '../servicios/api-request.service';
 import {ToastrService} from 'ngx-toastr';
-import {Persona} from '../entidades/entidad.persona';
 import {Programas} from '../entidades/entidad.programas';
-import {Ubigeo} from '../entidades/entidad.ubigeo';
 
 @Component({
   selector: 'app-empresa',
@@ -77,7 +75,8 @@ export class EmpresaComponent implements OnInit {
     }, (reason) => {
     });
   }
-    confirmarcambiodeestado(programa) : void {
+
+  confirmarcambiodeestado(programa) : void {
         const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
@@ -122,6 +121,7 @@ export class EmpresaComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
+
     listarprogramas(){
         this.cargando=true;
         this.api.get("programas/listar")
@@ -151,4 +151,6 @@ export class EmpresaComponent implements OnInit {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
     }
-}
+
+  }
+
