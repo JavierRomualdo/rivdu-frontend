@@ -13,6 +13,7 @@ import {Ubigeo} from '../../entidades/entidad.ubigeo';
 import {Empresa} from '../../entidades/entidad.empresa';
 import {Persona} from '../../entidades/entidad.persona';
 import {Responsable} from '../../entidades/entidad.responsable';
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ModalProgramasComponent implements OnInit {
     public programas:Programas[];
     public vistaFormulario = false;
     public verNuevo=false;
+    public confirmarcambioestado=false;
 
     constructor(public activeModal: NgbActiveModal,
                 private apiRequest: ApiRequestService,
@@ -60,6 +62,7 @@ export class ModalProgramasComponent implements OnInit {
     guardarProgramas(){
         this.cargando=true;
         this.programa.responsableList = this.listaRP;
+
         this.programa.programaespecificacionesList = this.listaET;
         if(!this.programa.id){
             this.api.post("programas",this.programa)
@@ -69,6 +72,7 @@ export class ModalProgramasComponent implements OnInit {
                         this.toastr.success(respuesta.operacionMensaje, 'Exito');
                         this.activeModal.close(this.programa);
                         this.cargando=false;
+
                     } else {
                         this.cargando=false;
                         this.toastr.error(respuesta.operacionMensaje, 'Error');
@@ -77,40 +81,31 @@ export class ModalProgramasComponent implements OnInit {
                 .catch(err => this.handleError(err));
         }
         else{
-            return this.apiRequest.put('programas', this.programa)
+            return this.api.put('programas', this.programa)
                 .then(
                     data => {
                         if(data && data.extraInfo){
                             this.cargando = false;
-                            this.vistaFormulario = false;
                             this.programa = data.extraInfo;
-                            let programa = this.programas.find(item => item.id === this.programa.id);
-                            let index = this.programas.indexOf(programa);
-                            this.programas[index] = this.programa;
                             this.programa = new Programas();
+                            this.toastr.success(data.operacionMensaje, 'Exito');
+                            this.activeModal.close(this.programa);
+                            this.cargando = false;
                         }else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
                             this.cargando = false;
                         }
-
                     }
                 )
                 .catch(err => this.handleError(err));
         }
 
     }
-    confirmarcambiodeestado():void{
-       alert("eliminar");
-    }
-    cambiarestadoprograma():void{
-
-    }
-
     private handleError(error: any): void {
         this.cargando=false;
         this.toastr.error("Error Interno", 'Error');
     }
-    abrirEspecificaciones() : void{
+    abrirEspecificaciones() : void {
         const modalRef = this.modalService.open(ModalEspecificacionesComponent, {size: 'sm', keyboard: false , windowClass:'nuevo-modal'});
         modalRef.result.then((result) => {
             let especificacion = result;
@@ -127,7 +122,6 @@ export class ModalProgramasComponent implements OnInit {
                 this.toastr.warning('Especificacion ya existe', 'Aviso');
             } else {
                 this.listaET.push(pe);
-
             }
             this.auth.agregarmodalopenclass();
         }, (reason) => {
@@ -142,7 +136,8 @@ export class ModalProgramasComponent implements OnInit {
             let pp = {
                 idrol:null,
                 idprograma:this.programa.id,
-                idpersona:persona
+                idpersona:persona,
+                estado:true
             };
             this.TraerRoles(persona, pp);
             this.auth.agregarmodalopenclass();
@@ -179,19 +174,26 @@ export class ModalProgramasComponent implements OnInit {
     };
 
     confirmareliminado(li): void {
-        const modalRef = this.modal.open(ConfirmacionComponent, {size: 'sm', keyboard: false});
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal',size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
-            this.eliminarresponsable(li);
-            this.toastr.success("Registro eliminado exitosamente", 'Exito');
+            if(!li.id){
+                this.quitarresposable(li);
+            }
+            else{
+                this.eliminarresponsable(li);
+            }
+            this.auth.agregarmodalopenclass();
         }, (reason) => {
+            this.auth.agregarmodalopenclass();
         });
     };
 
     eliminarresponsable(li){
-        this.api.delete("estadocivil/eliminarestadocliente/"+li.id)
+        this.api.delete("responsable/eliminarresponsable/"+li.id)
             .then(respuesta => {
                 if(respuesta && respuesta.extraInfo){
                     this.listaRP.splice(this.listaRP.lastIndexOf(li),1);
+                    this.toastr.success("Registro eliminado exitosamente", 'Exito');
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
                 }
@@ -211,6 +213,7 @@ export class ModalProgramasComponent implements OnInit {
                         this.programa = data.extraInfo;
                         this.listaRP = this.programa.responsableList && this.programa.responsableList.length > 0 ? this.programa.responsableList : [];
                         this.listaET = this.programa.programaespecificacionesList && this.programa.programaespecificacionesList.length > 0 ? this.programa.programaespecificacionesList : [];
+                      this.seleccionacombo(this.programa);
                     }
                     else{
                         this.toastr.info(data.operacionMensaje,"Informacion");
@@ -221,12 +224,81 @@ export class ModalProgramasComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
+     seleccionacombo(programa){
+          for(let i=0;i<this.listaRP.length;i++){
+              if(this.listaRP[i].idpersona){
+                  let roles=this.listaRP[i].idpersona.personarolList;
+                  let rolasignado = roles.find(item => item.idrol.id === this.listaRP[i].idrol.id);
+                  this.listaRP[i].idrol=rolasignado.idrol;
+              }
+          }
+     }
     quitarresposable(li){
+        li.estado=false;
         this.listaRP.splice(this.listaRP.lastIndexOf(li) , 1);
+
     }
 
     quitarespecificacion(li){
         this.listaET.splice(this.listaET.lastIndexOf(li) , 1);
     }
+    confirmarcambiodeestadoresponsable(responsable):void{
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoresponsable(responsable);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            responsable.estado = !responsable.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
 
+    cambiarestadoresponsable(responsable){
+        this.cargando = true;
+        return this.apiRequest.post('responsable/eliminar', {id:responsable.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.listaRP.splice(this.listaRP.lastIndexOf(responsable) , 1);
+                        this.toastr.success(data.operacionMensaje," Exito");
+
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+    cambiarestadoespecificacion(especificacion){
+        this.cargando = true;
+        return this.apiRequest.post('especificacion/eliminar', {id:especificacion.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.listaET.splice(this.listaET.lastIndexOf(especificacion) , 1);
+                        this.toastr.success(data.operacionMensaje," Exito");
+
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
+                    this.cargando = false;
+                }
+            )
+            .catch(err => this.handleError(err));
+    };
+
+    confirmarcambiodeestadoespecificacion(especificacion):void{
+        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+        modalRef.result.then((result) => {
+            this.confirmarcambioestado=true;
+            this.cambiarestadoespecificacion(especificacion);
+            this.auth.agregarmodalopenclass();
+        }, (reason) => {
+            especificacion.estado = !especificacion.estado;
+            this.auth.agregarmodalopenclass();
+        });
+    };
 }

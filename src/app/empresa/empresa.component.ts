@@ -43,15 +43,16 @@ export class EmpresaComponent implements OnInit {
   }
 
   abrirDatos():void{
-    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
+    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
   }
 
   abrirPrograma():void{
-    const modalRef = this.modalService.open(ModalProgramasComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalProgramasComponent, {size: 'lg', keyboard: true});
     modalRef.result.then((result) => {
+        this.listarprogramas();
     }, (reason) => {
     });
   }
@@ -76,7 +77,7 @@ export class EmpresaComponent implements OnInit {
     }, (reason) => {
     });
   }
-    confirmarcambiodeestado(programa):void{
+    confirmarcambiodeestado(programa) : void {
         const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
@@ -87,7 +88,8 @@ export class EmpresaComponent implements OnInit {
             this.auth.agregarmodalopenclass();
         });
     };
-    cambiarestadoprograma(programa){
+
+    cambiarestadoresponsable(programa){
         this.cargando = true;
         return this.api.post('ingeniero/eliminar', {id: programa.id})
             .then(
@@ -102,41 +104,6 @@ export class EmpresaComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
-    }
-    listarprogramas(){
-        this.cargando=true;
-        this.api.get("programas/listar")
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.lista = respuesta.extraInfo;
-                    this.cargando=false;
-                } else {
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
-                    this.cargando = false;
-                }
-            })
-            .catch(err => this.handleError(err));
-
-    };
-    confirmarcambiodeestado(programa):void{
-        const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
-        modalRef.result.then((result) => {
-            this.confirmarcambioestado=true;
-            this.cambiarestadoprograma(this.programa);
-            this.auth.agregarmodalopenclass();
-        }, (reason) => {
-            programa.estado = !programa.estado;
-            this.auth.agregarmodalopenclass();
-        });
-    };
-
-    traerParaEdicion(id){
-        const modalRef = this.modal.open(ModalProgramasComponent, {size: 'sm', keyboard: false});
-        modalRef.componentInstance.edit = id;
-        modalRef.result.then((result) => {
-            //this.cambiarestadoprograma(this.programa);
-        }, (reason) => {
-        });
     }
 
     cambiarestadoprograma(programa){
@@ -155,9 +122,33 @@ export class EmpresaComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
+    listarprogramas(){
+        this.cargando=true;
+        this.api.get("programas/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.lista = respuesta.extraInfo;
+                    this.cargando = false;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                    this.cargando = false;
+                }
+            })
+            .catch(err => this.handleError(err));
+
+    };
+
+    traerParaEdicion(id){
+        const modalRef = this.modal.open(ModalProgramasComponent, {size: 'lg', keyboard: false});
+        modalRef.componentInstance.edit = id;
+        modalRef.result.then((result) => {
+            this.listarprogramas();
+        }, (reason) => {
+        });
+    }
 
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
     }
-    }
+}

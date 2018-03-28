@@ -78,18 +78,18 @@
                             <th>#</th>
                             <th>Nombre</th>
                             <th>DNI</th>
-                            <th>Roles</th>
+                            <th style="220px!important;">Roles</th>
                             <th>Codigo</th>
                             <th>Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="cursor-pointer" *ngFor="let item of listaRP; let i = index;"  >
+                          <tr class="cursor-pointer"   *ngFor="let item of listaRP; let i = index;"  >
                             <th scope="row">{{i+1}}</th>
                             <td>{{ item.idpersona.nombre}} {{item.idpersona.apellido}}</td>
                             <td>{{item.idpersona.dni}}</td>
-                            <td >
-                              <select class="form-control"  required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol">
+                            <td style="220px!important;">
+                              <select class="form-control form-control-sm"  required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol" >
                                  <option [ngValue]="prol.idrol" *ngFor="let prol of item.idpersona.personarolList" >{{prol.idrol.nombre}}</option>
                               </select>
                             </td>
@@ -97,7 +97,8 @@
                               <input type="number" [(ngModel)]="item.codigocip" maxlength="10" required name="cod-{{i}}" >
                             </td>
                             <td >
-                              <a (click)="quitarresposable(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                              <a *ngIf="!programa.id" (click)="quitarresposable(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                              <a *ngIf="programa.id" (click)="confirmareliminado(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
                             </td>
                           </tr>
                         </tbody>
@@ -142,7 +143,9 @@
                             <td>{{item1.idespecificacion.especificaciones}}</td>
                             <td>{{item1.idespecificacion.categoria}}</td>
                             <td>{{item1.idespecificacion.valorm2}}</td>
-                            <td><a (click)="quitarespecificacion(item1)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a></td>
+                            <td style="padding-top: 0px; padding-bottom: 0px;">
+                              <ui-switch size="small" *ngIf="programa.id" [(ngModel)]="item1.estado" name="es5-{{i}}" >estado</ui-switch>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
