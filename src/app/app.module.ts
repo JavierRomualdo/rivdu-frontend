@@ -28,11 +28,8 @@ import { ModalUbigeoComponent } from './mantenimiento-captacion/modal-ubigeo/mod
 import { ModalEspecificacionesComponent } from './mantenimiento-captacion/modal-especificaciones/modal-especificaciones.component';
 import { ModalEstadocivilComponent } from './mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component';
 import { ModalRelacionpersonalComponent } from './mantenimiento-captacion/modal-relacionpersonal/modal-relacionpersonal.component';
-import { ModalCaptadorComponent } from './mantenimiento-captacion/modal-captador/modal-captador.component';
 import { ModalMaterialesComponent } from './mantenimiento-construccion/modal-materiales/modal-materiales.component';
 import { ModalLaboresComponent } from './mantenimiento-construccion/modal-labores/modal-labores.component';
-import { ModalResponsablesComponent } from './mantenimiento-construccion/modal-responsables/modal-responsables.component';
-import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-proveedores/modal-proveedores.component';
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
@@ -49,7 +46,6 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
 import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
 import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
-import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
 
 import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
@@ -84,11 +80,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
-    ModalCaptadorComponent,
     ModalMaterialesComponent,
     ModalLaboresComponent,
-    ModalResponsablesComponent,
-    ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
@@ -104,7 +97,6 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalVentaformularioComponent,
     ModalPreciosComponent,
     CaptacionesExpedientesComponent,
-    ListaProgramasComponent,
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
     ExpedientesVentasComponent
@@ -119,11 +111,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
-    ModalCaptadorComponent,
     ModalMaterialesComponent,
     ModalLaboresComponent,
-    ModalResponsablesComponent,
-    ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
@@ -132,8 +121,7 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
-    ModalRolComponent,
-    ListaProgramasComponent
+    ModalRolComponent
   ],
   imports: [
     NgbModule.forRoot(),

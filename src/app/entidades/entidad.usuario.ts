@@ -1,4 +1,4 @@
-import {TipoUsuario} from "./entidad.tipoUsuario";
+import {TipoUsuario} from "./entidad.tipousuario";
 
 export class Usuario {
   id: number;

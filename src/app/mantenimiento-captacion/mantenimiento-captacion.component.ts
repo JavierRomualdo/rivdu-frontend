@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ModalCaptadorComponent } from './modal-captador/modal-captador.component'
 import { ModalEspecificacionesComponent } from "./modal-especificaciones/modal-especificaciones.component";
 import { ModalEstadocivilComponent } from "./modal-estadocivil/modal-estadocivil.component";
 import { ModalRelacionpersonalComponent } from "./modal-relacionpersonal/modal-relacionpersonal.component";
@@ -82,9 +81,5 @@ export class MantenimientoCaptacionComponent implements OnInit {
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
-
-
-
-
 
 }
