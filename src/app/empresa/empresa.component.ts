@@ -10,9 +10,7 @@ import {ModalApoderadosComponent} from "./modal-apoderados/modal-apoderados.comp
 import {ConfirmacionComponent} from '../util/confirmacion/confirmacion.component';
 import {ApiRequestService} from '../servicios/api-request.service';
 import {ToastrService} from 'ngx-toastr';
-import {Persona} from '../entidades/entidad.persona';
 import {Programas} from '../entidades/entidad.programas';
-import {Ubigeo} from '../entidades/entidad.ubigeo';
 
 @Component({
   selector: 'app-empresa',
@@ -43,15 +41,16 @@ export class EmpresaComponent implements OnInit {
   }
 
   abrirDatos():void{
-    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: true});
+    const modalRef = this.modalService.open(ModalEmpresaComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
   }
 
   abrirPrograma():void{
-    const modalRef = this.modalService.open(ModalProgramasComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalProgramasComponent, {size: 'lg', keyboard: true});
     modalRef.result.then((result) => {
+        this.listarprogramas();
     }, (reason) => {
     });
   }
@@ -77,7 +76,7 @@ export class EmpresaComponent implements OnInit {
     });
   }
 
-  confirmarcambiodeestado(programa):void{
+  confirmarcambiodeestado(programa) : void {
         const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             this.confirmarcambioestado=true;
@@ -89,32 +88,24 @@ export class EmpresaComponent implements OnInit {
         });
     };
 
-  listarprogramas(){
-        this.cargando=true;
-        this.api.get("programas/listar")
-            .then(respuesta => {
-                if(respuesta && respuesta.extraInfo){
-                    this.lista = respuesta.extraInfo;
-                    this.cargando=false;
-                } else {
-                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+    cambiarestadoresponsable(programa){
+        this.cargando = true;
+        return this.api.post('ingeniero/eliminar', {id: programa.id})
+            .then(
+                data => {
+                    if(data && data.extraInfo){
+                        this.toastr.success(data.operacionMensaje," Exito");
+                        this.listarprogramas();
+                    } else {
+                        this.toastr.info(data.operacionMensaje,"Informacion");
+                    }
                     this.cargando = false;
                 }
-            })
+            )
             .catch(err => this.handleError(err));
-
-    };
-
-  traerParaEdicion(id){
-        const modalRef = this.modal.open(ModalProgramasComponent, {size: 'sm', keyboard: false});
-        modalRef.componentInstance.edit = id;
-        modalRef.result.then((result) => {
-            //this.cambiarestadoprograma(this.programa);
-        }, (reason) => {
-        });
     }
 
-  cambiarestadoprograma(programa){
+    cambiarestadoprograma(programa){
         this.cargando = true;
         return this.api.post('programas/eliminar', {id:programa.id})
             .then(
@@ -131,9 +122,35 @@ export class EmpresaComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-  private handleError(error: any): void {
+    listarprogramas(){
+        this.cargando=true;
+        this.api.get("programas/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.lista = respuesta.extraInfo;
+                    this.cargando = false;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                    this.cargando = false;
+                }
+            })
+            .catch(err => this.handleError(err));
+
+    };
+
+    traerParaEdicion(id){
+        const modalRef = this.modal.open(ModalProgramasComponent, {size: 'lg', keyboard: false});
+        modalRef.componentInstance.edit = id;
+        modalRef.result.then((result) => {
+            this.listarprogramas();
+        }, (reason) => {
+        });
+    }
+
+    private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando = false;
     }
 
   }
+
