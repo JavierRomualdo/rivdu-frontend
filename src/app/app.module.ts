@@ -65,6 +65,7 @@ import {TreeModule} from 'primeng/tree';
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal-proyectosformulario/modal-proyectosformulario.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ListaProgramasComponent,
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
-    ExpedientesVentasComponent
+    ExpedientesVentasComponent,
+    ModalProyectosformularioComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -133,6 +135,7 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalVentaformularioComponent,
     ModalPreciosComponent,
     ModalRolComponent,
+    ModalProyectosformularioComponent,
     ListaProgramasComponent
   ],
   imports: [

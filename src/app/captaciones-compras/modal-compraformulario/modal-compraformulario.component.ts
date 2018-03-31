@@ -62,7 +62,7 @@ export class ModalCompraformularioComponent implements OnInit {
     this.listarRelacionParentesco();
   };
 
-  listarcompras(){
+  listarcompras() {
 
   };
 
