@@ -3,7 +3,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {ApiRequestService} from "../../servicios/api-request.service";
 import {Savecompradto} from "../../entidades/entidad.savecompradto";
 import {ToastrService} from 'ngx-toastr';
-import {NodeService} from '../../servicios/node.service';
 import {TreeNode,MenuItem} from 'primeng/api';
 
 @Component({
@@ -21,8 +20,7 @@ export class ExpedientesVentasComponent implements OnInit {
     private modalService: NgbModal,
     private api: ApiRequestService,
     private modal:NgbModal,
-    private toastr: ToastrService,
-    private nodeService: NodeService
+    private toastr: ToastrService
   ) {
   }
 

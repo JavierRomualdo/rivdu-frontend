@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ModalCompraformularioComponent } from './modal-compraformulario/modal-compraformulario.component';
 import {ApiRequestService} from "../servicios/api-request.service";
+import {AuthService} from "../servicios/auth.service";
 import {Savecompradto} from "../entidades/entidad.savecompradto";
 import {ToastrService} from 'ngx-toastr';
 import {Paginacion} from "../entidades/entidad.paginacion";
@@ -25,6 +26,7 @@ export class CaptacionesComprasComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private api: ApiRequestService,
+    private auth: AuthService,
     private modal:NgbModal,
     private toastr: ToastrService
   ) {
@@ -46,27 +48,14 @@ export class CaptacionesComprasComponent implements OnInit {
   };
 
   abrirNuevaCompra(): void {
-    const modalRef = this.modalService.open(ModalCompraformularioComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalCompraformularioComponent, {windowClass:'modal-open', size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
+      this.listarcompras();
+      this.auth.agregarmodalopenclass();
     }, (reason) => {
+      this.auth.agregarmodalopenclass();
     });
   };
-
-  /*listarcompras(){
-    this.cargando = true;
-    this.api.get("compra/listar")
-        .then(respuesta => {
-          if(respuesta && respuesta.extraInfo){
-            this.listacompra = respuesta.extraInfo;
-            this.cargando =false;
-          } else {
-            this.toastr.error(respuesta.operacionMensaje, 'Error');
-            this.cargando = false;
-          }
-        })
-        .catch(err => this.handleError(err));
-    this.cargando = false;
-  }; */
 
   listarcompras(){
     this.cargando= true;

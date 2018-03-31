@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { ApiRequestService } from './servicios/api-request.service';
+import { UploadService } from './servicios/upload.service';
+import { DownloadService } from './servicios/download.service';
 import { AuthService } from './servicios/auth.service';
 import { HomeService } from './servicios/home.service';
 import { AuthGuardService } from './servicios/auth-guard.service';
@@ -54,13 +56,14 @@ import {TableModule} from 'primeng/table';
 import {TreeTableModule} from 'primeng/treetable';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {TreeNode} from 'primeng/api';
-import {NodeService} from './servicios/node.service';
 import {PaginatorModule} from 'primeng/paginator';
 import {TreeModule} from 'primeng/tree';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import { UploadComponent } from './captaciones-expedientes/upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +102,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     CaptacionesExpedientesComponent,
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
-    ExpedientesVentasComponent
+    ExpedientesVentasComponent,
+    UploadComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -121,7 +125,8 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
-    ModalRolComponent
+    ModalRolComponent,
+    UploadComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -141,17 +146,19 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     TreeTableModule,
     ContextMenuModule,
     PaginatorModule,
-    TreeModule
+    TreeModule,
+    FileUploadModule
   ],
   providers: [
     AppConfig,
     AuthService,
+    UploadService,
+    DownloadService,
     HomeService,
     HttpClient,
     ApiRequestService,
     AuthGuardService,
-    NgbActiveModal,
-    NodeService
+    NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })

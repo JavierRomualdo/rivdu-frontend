@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {ApiRequestService} from "../../servicios/api-request.service";
+import {DownloadService} from "../../servicios/download.service";
+import {AuthService} from "../../servicios/auth.service";
 import {Savecompradto} from "../../entidades/entidad.savecompradto";
 import {ToastrService} from 'ngx-toastr';
-import {NodeService} from '../../servicios/node.service';
 import {TreeNode,MenuItem} from 'primeng/api';
 import { Paginacion } from '../../entidades/entidad.paginacion';
+import {UploadComponent} from '../upload/upload.component';
 
 @Component({
   selector: 'app-expedientes-compras',
@@ -14,8 +16,9 @@ import { Paginacion } from '../../entidades/entidad.paginacion';
 })
 export class ExpedientesComprasComponent implements OnInit {
 
+  @ViewChild("download") download;
   public cargando:boolean =false;
-  public listacompra:Savecompradto[]=[];
+  public listacompra:any=[];
   files1: TreeNode[];
   selectedFile2: TreeNode;
   items:any[];
@@ -28,11 +31,11 @@ export class ExpedientesComprasComponent implements OnInit {
   parametros={};
 
   constructor(
-    private modalService: NgbModal,
     private api: ApiRequestService,
+    private down: DownloadService,
+    private auth: AuthService,
     private modal:NgbModal,
-    private toastr: ToastrService,
-    private nodeService: NodeService
+    private toastr: ToastrService
   ) {
     this.paginacion = new Paginacion();
   }
@@ -40,58 +43,10 @@ export class ExpedientesComprasComponent implements OnInit {
   ngOnInit() {
     this.listarcompras();
     this.items = [
-      {label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)},
-      {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)}
+      {label: 'Ver/Descargar', icon: 'fa-eye', command: (event) => this.viewNode(this.selectedFile2)},
+      {label: 'Eliminar', icon: 'fa-trash', command: (event) => this.deleteNode(this.selectedFile2)},
+      {label: 'Subir', icon: 'fa-upload', command: (event) => this.uploadNode(this.selectedFile2)}
     ];
-    this.files1 =
-      [
-        {
-          "label": "Documents",
-          "data": "Documents Folder",
-          "expandedIcon": "fa-folder-open",
-          "collapsedIcon": "fa-folder",
-          "children": [{
-            "label": "Work",
-            "data": "Work Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
-            "children": [{"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"}]
-          },
-            {
-              "label": "Home",
-              "data": "Home Folder",
-              "expandedIcon": "fa-folder-open",
-              "collapsedIcon": "fa-folder",
-              "children": [{"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"}]
-            }]
-        },
-        {
-          "label": "Pictures",
-          "data": "Pictures Folder",
-          "expandedIcon": "fa-folder-open",
-          "collapsedIcon": "fa-folder",
-          "children": [
-            {"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"},
-            {"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"},
-            {"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"}]
-        },
-        {
-          "label": "Movies",
-          "data": "Movies Folder",
-          "expandedIcon": "fa-folder-open",
-          "collapsedIcon": "fa-folder",
-          "children": [{
-            "label": "Al Pacino",
-            "data": "Pacino Movies",
-            "children": [{"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"}]
-          },
-            {
-              "label": "Robert De Niro",
-              "data": "De Niro Movies",
-              "children": [{"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"}]
-            }]
-        }
-      ];
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'persona', header: 'Nombre' },
@@ -110,13 +65,46 @@ export class ExpedientesComprasComponent implements OnInit {
     this.listarcompras();
   };
 
-  viewNode(node: TreeNode) {
-    this.toastr.info(node.data.name);
+  viewNode(node: any) {
+      this.cargando = true;
+      this.down.get("expediente/descargar/"+node.id)
+        .then(
+          data => {
+            if(data){
+              var fileName = node.label;
+              var file = new Blob([data._body],{type: node.contenttype });
+              var url = URL.createObjectURL(file);
+              this.download.nativeElement.href = url;
+              this.download.nativeElement.download = fileName;
+              this.download.nativeElement.click();
+            }
+          }
+        )
+        .catch(err => this.handleError(err));
   }
 
   deleteNode(node: TreeNode) {
     node.parent.children = node.parent.children.filter( n => n.data !== node.data);
     this.toastr.info(node.data.name);
+  }
+
+  uploadNode(node: any) {
+    const modalRef = this.modal.open(UploadComponent, {windowClass:'modal-open', size: 'lg', keyboard: false});
+    if(node && !node.idcompra){
+      node = node.parent;
+    }
+    modalRef.componentInstance.idtipoexpediente = node.id;
+    modalRef.componentInstance.idoperacion = node.idcompra;
+    modalRef.componentInstance.titulo = node.label;
+    modalRef.result.then((result) => {
+      let rowData = this.listacompra.find(item => item.id = node.idcompra);
+      this.obtenerDocumentos(rowData);
+      this.auth.agregarmodalopenclass();
+    }, (reason) => {
+      let rowData = this.listacompra.find(item => item.id = node.idcompra);
+      this.obtenerDocumentos(rowData);
+      this.auth.agregarmodalopenclass();
+    });
   }
 
   listarcompras(){
@@ -132,7 +120,18 @@ export class ExpedientesComprasComponent implements OnInit {
         }
       })
       .catch(err => this.handleError(err));
-    this.cargando = false;
+  };
+
+  obtenerDocumentos(rowData){
+    this.cargando = true;
+    this.api.get('compra/expedienteslist/'+rowData.id)
+      .then(data => {
+        if(data && data.extraInfo){
+          rowData.files1 = data.extraInfo;
+        }
+        this.cargando = false;
+      })
+      .catch(err => this.handleError(err));
   };
 
   handleError(error: any): void {
