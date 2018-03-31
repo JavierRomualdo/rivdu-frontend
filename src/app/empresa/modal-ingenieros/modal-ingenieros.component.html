@@ -7,9 +7,12 @@
         </button>
       </div>
     </div>
-    <div class="card-header d-flex align-items-center" *ngIf="!proveedores && !captadores">
-      <h3 class="h4">Mantenimiento de personas</h3>
-    </div>
+      <div class="card-header d-flex align-items-center" *ngIf="!proveedores && !captadores">
+          <h3 class="h4" *ngIf="!vistaFormulario">Mantenimiento de Personas
+          </h3>
+          <h3 class="h4" *ngIf="vistaFormulario && !verNuevo">Nueva Persona</h3>
+          <h3 class="h4" *ngIf="vistaFormulario && verNuevo">Editando Persona</h3>
+      </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
@@ -36,7 +39,7 @@
                         </select>
                         <button class="input-group-addon" (click)="busqueda()" type="button"><i class="fa fa-search cursor-pointer"></i></button>
                       </div>
-                            <table class="table table-striped" >
+                      <table class="table table-striped table-bordered table-hover table-sm" >
                         <thead>
                         <tr>
                           <th>#</th>
@@ -83,10 +86,6 @@
       </div>
       <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarIngenieros()">
-          <div class="card-header d-flex align-items-center">
-            <h5 class="h4" align="left"*ngIf="ingeniero.id">Editar persona </h5>
-              <h5 class="h4" align="left" *ngIf="!ingeniero.id">Agregar nueva persona </h5>
-          </div>
             <div *ngIf="cargando">
                 <p>Cargando....</p>
                 <app-cargando></app-cargando>
@@ -100,14 +99,7 @@
                   </div>
                   <label class="col-sm-3 form-control-label">D.N.I. <span class="text-primary">*</span></label>
                   <div class="col-sm-4">
-                      <div class="form-group">
-                          <div class="input-group">
-                             <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
-                              <div class="input-group-append">
-                                  <button type="button" class="btn btn-primary"  (click)="busquedaPorDni(ingeniero.dni)"><i class="fa fa-search"></i></button>
-                              </div>
-                          </div>
-                      </div>
+                      <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
                   </div>
               </div>
            <div class="form-group row">
@@ -162,7 +154,7 @@
                   </div>
               </div>
               <div class="form-row" >
-                  <div class="col table-responsive"  *ngIf="(listaPR && listaPR.length>0)"  >
+                  <div class="col table-responsive"  *ngIf="listaPR && listaPR.length>0"  >
                       <table class="table table-sigro table-hover"  >
                           <thead class="thead-inverse" >
                           <tr>

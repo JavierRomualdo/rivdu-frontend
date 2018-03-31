@@ -344,17 +344,16 @@ export class ModalIngenierosComponent implements OnInit {
                 },
                 estado:true,
                 idrol:rol
-            }
-
+            };
             let rSelect = this.listaPR.find(item => item.idrol.id === rol.id);
             if (rSelect && rSelect.idrol && rSelect.idrol.id) {
                 this.toastr.warning('Rol ya existe', 'Aviso');
             } else {
                 this.listaPR.push(pr);
-
-
             }
+          this.auth.agregarmodalopenclass();
         }, (reason) => {
+          this.auth.agregarmodalopenclass();
         });
     }
 

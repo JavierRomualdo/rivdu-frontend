@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <p-table [columns]="cols" [value]="listacompra" dataKey="name">
+          <p-table [columns]="cols" [value]="listacompra" dataKey="id" [responsive]="true">
             <ng-template pTemplate="caption1">
               <div style="text-align: center">
                 Compras
@@ -27,7 +27,7 @@
             <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
               <tr>
                 <td>
-                  <a href="#" [pRowToggler]="rowData">
+                  <a (click)="!expanded ? obtenerDocumentos(rowData) : null" [pRowToggler]="rowData">
                     <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down fa-2x' : 'fa fa-fw fa-chevron-circle-right fa-2x'"></i>
                   </a>
                 </td>
@@ -41,15 +41,10 @@
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
               <tr>
-                <td [attr.colspan]="columns.length + 2">
-                  <div class="ui-g ui-fluid text-center" style="font-size:16px;padding:20px">
-
-                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+                <td [attr.colspan]="columns.length + 2" id={{rowData.id}}>
+                  <div class="ui-g-12" style="font-size:16px;padding:20px">
+                    <p-tree [value]="rowData.files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
                     <p-contextMenu #cm [model]="items"></p-contextMenu>
-
-                    <p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-                    <p-contextMenu #cm [model]="items"></p-contextMenu>
-
                   </div>
                 </td>
               </tr>
@@ -61,6 +56,6 @@
     </div>
   </div>
 </section>
-<p-tree [value]="files1" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-<p-contextMenu #cm [model]="items"></p-contextMenu>
-
+<div class="row justify-content-end">
+  <a href="" id="download" #download></a>
+</div>

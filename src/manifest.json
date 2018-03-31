@@ -1,0 +1,15 @@
+{
+  "short_name": "RIVDU",
+  "name": "Rivdu App",
+  "start_url": "/",
+  "theme_color": "#f48c5b",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/assets/avatar-1.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

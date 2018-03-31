@@ -82,8 +82,8 @@
                         <td>{{i+1}}</td>
                         <td><label class="form-control">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
                         <td>
-                          <select class="form-control form-control-sm">
-                            <option *ngFor="let o of relacion">{{o.nombre}}</option>
+                          <select class="form-control form-control-sm" [(ngModel)]="or.idrelacion" name="relacion">
+                            <option [ngValue]="o" *ngFor="let o of relacion">{{o.nombre}}</option>
                           </select>
                         </td>
                         <td style="width: 30px;">

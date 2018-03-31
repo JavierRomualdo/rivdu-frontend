@@ -6,11 +6,11 @@
   </div>
 </header>
 
-<p-dialog header="Elige Opcion" [(visible)]="opcion" modal="modal" [responsive]="true" [width]="550" [minY]="20">
-  <p-table [columns]="cols" [value]="programas" dataKey="name">
+<p-dialog header="Elige Opcion" [(visible)]="opcion" modal="modal" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+  <p-table [columns]="cols" [value]="programas" dataKey="name" [responsive]="true">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th style="width: 2.25em"></th>
+        <th style="width: 3.25em"></th>
         <th *ngFor="let col of columns">
           {{col.header}}
         </th>
@@ -20,7 +20,7 @@
       <tr>
         <td>
           <a href="#" [pRowToggler]="rowData">
-            <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+            <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down fa-2x text-primary' : 'fa fa-fw fa-chevron-circle-right fa-2x text-primary'"></i>
           </a>
         </td>
         <td *ngFor="let col of columns">
@@ -31,14 +31,14 @@
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
       <tr>
         <td [attr.colspan]="columns.length + 1">
-          <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-            <div class="ui-g-4" style="text-align:center">
+          <div class="ui-g-12" style="font-size:16px;padding:20px">
+            <div style="text-align:center">
               <button class="btn btn-primary btn-sm" routerLink="compras" (click)="opcion=false">Compras</button>
             </div>
-            <div class="ui-g-4" style="text-align:center">
+            <div style="text-align:center">
               <button class="btn btn-primary btn-sm" routerLink="proyectos" (click)="opcion=false">Proyectos</button>
             </div>
-            <div class="ui-g-4" style="text-align:center">
+            <div style="text-align:center">
               <button class="btn btn-primary btn-sm" routerLink="ventas" (click)="opcion=false">Ventas</button>
             </div>
           </div>

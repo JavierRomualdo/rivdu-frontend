@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ModalLaboresComponent } from './modal-labores/modal-labores.component'
 import { ModalMaterialesComponent } from "./modal-materiales/modal-materiales.component";
-import { ModalProveedoresComponent } from "./modal-proveedores/modal-proveedores.component";
-import { ModalResponsablesComponent } from "./modal-responsables/modal-responsables.component";
 import {ModalIngenierosComponent} from "../empresa/modal-ingenieros/modal-ingenieros.component";
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
