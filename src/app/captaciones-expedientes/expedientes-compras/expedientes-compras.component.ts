@@ -56,7 +56,6 @@ export class ExpedientesComprasComponent implements OnInit {
   }
 
   busqueda():void{
-    this.page = 1;
     this.parametros ={
       "clientenombre":this.clientenombre,
       "clientodoc":this.clientedoc,
@@ -66,7 +65,6 @@ export class ExpedientesComprasComponent implements OnInit {
   };
 
   viewNode(node: any) {
-      this.cargando = true;
       this.down.get("expediente/descargar/"+node.id)
         .then(
           data => {
@@ -99,11 +97,9 @@ export class ExpedientesComprasComponent implements OnInit {
     modalRef.result.then((result) => {
       let rowData = this.listacompra.find(item => item.id = node.idcompra);
       this.obtenerDocumentos(rowData);
-      this.auth.agregarmodalopenclass();
     }, (reason) => {
       let rowData = this.listacompra.find(item => item.id = node.idcompra);
       this.obtenerDocumentos(rowData);
-      this.auth.agregarmodalopenclass();
     });
   }
 
@@ -123,13 +119,11 @@ export class ExpedientesComprasComponent implements OnInit {
   };
 
   obtenerDocumentos(rowData){
-    this.cargando = true;
     this.api.get('compra/expedienteslist/'+rowData.id)
       .then(data => {
         if(data && data.extraInfo){
           rowData.files1 = data.extraInfo;
         }
-        this.cargando = false;
       })
       .catch(err => this.handleError(err));
   };

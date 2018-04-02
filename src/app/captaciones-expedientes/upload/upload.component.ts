@@ -29,7 +29,7 @@ export class UploadComponent implements OnInit {
   }
 
   myUploader(event, form) {
-    this.cargando = false;
+    this.cargando = true;
     let formData = new FormData();
     for (var x = 0; x < event.files.length; x++) {
       formData.append("files[]", event.files[x]);

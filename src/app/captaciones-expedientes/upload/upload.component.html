@@ -11,12 +11,15 @@
       <h3 class="h4">Subir Archivos - {{titulo}}</h3>
     </div>
     <div class="card-body pb-0">
-      <div class="ui-g-12" style="font-size:16px;padding:20px">
+      <div *ngIf="cargando" class="text-center">
+        Subiendo archivos ...
+        <app-cargando></app-cargando>
+      </div>
+      <div class="ui-g-12" *ngIf="!cargando" style="font-size:16px;padding:20px">
         <p-fileUpload #form name="file[]" customUpload="true" (uploadHandler)="myUploader($event, form)"
                       chooseLabel="Elegir"
                       uploadLabel="Subir"
                       cancelLabel="Cancelar"
-                      (onUpload)="onUpload($event)"
                       multiple="multiple" maxFileSize="1000000">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
