@@ -115,6 +115,7 @@ traerParaEdicion(id){
                   this.todocompra = respuesta.extraInfo;
                   this.toastr.success("Registro guardado exitosamente", 'Exito');
                   this.cargando = false;
+                  this.activeModal.close(this.todocompra);
               } else {
                   this.cargando=false;
                   this.toastr.error(respuesta.operacionMensaje, 'Error');

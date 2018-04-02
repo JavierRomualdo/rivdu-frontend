@@ -7,4 +7,5 @@ export class Captador {
   idpersona: Persona;
   comision: number;
   estado: boolean;
+  nombre:string;
 }
