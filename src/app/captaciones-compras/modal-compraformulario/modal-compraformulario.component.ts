@@ -1,5 +1,5 @@
 import { Ubigeo } from './../../entidades/entidad.ubigeo';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../servicios/auth.service';
 import {ApiRequestService} from '../../servicios/api-request.service';
@@ -23,6 +23,7 @@ import {Captador} from "../../entidades/entidad.captador";
 })
 export class ModalCompraformularioComponent implements OnInit {
 
+  @Input() edit;
   public  lista=[];
   public relacion:Relacion[]=[];
   public personacompra2:Personacompra[]=[];
@@ -43,6 +44,7 @@ export class ModalCompraformularioComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public authService: AuthService,
     public api: ApiRequestService,
+    public apiRequest:ApiRequestService,
     public auth: AuthService,
     private modalService: NgbModal,
     private modal:NgbModal,
@@ -59,13 +61,32 @@ export class ModalCompraformularioComponent implements OnInit {
   }
 
   ngOnInit() {
+      if(this.edit){
+          this.traerParaEdicion(this.edit);
+      }
     this.listarestados();
     this.listarRelacionParentesco();
   };
 
-  listarcompras(){
+traerParaEdicion(id){
 
-  };
+    this.cargando = true;
+    this.vistaFormulario = true;
+      return this.apiRequest.post('compra/obtener', {id:id})
+        .then(
+            data => {
+                if(data && data.extraInfo){
+                    this.cargando = false;
+                    this.todocompra = data.extraInfo}
+                else{
+                    this.toastr.info(data.operacionMensaje,"Informacion");
+                    this.vistaFormulario = false;
+                    this.cargando = false;
+                }
+            }
+        )
+        .catch(err => this.handleError(err));
+};
 
   listarestados(){
       this.cargando = true;
@@ -206,5 +227,5 @@ export class ModalCompraformularioComponent implements OnInit {
   handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
         this.cargando =false;
-    }
+    };
 }

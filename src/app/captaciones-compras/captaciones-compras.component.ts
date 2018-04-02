@@ -52,10 +52,6 @@ export class CaptacionesComprasComponent implements OnInit {
     });
   };
 
-  abrirEdicionCompra(){
-    
-  };
-
   /*listarcompras(){
     this.cargando = true;
     this.api.get("compra/listar")
@@ -86,6 +82,15 @@ export class CaptacionesComprasComponent implements OnInit {
         })
         .catch(err => this.handleError(err));
   };
+
+  traerParaEdicion(id){
+    const modalRef = this.modal.open(ModalCompraformularioComponent, {size: 'lg', keyboard: false});
+    modalRef.componentInstance.edit = id;
+    modalRef.result.then((result) => {
+      this.listarcompras();
+    }, (reason) => {
+    });
+  }
 
   handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
