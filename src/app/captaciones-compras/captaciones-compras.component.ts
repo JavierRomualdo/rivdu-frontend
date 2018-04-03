@@ -51,9 +51,7 @@ export class CaptacionesComprasComponent implements OnInit {
     const modalRef = this.modalService.open(ModalCompraformularioComponent, {windowClass:'modal-open', size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
       this.listarcompras();
-      this.auth.agregarmodalopenclass();
     }, (reason) => {
-      this.auth.agregarmodalopenclass();
     });
   };
 
