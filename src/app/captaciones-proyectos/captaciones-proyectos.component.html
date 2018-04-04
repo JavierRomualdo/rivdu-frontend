@@ -4,7 +4,7 @@
   </div>
 </header>
 <section class="dashboard-counts no-padding-bottom">
-  <div class="container-fluid">
+  <div class="container-fluid" style="padding: 0px">
     <div class="row bg-white has-shadow cursor-pointer">
       <div class="col-xl-6 col-sm-6" (click)="abrirProyecto()">
         <div class="item d-flex align-items-center">
@@ -34,13 +34,14 @@
             <h3 class="h4">Proyectos</h3>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped">
+              <div class="table-responsive pt-3">
+                  <table class="table table-striped table-bordered table-hover table-sm" >
                 <thead>
                 <tr>
                   <th>#</th>
                   <th>Codigo</th>
                   <th>Nombre</th>
+                  <th>Estado</th>
                   <th class="opcion">Opciones</th>
                 </tr>
                 </thead>
