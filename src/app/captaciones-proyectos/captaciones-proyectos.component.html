@@ -1,3 +1,75 @@
-<p>
-  captaciones-proyectos works!
-</p>
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Mantenimiento de Proyectos</h2>
+  </div>
+</header>
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="row bg-white has-shadow cursor-pointer">
+      <div class="col-xl-6 col-sm-6" (click)="abrirProyecto()">
+        <div class="item d-flex align-items-center">
+          <div class="icon bg-violet"><i class="fa fa-user-plus"></i></div>
+           <div class="title"><span>Nuevo Proyecto</span>
+            <div class="progress">
+              <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="exampledropdownDropdown2" class="collapse col-xl-12 col-sm-12" >
+        <h4>titulo1</h4>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="tables">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+         <!-- <div class="card-close mb-2">
+            <a id="closeCard1" (click)="abrirProyecto()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
+          </div>-->
+          <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Proyectos</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Codigo</th>
+                  <th>Nombre</th>
+                  <th class="opcion">Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr class="cursor-pointer" *ngFor="let proy of lista;let i=index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{proy.codigo}}</td>
+                      <td>{{proy.nombre}}</td>
+                      <td>{{proy.estado?'HABILITADO':'DESHABILITADO'}}</td>
+                      <td scope="row "  style="width: 140px">
+                        <ui-switch size="small"  name="estado" (click)="confirmarcambiodeestado(proy)" [(ngModel)]="proy.estado" >estado</ui-switch>
+                        <a class="btn-link curso-pointer" (click)="traerParaEdicion(proy.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 table-responsive">
+                <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarcompras()"></ngb-pagination>
+              </div>
+              <div class="col-md-6 text-right pr-3">
+                <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

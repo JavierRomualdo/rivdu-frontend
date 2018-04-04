@@ -64,6 +64,7 @@ import { ExpedientesComprasComponent } from './captaciones-expedientes/expedient
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
 import { UploadComponent } from './captaciones-expedientes/upload/upload.component';
+import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal-proyectosformulario/modal-proyectosformulario.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { UploadComponent } from './captaciones-expedientes/upload/upload.compone
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
     ExpedientesVentasComponent,
+    ModalProyectosformularioComponent,
     UploadComponent
   ],
   entryComponents: [
@@ -125,6 +127,7 @@ import { UploadComponent } from './captaciones-expedientes/upload/upload.compone
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
+    ModalProyectosformularioComponent,
     ModalRolComponent,
     UploadComponent
   ],
