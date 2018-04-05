@@ -63,6 +63,10 @@ import {NodeService} from './servicios/node.service';
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import { MantenimientoUsuariosComponent } from './mantenimiento-usuarios/mantenimiento-usuarios.component';
+import { ModalRolesComponent } from './mantenimiento-usuarios/modal-roles/modal-roles.component';
+import { ModalRolesAccesoComponent } from './mantenimiento-usuarios/modal-roles-acceso/modal-roles-acceso.component';
+import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/modal-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +109,11 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ListaProgramasComponent,
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
-    ExpedientesVentasComponent
+    ExpedientesVentasComponent,
+    MantenimientoUsuariosComponent,
+    ModalRolesComponent,
+    ModalRolesAccesoComponent,
+    ModalUsuariosComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -131,7 +139,9 @@ import { ExpedientesVentasComponent } from './captaciones-expedientes/expediente
     ModalVentaformularioComponent,
     ModalPreciosComponent,
     ModalRolComponent,
-    ListaProgramasComponent
+    ListaProgramasComponent,
+    ModalRolesComponent,
+    ModalRolesAccesoComponent
   ],
   imports: [
     NgbModule.forRoot(),

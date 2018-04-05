@@ -24,7 +24,10 @@
                       <a id="closeCard2" class="btn-link cursor-pointer" (click)="nuevo()"><i class="fa fa-plus-circle"></i> Nuevo</a>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Listado de Personas</h3>
+                      <h3 *ngIf="proveedores" class="h4">Listado de Proveedores</h3>
+                      <h3 *ngIf="captadores" class="h4">Listado de Captadores</h3>
+                      <h3 *ngIf="responsable" class="h4">Listado de Responsables de Obra</h3>
+                      <h3 *ngIf="!proveedores && !captadores && !responsable" class="h4">Listado de Personas</h3>
                     </div><!--ingenieros-->
                     <div class="card-body">
                         <div class="table-responsive">
