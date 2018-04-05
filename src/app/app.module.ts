@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { ApiRequestService } from './servicios/api-request.service';
+import { UploadService } from './servicios/upload.service';
+import { DownloadService } from './servicios/download.service';
 import { AuthService } from './servicios/auth.service';
 import { HomeService } from './servicios/home.service';
 import { AuthGuardService } from './servicios/auth-guard.service';
@@ -28,11 +30,8 @@ import { ModalUbigeoComponent } from './mantenimiento-captacion/modal-ubigeo/mod
 import { ModalEspecificacionesComponent } from './mantenimiento-captacion/modal-especificaciones/modal-especificaciones.component';
 import { ModalEstadocivilComponent } from './mantenimiento-captacion/modal-estadocivil/modal-estadocivil.component';
 import { ModalRelacionpersonalComponent } from './mantenimiento-captacion/modal-relacionpersonal/modal-relacionpersonal.component';
-import { ModalCaptadorComponent } from './mantenimiento-captacion/modal-captador/modal-captador.component';
 import { ModalMaterialesComponent } from './mantenimiento-construccion/modal-materiales/modal-materiales.component';
 import { ModalLaboresComponent } from './mantenimiento-construccion/modal-labores/modal-labores.component';
-import { ModalResponsablesComponent } from './mantenimiento-construccion/modal-responsables/modal-responsables.component';
-import { ModalProveedoresComponent } from './mantenimiento-construccion/modal-proveedores/modal-proveedores.component';
 import { ModalBancosComponent } from './mantenimiento-tesoreria/modal-bancos/modal-bancos.component';
 import { ModalCostosComponent } from './mantenimiento-tesoreria/modal-costos/modal-costos.component';
 import { ModalCuentasComponent } from './mantenimiento-tesoreria/modal-cuentas/modal-cuentas.component';
@@ -49,7 +48,6 @@ import { ModalRolComponent } from './empresa/modal-rol/modal-rol.component';
 import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaformulario/modal-ventaformulario.component';
 import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
 import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
-import { ListaProgramasComponent } from './component/lista-programas/lista-programas.component';
 
 import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
@@ -58,7 +56,9 @@ import {TableModule} from 'primeng/table';
 import {TreeTableModule} from 'primeng/treetable';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {TreeNode} from 'primeng/api';
-import {NodeService} from './servicios/node.service';
+import {PaginatorModule} from 'primeng/paginator';
+import {TreeModule} from 'primeng/tree';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
@@ -67,6 +67,9 @@ import { MantenimientoUsuariosComponent } from './mantenimiento-usuarios/manteni
 import { ModalRolesComponent } from './mantenimiento-usuarios/modal-roles/modal-roles.component';
 import { ModalRolesAccesoComponent } from './mantenimiento-usuarios/modal-roles-acceso/modal-roles-acceso.component';
 import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/modal-usuarios.component';
+import { UploadComponent } from './captaciones-expedientes/upload/upload.component';
+import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal-proyectosformulario/modal-proyectosformulario.component';
+
 
 @NgModule({
   declarations: [
@@ -86,11 +89,8 @@ import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/
     ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
-    ModalCaptadorComponent,
     ModalMaterialesComponent,
     ModalLaboresComponent,
-    ModalResponsablesComponent,
-    ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
@@ -106,14 +106,15 @@ import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/
     ModalVentaformularioComponent,
     ModalPreciosComponent,
     CaptacionesExpedientesComponent,
-    ListaProgramasComponent,
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
     ExpedientesVentasComponent,
     MantenimientoUsuariosComponent,
     ModalRolesComponent,
     ModalRolesAccesoComponent,
-    ModalUsuariosComponent
+    ModalUsuariosComponent,
+    ModalProyectosformularioComponent,
+    UploadComponent
   ],
   entryComponents: [
     ModalEmpresaComponent,
@@ -125,11 +126,8 @@ import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/
     ModalEspecificacionesComponent,
     ModalEstadocivilComponent,
     ModalRelacionpersonalComponent,
-    ModalCaptadorComponent,
     ModalMaterialesComponent,
     ModalLaboresComponent,
-    ModalResponsablesComponent,
-    ModalProveedoresComponent,
     ModalBancosComponent,
     ModalCostosComponent,
     ModalCuentasComponent,
@@ -138,10 +136,12 @@ import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/
     ModalCompraformularioComponent,
     ModalVentaformularioComponent,
     ModalPreciosComponent,
+    ModalProyectosformularioComponent,
     ModalRolComponent,
     ListaProgramasComponent,
     ModalRolesComponent,
-    ModalRolesAccesoComponent
+    ModalRolesAccesoComponent,
+    UploadComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -159,17 +159,21 @@ import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/
     DialogModule,
     TableModule,
     TreeTableModule,
-    ContextMenuModule
+    ContextMenuModule,
+    PaginatorModule,
+    TreeModule,
+    FileUploadModule
   ],
   providers: [
     AppConfig,
     AuthService,
+    UploadService,
+    DownloadService,
     HomeService,
     HttpClient,
     ApiRequestService,
     AuthGuardService,
-    NgbActiveModal,
-    NodeService
+    NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })

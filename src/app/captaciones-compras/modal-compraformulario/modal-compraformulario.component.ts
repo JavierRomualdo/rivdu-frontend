@@ -14,6 +14,7 @@ import {Personacompra} from "../../entidades/entidad.personacompra";
 import {ConfirmacionComponent} from "../../util/confirmacion/confirmacion.component";
 import {Savecompradto} from "../../entidades/entidad.savecompradto";
 import {Predio} from "../../entidades/entidad.predio";
+import {Captador} from "../../entidades/entidad.captador";
 
 @Component({
   selector: 'app-modal-compraformulario',
@@ -32,6 +33,7 @@ export class ModalCompraformularioComponent implements OnInit {
   public compra:Compra;
   public todocompra:Savecompradto;
   public listacompra:Savecompradto;
+  public captador:Captador;
   public persona:Persona;
   public idpersona:Persona;
   public relacionPropietario:Personacompra[]=[];
@@ -49,6 +51,7 @@ export class ModalCompraformularioComponent implements OnInit {
       this.ubigeo= new Ubigeo();
       this.persona =new Persona();
       this.compra= new Compra();
+      this.captador = new Captador();
       this.predio= new Predio();
       this.todocompra = new Savecompradto();
       this.listacompra= new Savecompradto();
@@ -57,7 +60,11 @@ export class ModalCompraformularioComponent implements OnInit {
   ngOnInit() {
     this.listarestados();
     this.listarRelacionParentesco();
-  }
+  };
+
+  listarcompras() {
+
+  };
 
   listarestados(){
       this.cargando = true;
@@ -75,7 +82,6 @@ export class ModalCompraformularioComponent implements OnInit {
             this.cargando = false;
     };
 
-
   guardarCompra(){
       this.todocompra.personacompra=this.relacionPropietario;
       this.todocompra.personacompra2=this.personacompra2;
@@ -87,6 +93,7 @@ export class ModalCompraformularioComponent implements OnInit {
                   this.todocompra = respuesta.extraInfo;
                   this.toastr.success("Registro guardado exitosamente", 'Exito');
                   this.cargando = false;
+                  this.activeModal.close(this.todocompra);
               } else {
                   this.cargando=false;
                   this.toastr.error(respuesta.operacionMensaje, 'Error');
@@ -140,7 +147,7 @@ export class ModalCompraformularioComponent implements OnInit {
                     personaCompra2.idpersona = result;
                     personaCompra2.idcompra = this.compra.id;
                     this.personacompra2.push(personaCompra2);
-                    this.persona= this.personacompra2[0].idpersona;
+                    this.persona= result;
                 }
             }
             if(this.relacionPropietario.length == 0){
@@ -149,7 +156,7 @@ export class ModalCompraformularioComponent implements OnInit {
                 personaCompra2.idpersona = result;
                 personaCompra2.idcompra = this.compra.id;
                 this.personacompra2.push(personaCompra2);
-                this.persona=this.personacompra2[0].idpersona;
+                this.persona=result;
             }
             this.auth.agregarmodalopenclass();
         }, (reason) => {

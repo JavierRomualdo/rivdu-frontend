@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ModalCaptadorComponent } from './modal-captador/modal-captador.component'
 import { ModalEspecificacionesComponent } from "./modal-especificaciones/modal-especificaciones.component";
 import { ModalEstadocivilComponent } from "./modal-estadocivil/modal-estadocivil.component";
 import { ModalRelacionpersonalComponent } from "./modal-relacionpersonal/modal-relacionpersonal.component";
 import { ModalUbigeoComponent } from "./modal-ubigeo/modal-ubigeo.component";
+import { ModalIngenierosComponent } from '../empresa/modal-ingenieros/modal-ingenieros.component';
 import {ApiRequestService} from '../servicios/api-request.service';
 import {Persona} from '../entidades/entidad.persona';
 import {ToastrService} from 'ngx-toastr';
@@ -116,9 +116,5 @@ export class MantenimientoCaptacionComponent implements OnInit {
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
-
-
-
-
 
 }

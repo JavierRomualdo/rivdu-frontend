@@ -1,5 +1,7 @@
 <div class="card-header d-flex align-items-center">
-  <h3 class="h4" id="titulo">Mantenimiento de Labores</h3>
+  <h3 class="h4" *ngIf="!clicknuevo">Listado de labores</h3>
+  <h3 class="h4" *ngIf="clicknuevo && !labores.id">Nuevo Labor</h3>
+  <h3 class="h4" *ngIf="clicknuevo && labores.id">Editando Labor</h3>
 </div>
 <div class="card-close">
   <div class="dropdown">
@@ -12,7 +14,7 @@
 <div class="card-body pb-0">
   <div  *ngIf="!clicknuevo&& !cargando"  class="form-horizontal">
     <section class="tables pt-0 pb-0">
-      <div class="container-fluid">
+      <div class="container-fluid p-0">
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
@@ -63,14 +65,6 @@
   <!-- Nuevo Formulario Cargar-->
   <div  *ngIf="clicknuevo&&!cargando" >
       <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarDatosNuevoModal()" name="frm">
-        <div class="card-header d-flex align-items-center" *ngIf="!clicknuevo">
-          <h5 class="h4" align="left">Nuevo Labor </h5>
-        </div>
-        <div class="card-header d-flex align-items-center" *ngIf="clicknuevo">
-          <h5 class="h4" align="left">Editando Labor</h5>
-        </div>
-        <hr>
-        <br>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
           <div class="col-sm-2" >
@@ -92,7 +86,8 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" (click)="guardarDatosNuevoModal()" >Guardar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="labores.id" (click)="guardarDatosNuevoModal()" >Actualizar</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!labores.id" (click)="guardarDatosNuevoModal()" >Guardar</button>
           <button type="button" class="btn btn-outline-dark" (click)="abrirModalListado()">Cancelar</button>
         </div>
       </form>

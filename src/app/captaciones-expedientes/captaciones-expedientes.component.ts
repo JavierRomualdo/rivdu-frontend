@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CaptacionesExpedientesComponent implements OnInit {
 
-  opcion=false;
+  opcion=true;
   programas: any[];
   cols:any[];
 

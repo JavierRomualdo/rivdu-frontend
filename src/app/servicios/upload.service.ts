@@ -4,11 +4,8 @@ import { Http, Headers,
          URLSearchParams, RequestMethod,
          ResponseContentType
         } from '@angular/http';
-
 import { Router } from '@angular/router';
-
 import { AppConfig } from '../app-config';
-
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 
@@ -18,14 +15,13 @@ export interface ObjetoJWT {
 }
 
 @Injectable()
-export class ReportService {
+export class UploadService {
 
-  	private headers: Headers;
-    private requestOptions: RequestOptions;
     private usuarioActualKey: string = "currentUser";
     private almacenamiento: Storage = localStorage;
     private almacenamientoLocal: Storage = localStorage;
     private responseContentType: ResponseContentType;
+
     constructor(
         private appConfig: AppConfig,
         private http: Http,
@@ -35,7 +31,7 @@ export class ReportService {
     }
 
     appendAuthHeader(): Headers {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers();
         let objJWT: ObjetoJWT = JSON.parse(this.almacenamiento.getItem(this.usuarioActualKey));
         if (objJWT !== null){
             let token = objJWT.token;
@@ -47,26 +43,28 @@ export class ReportService {
     }
 
     getRequestOptions(requestMethod, url: string, urlParam?: URLSearchParams, body?: Object): RequestOptions {
-        let options = new RequestOptions({
+        let options = new RequestOptions(
+          {
             headers: this.appendAuthHeader(),
             method: requestMethod,
-            url: this.appConfig.baseApiPath + url,
-            responseType: this.responseContentType
-        });
+            url: this.appConfig.baseApiPath + url
+          }
+        );
         if (urlParam) {
             options = options.merge({ params: urlParam });
         }
         if (body) {
-            options = options.merge({ body: JSON.stringify(body) });
+            options = options.merge({ body: body });
         }
         return options;
     }
 
     post(url: string, body: Object): Promise<any> {
-        let requestOptions = this.getRequestOptions(RequestMethod.Post, url, undefined, body);
-        return this.http.request(new Request(requestOptions))
-            .toPromise()
-            .catch(err => this.handleError(err));
+      let requestOptions = this.getRequestOptions(RequestMethod.Post, url, undefined, body);
+      return this.http.request(new Request(requestOptions))
+        .toPromise()
+        .then(resp => resp.json())
+        .catch(err => this.handleError(err));
     }
 
     handleError(error: any): Promise<any> {
