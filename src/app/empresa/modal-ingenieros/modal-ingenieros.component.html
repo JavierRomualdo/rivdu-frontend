@@ -98,8 +98,8 @@
                       <ui-switch  *ngIf="ingeniero.id" [(ngModel)]="ingeniero.estado" name="estado"  >estado</ui-switch>
                       <ui-switch  *ngIf="!ingeniero.id"  [checked]="true"  name="estado1" >estado</ui-switch>
                   </div>
-                  <label class="col-sm-3 form-control-label">D.N.I. <span class="text-primary">*</span></label>
-                  <div class="col-sm-4">
+                  <label class="col-sm-2 form-control-label">D.N.I. <span class="text-primary">*</span></label>
+                  <div class="col-sm-5">
                       <div class="form-group">
                           <div class="input-group">
                              <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
@@ -149,9 +149,17 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Telefono</label>
-                <div class="col-sm-9">
+                <div class="col-sm-3">
                   <input type="text" name="telefono"  class="form-control" maxlength="15" [(ngModel)]="ingeniero.telefono">
                 </div>
+                  <label class="col-sm-3 form-control-label"><span class="text-primary">*</span> Estado Civil</label>
+                  <div class="col-sm-3">
+                      <select class="form-control form-control-sm" required="" name="idestadocivil" [(ngModel)]="ingeniero.idestado" >
+                          <option  [ngValue]="tip" *ngFor="let tip of listaestados" >{{tip.nombre}}</option>
+                      </select>
+                  </div>
+
+
               </div>
               <div class="pc-line-neg row box-line-negocio no-gutters justify-content-between align-items-center mt-3 p-2" style="background-color: antiquewhite">
                   <div class="col">
@@ -163,7 +171,7 @@
               </div>
               <div class="form-row" >
                   <div class="col table-responsive"  *ngIf="(listaPR && listaPR.length>0)"  >
-                      <table class="table table-sigro table-hover"  >
+                      <table class="table table-sigro table-hover">
                           <thead class="thead-inverse" >
                           <tr>
                               <th>Roles.</th>

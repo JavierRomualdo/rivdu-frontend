@@ -1,4 +1,5 @@
 import { Ubigeo } from "./entidad.ubigeo";
+import {Estadocliente} from "./entidad.estadocliente";
 
 export class Persona {
   id: number;
@@ -11,4 +12,5 @@ export class Persona {
   nombre: string;
   telefono: string;
   personarolList: any = {};
+  idestado : Estadocliente;
 }

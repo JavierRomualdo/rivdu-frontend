@@ -11,6 +11,7 @@ import { Rol } from '../../entidades/entidad.rol';
 import {AuthService }  from '../../servicios/auth.service';
 import {ModalEmpresaComponent} from '../modal-empresa/modal-empresa.component';
 import {ModalRolComponent} from '../modal-rol/modal-rol.component';
+import {Estadocliente} from "../../entidades/entidad.estadocliente";
 
 @Component({
   selector: 'app-modal-ingenieros',
@@ -33,6 +34,7 @@ export class ModalIngenierosComponent implements OnInit {
     public parametros:any={};
     public verNuevo:boolean = false;
     public tiposroles:any=[];
+    public tipos:any=[];
     public rol: Rol;
     public idRol: number=0;
     public confirmarcambioestado:boolean=false;
@@ -43,7 +45,8 @@ export class ModalIngenierosComponent implements OnInit {
     //para limpiar el campo de rol
     public ver:boolean =true;
 
-    public listaPR:any = [];
+    public listaPR : any = [];
+    public  listaestados : any=[];
 
       constructor(
         public activeModal: NgbActiveModal,
@@ -63,6 +66,7 @@ export class ModalIngenierosComponent implements OnInit {
 
     ngOnInit() {
         this.traertiposrol();
+        this.ListarEstadosCiviles();
         if (this.captadores){
             this.idRol = 2;
         }
@@ -139,6 +143,7 @@ export class ModalIngenierosComponent implements OnInit {
         this.verNuevo = false;
         this.ingeniero= new Persona();
         this.ingeniero.idubigeo = new Ubigeo();
+        this.ListarEstadosCiviles();
         this.listaPR = this.listaPR && this.listaPR.length>0 ? this.listaPR : [];
     };
 
@@ -160,6 +165,7 @@ export class ModalIngenierosComponent implements OnInit {
                             let index = this.ingenieros.indexOf(persona);
                             this.ingenieros[index] = this.ingeniero;
                             this.ingeniero = new Persona();
+                            this.toastr.success(data.operacionMensaje,"Informacion");
                         }else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
                             this.cargando = false;
@@ -179,6 +185,7 @@ export class ModalIngenierosComponent implements OnInit {
                             this.ingenieros.push(data.extraInfo);
                             this.vistaFormulario = false;
                             this.ingeniero =new Persona();
+                            this.toastr.success(data.operacionMensaje,"Informacion");
                         }
                         else{
                             this.toastr.info(data.operacionMensaje,"Informacion");
@@ -247,6 +254,10 @@ export class ModalIngenierosComponent implements OnInit {
                         if(this.ingeniero && !this.ingeniero.idubigeo){
                             this.ingeniero.idubigeo = new Ubigeo();
                         }
+                        if(this.ingeniero && !this.ingeniero.idestado){
+                            this.ingeniero.idestado =new Estadocliente();
+                        }
+                        this.llenarCombo(this.ingeniero);
                         this.listaPR = this.ingeniero.personarolList && this.ingeniero.personarolList.length > 0 ? this.ingeniero.personarolList : [];
                     }
                     else{
@@ -257,6 +268,11 @@ export class ModalIngenierosComponent implements OnInit {
                 }
             )
             .catch(err => this.handleError(err));
+    };
+    llenarCombo(persona){
+        let tipo= persona.idestado;
+        let tiposelect = this.listaestados.find(item => item.id == tipo.id);
+        this.ingeniero.idestado = tiposelect;
     };
 
     elegirIngeniero(o){
@@ -385,6 +401,18 @@ export class ModalIngenierosComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
     }
+
+    ListarEstadosCiviles(){
+        this.api.get("estadocivil/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.listaestados = respuesta.extraInfo;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                }
+            })
+            .catch(err => this.handleError(err));
+    };
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
