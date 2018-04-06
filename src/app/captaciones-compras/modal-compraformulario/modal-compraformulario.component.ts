@@ -15,6 +15,8 @@ import {ConfirmacionComponent} from "../../util/confirmacion/confirmacion.compon
 import {Savecompradto} from "../../entidades/entidad.savecompradto";
 import {Predio} from "../../entidades/entidad.predio";
 import {Captador} from "../../entidades/entidad.captador";
+import {Colindante} from "../../entidades/entidad.colindante";
+import {Servicio} from "../../entidades/entidad.servicio";
 
 @Component({
   selector: 'app-modal-compraformulario',
@@ -36,6 +38,8 @@ export class ModalCompraformularioComponent implements OnInit {
   public todocompra:Savecompradto;
   public listacompra:Savecompradto;
   public captador:Captador;
+  public colindante:Colindante;
+  public servicios:Servicio[]=[];
   public persona:Persona;
   public idpersona:Persona;
   public relacionPropietario:Personacompra[]=[];
@@ -56,6 +60,9 @@ export class ModalCompraformularioComponent implements OnInit {
       this.compra= new Compra();
       this.captador = new Captador();
       this.predio= new Predio();
+      this.predio.idubigeo= new Ubigeo();
+      this.captador= new Captador();
+      this.colindante = new Colindante();
       this.todocompra = new Savecompradto();
       this.listacompra= new Savecompradto();
   }
@@ -77,7 +84,18 @@ traerParaEdicion(id){
             data => {
                 if(data && data.extraInfo){
                     this.cargando = false;
-                    this.todocompra = data.extraInfo}
+                    this.todocompra = data.extraInfo;
+                    this.persona = this.todocompra.personacompra[0].idpersona;
+                    this.rel =this.todocompra.personacompra[0].idrelacion;
+                    this.relacionPropietario = this.todocompra.personacompra2;
+                    this.llenarCombo(this.relacionPropietario);
+                  //  this.relacionPropietario = this.todocompra.personacompra;
+                 //   this.personacompra2 = this.todocompra.personacompra2;
+                    this.predio = this.todocompra.predio;
+                    this.captador = this.todocompra.captador;
+                    this.colindante = this.todocompra.colindante;
+                    this.servicios= this.todocompra.servicios;
+                }
                 else{
                     this.toastr.info(data.operacionMensaje,"Informacion");
                     this.vistaFormulario = false;
@@ -86,6 +104,15 @@ traerParaEdicion(id){
             }
         )
         .catch(err => this.handleError(err));
+};
+
+llenarCombo(relacionPropietario){
+    for(let i = 0; i < relacionPropietario.length; i++){
+        let relacion=relacionPropietario[i].idrelacion;
+        let relacionselect = this.relacion.find(item => item.id == relacion.id);
+        relacionPropietario[i].idrelacion = relacionselect;
+    }
+
 };
 
   listarestados(){
@@ -108,20 +135,40 @@ traerParaEdicion(id){
       this.todocompra.personacompra=this.relacionPropietario;
       this.todocompra.personacompra2=this.personacompra2;
       this.todocompra.predio=this.predio;
+      this.todocompra.captador=this.captador;
+      this.todocompra.colindante =this.colindante;
+      this.todocompra.servicios=this.servicios;
       this.cargando=true;
-      this.api.post("compra/guardar",this.todocompra)
-          .then(respuesta => {
-              if(respuesta && respuesta.extraInfo){
-                  this.todocompra = respuesta.extraInfo;
-                  this.toastr.success("Registro guardado exitosamente", 'Exito');
-                  this.cargando = false;
-                  this.activeModal.close(this.todocompra);
-              } else {
-                  this.cargando=false;
-                  this.toastr.error(respuesta.operacionMensaje, 'Error');
-              }
-          })
-          .catch(err => this.handleError(err));
+      if(this.predio.id){
+          return this.api.put("compra/actualizar",this.todocompra)
+              .then(respuesta =>{
+                  if(respuesta && respuesta.extraInfo){
+                      this.todocompra =respuesta.extrainfo;
+                      this.toastr.success("Registro guardado exitosamente",'Exito');
+                      this.cargando = false;
+                      this.activeModal.close(this.todocompra);
+                      this.todocompra = new Savecompradto();
+                  }else{
+                      this.cargando = false;
+                      this.toastr.error(respuesta.operacionMensaje,'Error');
+                  }
+
+              }).catch(err => this.handleError(err));
+      } else {
+          return this.api.post("compra/guardar",this.todocompra)
+              .then(respuesta => {
+                  if(respuesta && respuesta.extraInfo){
+                      this.todocompra = respuesta.extraInfo;
+                      this.toastr.success("Registro guardado exitosamente", 'Exito');
+                      this.cargando = false;
+                      this.activeModal.close(this.todocompra);
+                  } else {
+                      this.cargando=false;
+                      this.toastr.error(respuesta.operacionMensaje, 'Error');
+                  }
+              })
+              .catch(err => this.handleError(err));
+      }
 
   };
 
@@ -218,7 +265,7 @@ traerParaEdicion(id){
   abrirModalUbigeo():void{
       const modalRef = this.modal.open(ModalUbigeoComponent, {windowClass:'nuevo-modal',size: 'sm', keyboard: false});
       modalRef.result.then((result) => {
-          this.ubigeo = result;
+          this.predio.idubigeo = result;
           this.auth.agregarmodalopenclass();
       }, (reason) => {
           this.auth.agregarmodalopenclass();
