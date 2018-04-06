@@ -15,6 +15,7 @@ import { CaptacionesExpedientesComponent } from './captaciones-expedientes/capta
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'captcomp',
         component: CaptacionesComprasComponent
+      },
+      {
+        path: 'captproy',
+        component: CaptacionesProyectosComponent
       },
       {
         path: 'captvent',

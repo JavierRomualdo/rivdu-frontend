@@ -76,7 +76,6 @@ export class ModalCompraformularioComponent implements OnInit {
   };
 
 traerParaEdicion(id){
-
     this.cargando = true;
     this.vistaFormulario = true;
       return this.apiRequest.post('compra/obtener', {id:id})
