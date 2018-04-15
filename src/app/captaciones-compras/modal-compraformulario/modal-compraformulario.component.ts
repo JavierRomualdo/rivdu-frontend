@@ -229,6 +229,7 @@ llenarCombo(relacionPropietario){
             this.auth.agregarmodalopenclass();
         }, (reason) => {
             console.log("Ha sido cerrado "+reason);
+            this.auth.agregarmodalopenclass();
         });
     };
 

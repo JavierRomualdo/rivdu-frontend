@@ -4,8 +4,10 @@ import { ModalCompraformularioComponent } from './modal-compraformulario/modal-c
 import {ApiRequestService} from "../servicios/api-request.service";
 import {AuthService} from "../servicios/auth.service";
 import {Savecompradto} from "../entidades/entidad.savecompradto";
+import { ConfirmacionComponent } from '../util/confirmacion/confirmacion.component';
 import {ToastrService} from 'ngx-toastr';
 import {Paginacion} from "../entidades/entidad.paginacion";
+import {Personacompra} from "../entidades/entidad.personacompra";
 
 @Component({
   selector: 'app-captaciones-compras',
@@ -17,8 +19,10 @@ export class CaptacionesComprasComponent implements OnInit {
   public cargando:boolean =false;
   public page: number = 1;
   public paginacion: Paginacion;
+  public confirmarcambioestado:boolean=false;
   public parametros:any={};
   public listacompra:Savecompradto[]=[];
+  public personacompra:Personacompra[]=[];
   public dni:string="";
   public nombre:string="";
   public correlativo:string="";
@@ -26,6 +30,7 @@ export class CaptacionesComprasComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private api: ApiRequestService,
+    private apiRequest: ApiRequestService,
     private auth: AuthService,
     private modal:NgbModal,
     private toastr: ToastrService
@@ -35,6 +40,35 @@ export class CaptacionesComprasComponent implements OnInit {
 
   ngOnInit() {
     this.busqueda();
+  }
+
+  confirmarcambiodeestado(personacompra):void{
+    const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
+    modalRef.result.then((result) => {
+      this.confirmarcambioestado=true;
+      this.cambiarestadoCompra(personacompra);
+      this.auth.agregarmodalopenclass();
+    }, (reason) => {
+      personacompra.estado = !personacompra.estado;
+      this.auth.agregarmodalopenclass();
+    });
+  };
+
+  cambiarestadoCompra(personacompra){
+    this.cargando = true;
+    return this.apiRequest.post('compra/eliminar', {id:personacompra.id})
+        .then(
+            data => {
+              if(data && data.extraInfo){
+                this.toastr.success(data.operacionMensaje," Exito");
+                this.listarcompras();
+              } else {
+                this.toastr.info(data.operacionMensaje,"Informacion");
+              }
+              this.cargando = false;
+            }
+        )
+        .catch(err => this.handleError(err));
   }
 
   busqueda(): void {
