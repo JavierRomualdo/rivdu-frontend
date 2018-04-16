@@ -47,10 +47,8 @@ export class CaptacionesComprasComponent implements OnInit {
     modalRef.result.then((result) => {
       this.confirmarcambioestado=true;
       this.cambiarestadoCompra(personacompra);
-      this.auth.agregarmodalopenclass();
     }, (reason) => {
       personacompra.estado = !personacompra.estado;
-      this.auth.agregarmodalopenclass();
     });
   };
 
