@@ -68,6 +68,7 @@ import { ModalRolesComponent } from './mantenimiento-usuarios/modal-roles/modal-
 import { ModalRolesAccesoComponent } from './mantenimiento-usuarios/modal-roles-acceso/modal-roles-acceso.component';
 import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/modal-usuarios.component';
 import { UploadComponent } from './captaciones-expedientes/upload/upload.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal-proyectosformulario/modal-proyectosformulario.component';
 
 
@@ -113,6 +114,7 @@ import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal
     ModalRolesComponent,
     ModalRolesAccesoComponent,
     ModalUsuariosComponent,
+    UsuarioComponent,
     ModalProyectosformularioComponent,
     UploadComponent
   ],
@@ -138,7 +140,6 @@ import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal
     ModalPreciosComponent,
     ModalProyectosformularioComponent,
     ModalRolComponent,
-    ListaProgramasComponent,
     ModalRolesComponent,
     ModalRolesAccesoComponent,
     UploadComponent

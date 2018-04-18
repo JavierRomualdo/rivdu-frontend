@@ -16,6 +16,7 @@ import { ExpedientesComprasComponent } from './captaciones-expedientes/expedient
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
 import {MantenimientoUsuariosComponent} from "./mantenimiento-usuarios/mantenimiento-usuarios.component";
+import { UsuarioComponent } from './usuario/usuario.component';
 import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
 
 
@@ -85,6 +86,10 @@ const routes: Routes = [
             component: ExpedientesProyectosComponent
           }
         ]
+      },
+      {
+        path: 'usuario',
+        component: UsuarioComponent
       }
     ]
   },
