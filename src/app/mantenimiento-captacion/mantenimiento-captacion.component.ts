@@ -70,12 +70,6 @@ export class MantenimientoCaptacionComponent implements OnInit {
     });
   }
 
-  abrirCaptadores():void{
-    const modalRef = this.modalService.open(ModalCaptadorComponent, {size: 'lg', keyboard: false});
-    modalRef.result.then((result) => {
-    }, (reason) => {
-    });
-  }
     listarcaptadores(){
         this.api.get("captadores/listar")
             .then(respuesta => {

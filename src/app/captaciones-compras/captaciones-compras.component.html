@@ -43,7 +43,7 @@
           <div class="card-header d-flex align-items-center">
             <h3 class="h4">Compras</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body pb-0">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Busque por DNI" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
               <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="150" id="cdescr" name="cdscor" required>
@@ -64,16 +64,16 @@
                   <th scope="row">{{i+1}}</th>
                   <td>{{o.persona}}</td>
                   <td>LIB-562-13-3-17</td>
-                  <td style="width: 140px" align="center" style="font-size: 23px;">
-                  <a class="opcion"  (click)="confirmarcambiodeestado(o)" title="eliminar"><i class="fa fa-trash"></i></a>
-                  <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
+                  <td style="width: 140px; font-size: 23px;" align="center" class="p-0">
+                    <a class="opcion text-danger"  (click)="confirmarcambiodeestado(o)" title="eliminar"><i class="fa fa-trash"></i></a>
+                    <a class="btn-link curso-pointer" (click)="traerParaEdicion(o.id)" title="editar"><i class="fa fa-edit text-primary" style="font-size: 23px; "></i></a>
                   </td>
 
                 </tr>
                 </tbody>
               </table>
             </div>
-            <div class="row mb-3">
+            <div class="row">
               <div class="col-md-6 table-responsive">
                 <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarcompras()"></ngb-pagination>
               </div>

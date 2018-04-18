@@ -86,9 +86,9 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" *ngIf="labores.id" (click)="guardarDatosNuevoModal()" >Actualizar</button>
-          <button type="submit" class="btn btn-primary" *ngIf="!labores.id" (click)="guardarDatosNuevoModal()" >Guardar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="abrirModalListado()">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="labores.id" (click)="guardarDatosNuevoModal()" >Actualizar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="!labores.id" (click)="guardarDatosNuevoModal()" >Guardar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="abrirModalListado()">Cancelar</button>
         </div>
       </form>
   </div>
