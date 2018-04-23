@@ -269,6 +269,7 @@ export class ModalIngenierosComponent implements OnInit {
             )
             .catch(err => this.handleError(err));
     };
+    
     llenarCombo(persona){
         let tipo= persona.idestado;
         let tiposelect = this.listaestados.find(item => item.id == tipo.id);

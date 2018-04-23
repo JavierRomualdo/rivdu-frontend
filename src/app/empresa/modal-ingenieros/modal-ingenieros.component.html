@@ -33,7 +33,7 @@
                       <h3 *ngIf="!proveedores && !captadores && !responsable" class="h4">Listado de Personas</h3>
                     </div><!--ingenieros-->
                     <div class="card-body pb-0">
-                            <div class="input-group">
+                      <div class="input-group pb-3">
                         <input type="text" class="form-control" placeholder="Busque por codigo" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
                         <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="150" id="cdescr" name="cdscor" required>
                         <select class="form-control" placeholder="Filtrar por Rol" style="height: calc(2.5rem);" id="catbus" name="catbus"  required="" name="tiporol"  [(ngModel)]="idRol"  placeholder="Filtrar por Rol" [disabled] = "responsable || proveedores || captadores">
@@ -55,7 +55,7 @@
                         <tbody>
                         <tr class="cursor-pointer" *ngFor="let o of ingenieros;let i=index">
                           <th scope="row" (click)="elegirIngeniero(o)">{{i+1}}</th>
-                          <td (click)="elegirIngeniero(o)">{{o.nombre}} {{o.apellido}}</td>
+                          <td (click)="elegirIngeniero(o)">{{o.nombre}} {{o.appaterno}} {{o.apmaterno}}</td>
                           <td (click)="elegirIngeniero(o)">{{o.dni}}</td>
                           <td (click)="elegirIngeniero(o)">{{o.estado?'HABILITADO':'DESHABILITADO'}}</td>
                           <td scope="row "  style="width: 140px">
@@ -95,73 +95,71 @@
             </div>
           <div class="pt-3">
               <div class="form-group row">
-                  <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
                   <div class="col-sm-2" >
-                      <ui-switch  *ngIf="ingeniero.id" [(ngModel)]="ingeniero.estado" name="estado"  >estado</ui-switch>
-                      <ui-switch  *ngIf="!ingeniero.id"  [checked]="true"  name="estado1" >estado</ui-switch>
+                    <div>
+                        <label class="form-control-label">Estado <span class="text-primary">*</span> </label>
+                    </div>
+                    <ui-switch  *ngIf="ingeniero.id" [(ngModel)]="ingeniero.estado" name="estado"  >estado</ui-switch>
+                    <ui-switch  *ngIf="!ingeniero.id"  [checked]="true"  name="estado1" >estado</ui-switch>
                   </div>
-                  <label class="col-sm-2 form-control-label">D.N.I. <span class="text-primary">*</span></label>
-                  <div class="col-sm-5">
+                  <div class="col-sm-4">
+                      <label class="form-control-label">D.N.I. <span class="text-primary">*</span></label>
                       <div class="form-group">
                           <div class="input-group">
                              <input type="text" name="numerodni" required="" class="form-control" maxlength="8" [(ngModel)]="ingeniero.dni">
                               <div class="input-group-append">
-                                  <button type="button" class="btn btn-primary"  (click)="busquedaPorDni(ingeniero.dni)"><i class="fa fa-search"></i></button>
+                                  <button type="button" class="btn btn-primary btn-sm"  (click)="busquedaPorDni(ingeniero.dni)"><i class="fa fa-search"></i></button>
                               </div>
                           </div>
                       </div>
                   </div>
+                  <div class="col-sm-6">
+                      <label class="form-control-label">Nombre.  <span class="text-primary">*</span></label>
+                      <input type="text" class="form-control" name="nombre" required="" maxlength="50" [(ngModel)]="ingeniero.nombre">
+                    </div>
               </div>
-           <div class="form-group row">
-            <label class="col-sm-3 form-control-label">Nombre.  <span class="text-primary">*</span></label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="nombre" required="" placeholder="Ingrese nombre completo" maxlength="50" [(ngModel)]="ingeniero.nombre">
-            </div>
-           </div>
               <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Apellido.  <span class="text-primary">*</span></label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="apellido" required="" maxlength="20" [(ngModel)]="ingeniero.apellido" >
+                <div class="col-sm-6">
+                  <label class="form-control-label">Apellido Paterno.  <span class="text-primary">*</span></label>
+                  <input type="text" class="form-control" name="apellidopaterno" required="" maxlength="30" [(ngModel)]="ingeniero.appaterno" >
                 </div>
+                <div class="col-sm-6">
+                    <label class="form-control-label">Apellido Materno.  <span class="text-primary">*</span></label>
+                    <input type="text" class="form-control" name="apellidomaterno" required="" maxlength="30" [(ngModel)]="ingeniero.apmaterno" >
+                  </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Correo</label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
+                  <label class="form-control-label">Correo</label>
                   <input type="text" name="correo"  required="" class="form-control" maxlength="50" [(ngModel)]="ingeniero.correo">
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Direccion</label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
+                  <label class="form-control-label">Direccion</label>
                   <input type="text" name="direccion"  required="" class="form-control" maxlength="255" [(ngModel)]="ingeniero.direccion">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Ubigeo</label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
+                  <label class="form-control-label">Ubigeo</label>
                   <div class="form-group">
                     <div class="input-group">
                       <input type="text" class="form-control" disabled [(ngModel)]="ingeniero.idubigeo.nombre" name="idubigeo">
                       <div class="input-group-append">
-                        <button type="button" class="btn btn-primary"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalUbigeo()"><i class="fa fa-search"></i></button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Telefono</label>
                 <div class="col-sm-3">
-                  <input type="text" name="telefono"  class="form-control" maxlength="15" [(ngModel)]="ingeniero.telefono">
+                    <label class="form-control-label">Telefono</label>
+                    <input type="text" name="telefono"  class="form-control" maxlength="15" [(ngModel)]="ingeniero.telefono">
                 </div>
-                  <label class="col-sm-3 form-control-label"><span class="text-primary">*</span> Estado Civil</label>
-                  <div class="col-sm-3">
-                      <select class="form-control form-control-sm" required="" name="idestadocivil" [(ngModel)]="ingeniero.idestado" >
-                          <option  [ngValue]="tip" *ngFor="let tip of listaestados" >{{tip.nombre}}</option>
-                      </select>
-                  </div>
-
-
+                <div class="col-sm-3">
+                    <label class="form-control-label"><span class="text-primary">*</span> Estado Civil</label>
+                    <select class="form-control form-control-sm" required="" name="idestadocivil" [(ngModel)]="ingeniero.idestado" >
+                        <option [ngValue]="tip" *ngFor="let tip of listaestados" >{{tip.nombre}}</option>
+                    </select>
+                </div>
               </div>
               <div class="pc-line-neg row box-line-negocio no-gutters justify-content-between align-items-center mt-3 p-2" style="background-color: antiquewhite">
                   <div class="col">

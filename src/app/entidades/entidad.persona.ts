@@ -3,7 +3,8 @@ import {Estadocliente} from "./entidad.estadocliente";
 
 export class Persona {
   id: number;
-  apellido: string;
+  apmaterno: string;
+  appaterno: string;
   correo: string;
   direccion: string;
   dni: string;

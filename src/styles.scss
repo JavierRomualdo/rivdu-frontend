@@ -21,6 +21,10 @@ section.dashboard-counts .row {
 .color-rojo {
   color: red;
 }
+.rows-delgadas td, .rows-delgadas th {
+  padding-top: 5px!important;
+  padding-bottom: 5px!important;
+}
 .nuevo-modal{
   background-color: rgba(0,0,0,0.5) ;
   padding-top: 1rem!important;
