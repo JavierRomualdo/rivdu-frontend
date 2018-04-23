@@ -33,11 +33,16 @@
             <div class="row">
               <div class="col-sm-6">
                 <label class="form-control-label">Dni:</label>
-                <input type="text" class="form-control form-control-sm" name="captador" [(ngModel)]="captador.nombre">
+                <input type="text" class="form-control" placeholder="Ingrese DNI para la busqueda" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
               </div>
               <div class="col-sm-6">
                 <label class="form-control-label">Nombre:</label>
-                <input type="text" class="form-control form-control-sm" name="captador" [(ngModel)]="captador.comision">
+                <input type="text" class="form-control" placeholder="Ingrese Nombre para la busqueda" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-control-label"></label>
+                <input type="datetime" class="form-control" placeholder="Ingrese fecha de inicio" [(ngModel)]="dni" maxlength="150" id="cdescor" name="cdescor" required>
+
               </div>
             </div>
           </div>
