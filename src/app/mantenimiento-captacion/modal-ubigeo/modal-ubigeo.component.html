@@ -76,8 +76,11 @@
                         <tr>
                           <th>#</th>
                           <th>Codigo</th>
-                          <th>Nombre</th>
-                          <th>TipoUbigeo</th>
+                          <th>Departamento</th>
+                          <th>Provincia</th>
+                          <th>Distrito</th>
+                          <th>Centro Poblado</th>
+                          <th style="background-color: thistle">TipoUbigeo</th>
                           <th>Estado</th>
                           <th>Opciones</th>
                         </tr>
@@ -86,8 +89,11 @@
                         <tr class="cursor-pointer" *ngFor="let o of ubigeos;let i=index" >
                           <th scope="row">{{i+1}}</th>
                           <td (click)="elegirUbigeo(o)">{{o.codigo}}</td>
-                          <td (click)="elegirUbigeo(o)">{{o.nombre}}</td>
-                          <td (click)="elegirUbigeo(o)">{{o.idtipoubigeo.nombre}}</td>
+                          <td [ngClass]="{'color-rojo':o.idtipoubigeo.id === 1 }" (click)="elegirUbigeo(o)">{{o.departamento ? o.departamento : '- -'}}</td>
+                          <td [ngClass]="{'color-rojo':o.idtipoubigeo.id === 2 }" (click)="elegirUbigeo(o)">{{o.provincia ? o.provincia : '- -'}}</td>
+                          <td [ngClass]="{'color-rojo':o.idtipoubigeo.id === 3 }" (click)="elegirUbigeo(o)">{{o.distrito ? o.distrito : '- -'}}</td>
+                          <td [ngClass]="{'color-rojo':o.idtipoubigeo.id === 4 }" (click)="elegirUbigeo(o)">{{o.centro ? o.centro : '- -'}}</td>
+                          <td (click)="elegirUbigeo(o)" style="background-color: thistle">{{o.idtipoubigeo.nombre}}</td>
                           <td (click)="elegirUbigeo(o)">{{o.estado?'HABILITADO':'DESHABILITADO'}}</td>
                           <td style="width: 140px">
                             <ui-switch size="small"[(ngModel)]="o.estado" name="estado" (click)="confirmarcambiodeestado(o)">estado</ui-switch>
