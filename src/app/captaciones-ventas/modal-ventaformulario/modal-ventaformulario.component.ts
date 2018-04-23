@@ -55,6 +55,7 @@ export class ModalVentaformularioComponent implements OnInit {
           this.auth.agregarmodalopenclass();
       });
   }
+  
 
   listarestados(){
     this.cargando = true;
@@ -126,7 +127,7 @@ export class ModalVentaformularioComponent implements OnInit {
         const modalRef = this.modal.open(ModalIngenierosComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
         modalRef.result.then((result) => {
             if(result.id==this.persona.id || this.validarRepetidos(result)){
-                this.toastr.warning("Esta persona ha sido elegida como el titular de la compra");
+                this.toastr.warning("Esta persona ha sido elegida como el titular de la venta");
             }else{
                 let relacionPropietario = new Personaventa();
                 relacionPropietario.id=null;
