@@ -84,12 +84,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="cursor-pointer"   *ngFor="let item of listaRP; let i = index;"  >
+                          <tr class="cursor-pointer rows-delgadas"   *ngFor="let item of listaRP; let i = index;"  >
                             <th scope="row">{{i+1}}</th>
-                            <td>{{ item.idpersona.nombre}} {{item.idpersona.apellido}}</td>
+                            <td>{{ item.idpersona.nombre}} {{item.idpersona.appaterno}} {{item.idpersona.apmaterno}}</td>
                             <td>{{item.idpersona.dni}}</td>
-                            <td style="220px!important;">
-                              <select class="form-control form-control-sm"  required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol" >
+                            <td>
+                              <select class="form-control form-control-sm mb-0"  style="height: 26px; padding: 0px;" required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol" >
                                  <option [ngValue]="prol.idrol" *ngFor="let prol of item.idpersona.personarolList" >{{prol.idrol.nombre}}</option>
                               </select>
                             </td>
@@ -97,8 +97,8 @@
                               <input type="number" [(ngModel)]="item.codigocip" maxlength="10" required name="cod-{{i}}" >
                             </td>
                             <td >
-                              <a *ngIf="!programa.id" (click)="quitarresposable(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
-                              <a *ngIf="programa.id" (click)="confirmareliminado(item)" ><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
+                              <a *ngIf="!programa.id" (click)="quitarresposable(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
+                              <a *ngIf="programa.id" (click)="confirmareliminado(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
                             </td>
                           </tr>
                         </tbody>
@@ -136,14 +136,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                          <tr class="cursor-pointer" *ngFor="let item1 of listaET; let i = index;" >
+                          <tr class="cursor-pointer rows-delgadas" *ngFor="let item1 of listaET; let i = index;" >
                             <th scope="row">{{i+1}}</th>
                             <td>{{item1.idespecificacion.idestructura.nombre}}</td>
                             <td>{{item1.idespecificacion.etapa}}</td>
                             <td>{{item1.idespecificacion.especificaciones}}</td>
                             <td>{{item1.idespecificacion.categoria}}</td>
                             <td>{{item1.idespecificacion.valorm2}}</td>
-                            <td style="padding-top: 0px; padding-bottom: 0px;">
+                            <td>
                               <ui-switch size="small" *ngIf="programa.id" [(ngModel)]="item1.estado" name="es5-{{i}}" >estado</ui-switch>
                             </td>
                           </tr>

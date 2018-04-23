@@ -24,32 +24,20 @@
             <div class="card-body">
               <div class="row">
                 <label class="col-sm-1 form-control-label">Registro:</label>
-                <div class="col-sm-3">
-                  <input type="text" class="form-control" name="registro">
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="registro" disabled>
                 </div>
                 <label class="col-sm-1 form-control-label">Vendedor:</label>
-                <div class="col-sm 7">
+                <div class="col-sm-4">
                     <div class="input-group">
-                      <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                      <label class="form-control">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}} {{"-"}} {{persona.dni}}</label>
                       <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                     </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-sm-1 form-control-label">Status:</label>
-                <div class="col-sm-3">
-                  <select class="form-control">
-                    <option *ngFor="let statu of listaStatus">{{statu.nombre}}</option>
-                  </select>
-                </div>
-                <label class="col-sm-1 form-control-label">Elegible:</label>
-                <div class="col-sm-3">
-                  <input type="text" class="form-control" name="elegible">
                 </div>
                 <label class="col-sm-1 form-control-label">Programa:</label>
                 <div class="col-sm-3">
                   <select class="form-control">
-                    <option></option>
+                    <option [ngValue]="tip" *ngFor="let tip of listaProgramas" >{{tip.codigoet}} {{'-'}}{{tip.nombre}} </option>
                   </select>
                 </div>
               </div>
@@ -64,23 +52,23 @@
                       <div class="col-sm 6">
                         <label class="form-control-label">Persona:</label>
                           <div class="input-group">
-                          <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                          <label class="form-control">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}} {{"-"}} {{persona.dni}}</label>
                           <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                           </div>
                       </div>
-                    <div class="col-sm-6">
-                      <label class="form-control-label">Estado Civil</label>
-                      <select class="form-control">
-                        <option *ngFor="let est of listaEstados">{{est.nombre}}</option>
-                      </select>
-                    </div>
+                      <div class="col-sm 6">
+                        <label class="form-control-label">Estado Civil:</label>
+                          <div class="input-group">
+                          <label class="form-control">{{persona.appaterno}}</label>
+                          </div>
+                      </div>
               </div>
             </div>
           </div>
           <!--Conyuge / Carga Familiar-->
           <div class="card col-sm-12 mb-3">
             <div class="card-close mb-2">
-              <a id="closeCard2" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
+              <a id="closeCard2" class="btn-link cursor-pointer" (click)="abrirModalPropietarios()"><i class="fa fa-plus-circle"></i> Nuevo</a><!--(click)="abrirModalPropietario()"-->
             </div>
             <div class="card-header">Conyuge / Carga Familiar</div>
             <div class="card-body">
@@ -96,19 +84,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="cursor-pointer">
-                        <td>#</td>
-                        <td>#</td>
-                        <td width="320px">
-                          <select class="form-control">
-                            <option><!--{{ o.nombre}}--></option><!--*ngFor="let o of relacion"-->
-                          </select>
-                        </td>
-                        <td style="width: 120px">
-                          <a><i class="fa fa-close text-danger" > &nbsp;&nbsp;</i></a>
-                            <i class="fa fa-edit text-primary"></i>
-                        </td>
-                      </tr>
+                    <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
+                      <td>{{i+1}}</td>
+                      <td><label class="form-control">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
+                      <td>
+                        <select class="form-control form-control-sm">
+                          <option *ngFor="let o of relacion">{{o.nombre}}</option>
+                        </select>
+                      </td>
+                      <td style="width: 30px;">
+                        <a><i class="fa fa-close fa-2x text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
