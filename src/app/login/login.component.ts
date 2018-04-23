@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
   }
 
   ingresar() {
+    let idEmpresa = localStorage.getItem(LS.KEY_ID_EMPRESA);
+    let rucempresa = localStorage.getItem(LS.KEY_RUC_EMPRESA);
     this.cargando = true;
     this.authService.ingresar(this.user.username, this.user.password)
       .then(
@@ -77,6 +79,8 @@ export class LoginComponent implements OnInit {
               this.toastr.error('Error interno', 'Error');
               break;
           }
+          localStorage.setItem(LS.KEY_ID_EMPRESA, idEmpresa);
+          localStorage.setItem(LS.KEY_RUC_EMPRESA, rucempresa);
           this.cargando = false;
         }
       );

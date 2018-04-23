@@ -4,7 +4,7 @@
   </div>
 </header>
 <section class="dashboard-counts no-padding-bottom">
-  <div class="container-fluid" style="padding: 0px">
+  <div class="container-fluid">
     <div class="row bg-white has-shadow cursor-pointer">
       <div class="col-xl-6 col-sm-6" (click)="abrirProyecto()">
         <div class="item d-flex align-items-center">
@@ -62,7 +62,7 @@
             </div>
             <div class="row mb-3">
               <div class="col-md-6 table-responsive">
-                <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarcompras()"></ngb-pagination>
+                <ngb-pagination style="margin-bottom: 0px;" class="ngb-pagination-sigro" [collectionSize]="paginacion.totalRegistros" [(page)]="page" [maxSize]="1" [boundaryLinks]="true" (pageChange)="listarProyectos()"></ngb-pagination>
               </div>
               <div class="col-md-6 text-right pr-3">
                 <p class="card-text text-secondary"><small>Mostrando {{paginacion.paginaActual}} de {{paginacion.totalPaginas}} páginas.</small></p>

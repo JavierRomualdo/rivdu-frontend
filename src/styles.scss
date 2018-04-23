@@ -18,6 +18,9 @@ section.dashboard-counts .row {
     max-width: 90%!important;
   }
 }
+.color-rojo {
+  color: red;
+}
 .nuevo-modal{
   background-color: rgba(0,0,0,0.5) ;
   padding-top: 1rem!important;
@@ -32,5 +35,11 @@ section.dashboard-counts .row {
 }
 .ui-contextmenu {
   top: 200px!important;
+}
+.form-group {
+  margin-bottom: 0.5rem!important;
+}
+.card-body {
+  padding: 0.9rem;
 }
 /*9184171080817*/

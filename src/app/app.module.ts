@@ -63,8 +63,14 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import { MantenimientoUsuariosComponent } from './mantenimiento-usuarios/mantenimiento-usuarios.component';
+import { ModalRolesComponent } from './mantenimiento-usuarios/modal-roles/modal-roles.component';
+import { ModalRolesAccesoComponent } from './mantenimiento-usuarios/modal-roles-acceso/modal-roles-acceso.component';
+import { ModalUsuariosComponent } from './mantenimiento-usuarios/modal-usuarios/modal-usuarios.component';
 import { UploadComponent } from './captaciones-expedientes/upload/upload.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal-proyectosformulario/modal-proyectosformulario.component';
+
 
 @NgModule({
   declarations: [
@@ -104,6 +110,11 @@ import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal
     ExpedientesComprasComponent,
     ExpedientesProyectosComponent,
     ExpedientesVentasComponent,
+    MantenimientoUsuariosComponent,
+    ModalRolesComponent,
+    ModalRolesAccesoComponent,
+    ModalUsuariosComponent,
+    UsuarioComponent,
     ModalProyectosformularioComponent,
     UploadComponent
   ],
@@ -129,6 +140,8 @@ import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal
     ModalPreciosComponent,
     ModalProyectosformularioComponent,
     ModalRolComponent,
+    ModalRolesComponent,
+    ModalRolesAccesoComponent,
     UploadComponent
   ],
   imports: [

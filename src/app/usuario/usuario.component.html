@@ -1,0 +1,140 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Datos del Usuario</h2>
+  </div>
+</header>
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-close">
+            <div class="dropdown">
+              <button type="button" id="closeCard5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa fa-ellipsis-v"></i>
+              </button>
+              <div aria-labelledby="closeCard5" class="dropdown-menu dropdown-menu-right has-shadow">
+                <a *ngIf="!isEdicion" class="dropdown-item edit" (click)="habilitarEdicion()">
+                  <i class="fa fa-gear"></i>Editar</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-header d-flex align-items-center">
+            <h3 class="h4">{{titulo}}</h3>
+          </div>
+          <div class="card-body">
+            <div *ngIf="cargando">
+              <app-cargando></app-cargando>
+            </div>
+            <form *ngIf="!cargando" class="form-horizontal" #usuarion="ngForm" (ngSubmit)="actualizarUsuario()">
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">DNI</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="text" [disabled]="!isEdicion" placeholder="DNI" class="form-control form-control-lg" name="dni" [(ngModel)]="usuario.dni"
+                      maxlength="8" required>
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Nombre</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="text" [disabled]="!isEdicion" placeholder="Nombre" class="form-control form-control-lg" name="nombre" [(ngModel)]="usuario.nombre"
+                      maxlength="30" required>
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Apellidos</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="text" [disabled]="!isEdicion" placeholder="Apellidos" class="form-control form-control-lg" name="apellidos"
+                      [(ngModel)]="usuario.apellidos" maxlength="80" required>
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Usuario</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <label placeholder="Usuario" class="form-control form-control-lg">{{usuario.userId}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Dirección</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="text" [disabled]="!isEdicion" placeholder="Dirección" class="form-control form-control-lg" name="direccion"
+                      [(ngModel)]="usuario.direccion" maxlength="70">
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Correo electrónico</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="email" [disabled]="!isEdicion" placeholder="miemail@example.com" class="form-control form-control-lg" name="correo"
+                      [(ngModel)]="usuario.correo" class="form-control" maxlength="80" required>
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Celular</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="text" [disabled]="!isEdicion" placeholder="987654321" class="form-control form-control-lg" name="celular" [(ngModel)]="usuario.celular"
+                      maxlength="15">
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row" *ngIf="isEdicion">
+                <label class="col-sm-3 form-control-label">Contraseña actual</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="password" [disabled]="!isEdicion" [required]="isAntiguaPasswordValido" class="form-control form-control-lg" name="antiguaPassword" [(ngModel)]="password.antiguaPassword" maxlength="32" (keyup)="verificarPassword()">
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row" *ngIf="isEdicion">
+                <label class="col-sm-3 form-control-label">Nueva contraseña</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="password" [disabled]="!isAntiguaPasswordValido" [required]="isAntiguaPasswordValido" class="form-control form-control-lg" name="nuevaPassword" [(ngModel)]="password.nuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row" *ngIf="isEdicion">
+                <label class="col-sm-3 form-control-label">Confirmar nueva contraseña</label>
+                <div class="col-sm-9">
+                  <div class="form-group">
+                    <input type="password" [disabled]="!isAntiguaPasswordValido" [required]="isAntiguaPasswordValido" [ngClass]="{'is-invalid': !isNuevaPasswordValido && isAntiguaPasswordValido}" class="form-control form-control-lg" name="confirmarNuevaPassword" [(ngModel)]="password.confirmarNuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                  </div>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="form-group row" *ngIf="isEdicion">
+                <div class="col-sm-12">
+                  <div *ngIf="!cargando" class="float-right">
+                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="!usuarion.form.valid || cargando || !isNuevaPasswordValido">Aceptar</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="habilitarEdicion()">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -15,7 +15,10 @@ import { CaptacionesExpedientesComponent } from './captaciones-expedientes/capta
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';
+import {MantenimientoUsuariosComponent} from "./mantenimiento-usuarios/mantenimiento-usuarios.component";
+import { UsuarioComponent } from './usuario/usuario.component';
 import { CaptacionesProyectosComponent } from './captaciones-proyectos/captaciones-proyectos.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -44,6 +47,10 @@ const routes: Routes = [
       {
         path: 'mantteso', // la ruta real es movimientos/nuevo
         component: MantenimientoTesoreriaComponent
+      },
+      {
+        path: 'manusua', // la ruta real es movimientos/nuevo
+        component: MantenimientoUsuariosComponent
       },
       {
         path: 'captcomp',
@@ -79,6 +86,10 @@ const routes: Routes = [
             component: ExpedientesProyectosComponent
           }
         ]
+      },
+      {
+        path: 'usuario',
+        component: UsuarioComponent
       }
     ]
   },
