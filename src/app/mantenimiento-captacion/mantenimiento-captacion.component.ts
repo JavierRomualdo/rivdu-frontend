@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ModalCaptadorComponent } from './modal-captador/modal-captador.component'
 import { ModalEspecificacionesComponent } from "./modal-especificaciones/modal-especificaciones.component";
 import { ModalEstadocivilComponent } from "./modal-estadocivil/modal-estadocivil.component";
 import { ModalRelacionpersonalComponent } from "./modal-relacionpersonal/modal-relacionpersonal.component";
@@ -40,7 +39,7 @@ export class MantenimientoCaptacionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.listarCaptadores();
   }
 
   abrirUbigeo():void{
@@ -71,20 +70,45 @@ export class MantenimientoCaptacionComponent implements OnInit {
     });
   }
 
-    abrirCaptadores(): void {
-        const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'lg', keyboard: false});
-        modalRef.componentInstance.responsable = true;
-        modalRef.result.then((result) => {
-        }, (reason) => {
-        });
-    }
+    listarcaptadores(){
+        this.api.get("captadores/listar")
+            .then(respuesta => {
+                if(respuesta && respuesta.extraInfo){
+                    this.listacaptadores = respuesta.extraInfo;
+                } else {
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                }
+            })
+            .catch(err => this.handleError(err));
+
+    };
+
+    listarCaptadores(){
+        this.cargando= true;
+        this.api.post('captador/pagina/'+this.page+'/cantidadPorPagina/'+this.paginacion.cantidadPorPagina, this.parametros)
+            .then(data => {
+                if(data){
+                    this.cargando = false;
+                    this.paginacion.totalRegistros = data.totalRegistros;
+                    this.paginacion.paginaActual = data.paginaActual;
+                    this.paginacion.totalPaginas = data.totalPaginas;
+                    this.captadores = data.registros;
+                }
+            })
+            .catch(err => this.handleError(err));
+    };
+    busqueda(): void {
+        this.page = 1;
+        this.parametros = {
+            "dni":this.dni,
+            "nombre":this.nombre
+        };
+        this.listarCaptadores();
+
+    };
 
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
     }
-
-
-
-
 
 }

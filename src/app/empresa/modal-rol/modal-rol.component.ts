@@ -8,7 +8,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./modal-rol.component.css']
 })
 export class ModalRolComponent implements OnInit {
-    public tiposroles:any;
+
+  public tiposroles:any;
+  public idRol:any;
 
   constructor( public activeModal: NgbActiveModal,
                public api: ApiRequestService, public toastr: ToastrService,

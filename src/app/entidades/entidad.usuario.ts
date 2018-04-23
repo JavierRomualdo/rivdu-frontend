@@ -1,4 +1,6 @@
-import {TipoUsuario} from "./entidad.tipoUsuario";
+
+import {Empresa} from "./entidad.empresa";
+import {TipoUsuario} from "./entidad.tipousuario";
 
 export class Usuario {
   id: number;
@@ -12,4 +14,6 @@ export class Usuario {
   password:string;
   cambiarclave:boolean;
   estado:boolean;
+  idempresa:Empresa;
+  UsuarioaccesoList:any = [];
 }

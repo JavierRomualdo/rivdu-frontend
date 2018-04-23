@@ -8,7 +8,9 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4">Mantenimiento de Cuentas Bancarias</h3>
+      <h3 class="h4" *ngIf="!vistaFormulario">Mantenimiento Cuentas Bancarias</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && !verNuevo">Nueva Cuenta Bancaria</h3>
+      <h3 class="h4" *ngIf="vistaFormulario && verNuevo">Editando Cuenta Bancaria</h3>
     </div>
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
@@ -16,7 +18,7 @@
     <div class="card-body pb-0">
       <div *ngIf="!cargando && !vistaFormulario" class="form-horizontal" style="padding: 2px">
         <section class="tables pt-0 pb-0">
-          <div class="container-fluid">
+          <div class="container-fluid pt-3" style="padding: 0px">
             <div class="row">
               <div class="col-lg-12">
                 <div class="card">
@@ -28,7 +30,7 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-striped">
+                      <table class="table table-striped table-bordered table-hover table-sm" >
                         <thead>
                         <tr>
                           <th>#</th>
@@ -63,12 +65,6 @@
       </div>
       <div *ngIf="vistaFormulario && !cargando">
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarCuentas()">
-          <div class="card-header d-flex align-items-center" *ngIf="!verNuevo">
-            <h5 class="h4" align="left">Nueva Cuenta </h5>
-          </div>
-          <div class="card-header d-flex align-items-center" *ngIf="verNuevo">
-            <h5 class="h4" align="left">Editando Cuenta </h5>
-          </div>
           <div class="pt-3">
             <div class="form-group row">
               <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>

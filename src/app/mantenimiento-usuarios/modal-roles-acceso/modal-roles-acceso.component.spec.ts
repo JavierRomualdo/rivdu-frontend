@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalProveedoresComponent } from './modal-proveedores.component';
+import { ModalRolesAccesoComponent } from './modal-roles-acceso.component';
 
-describe('ModalProveedoresComponent', () => {
-  let component: ModalProveedoresComponent;
-  let fixture: ComponentFixture<ModalProveedoresComponent>;
+describe('ModalRolesAccesoComponent', () => {
+  let component: ModalRolesAccesoComponent;
+  let fixture: ComponentFixture<ModalRolesAccesoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalProveedoresComponent ]
+      declarations: [ ModalRolesAccesoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalProveedoresComponent);
+    fixture = TestBed.createComponent(ModalRolesAccesoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

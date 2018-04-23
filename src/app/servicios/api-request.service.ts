@@ -25,7 +25,7 @@ export class ApiRequestService {
     constructor(
         private appConfig: AppConfig,
         private http: Http,
-        private router: Router,
+        private router: Router
     ) { }
 
     appendAuthHeader(): Headers {
