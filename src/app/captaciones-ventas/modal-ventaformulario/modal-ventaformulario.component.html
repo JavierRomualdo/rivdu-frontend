@@ -30,7 +30,7 @@
                 <label class="col-sm-1 form-control-label">Vendedor:</label>
                 <div class="col-sm-4">
                     <div class="input-group">
-                      <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                      <label class="form-control">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}} {{"-"}} {{persona.dni}}</label>
                       <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -52,14 +52,14 @@
                       <div class="col-sm 6">
                         <label class="form-control-label">Persona:</label>
                           <div class="input-group">
-                          <label class="form-control">{{persona.nombre}}{{persona.apellido}}{{"-"}}{{persona.dni}}</label>
+                          <label class="form-control">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}} {{"-"}} {{persona.dni}}</label>
                           <button type="button" class="btn btn-primary"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                           </div>
                       </div>
                       <div class="col-sm 6">
                         <label class="form-control-label">Estado Civil:</label>
                           <div class="input-group">
-                          <label class="form-control">{{persona.apellido}}</label>
+                          <label class="form-control">{{persona.appaterno}}</label>
                           </div>
                       </div>
               </div>
