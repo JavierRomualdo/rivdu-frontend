@@ -5,7 +5,7 @@ import { AuthService } from '../../servicios/auth.service';
 import {ApiRequestService} from '../../servicios/api-request.service';
 import { Estadocliente } from '../../entidades/entidad.estadocliente';
 import { Relacion } from '../../entidades/entidad.relacion';
-import { Persona } from '../../entidades/entidad.persona';
+ import { Persona } from '../../entidades/entidad.persona';
 import {ToastrService} from 'ngx-toastr';
 import { ModalUbigeoComponent } from '../../mantenimiento-captacion/modal-ubigeo/modal-ubigeo.component';
 import { ModalIngenierosComponent } from '../../empresa/modal-ingenieros/modal-ingenieros.component';
