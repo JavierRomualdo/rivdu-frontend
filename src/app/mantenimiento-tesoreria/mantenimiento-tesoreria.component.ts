@@ -19,7 +19,7 @@ export class MantenimientoTesoreriaComponent implements OnInit {
   }
 
   abrirPlan():void{
-    const modalRef = this.modalService.open(ModalCuentasComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalCuentasComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });

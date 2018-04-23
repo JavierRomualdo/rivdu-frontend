@@ -113,8 +113,7 @@ export class ModalCostosComponent implements OnInit {
 
   guardarCostos(){
     this.cargando=true;
-    this.api.post("centrocosto",this.costo)
-        .then(respuesta => {
+    this.api.post("centrocosto",this.costo).then(respuesta => {
           if(respuesta && respuesta.extraInfo){
             this.costo = respuesta.extraInfo;
             this.toastr.success("Registro guardado exitosamente", 'Exito');

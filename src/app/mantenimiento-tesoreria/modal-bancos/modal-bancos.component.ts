@@ -46,7 +46,7 @@ export class ModalBancosComponent implements OnInit {
     this.banco =new Cuentabanco();
     this.cargando= false;
   };
-
+ //modal confirmar
   confirmarcambiodeestado(banco){
     const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
@@ -127,7 +127,7 @@ export class ModalBancosComponent implements OnInit {
           }
         })
         .catch(err => this.handleError(err));
-
+        
   };
 
   private handleError(error: any): void {
