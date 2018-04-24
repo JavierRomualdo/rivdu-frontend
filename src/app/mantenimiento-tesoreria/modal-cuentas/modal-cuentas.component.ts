@@ -57,14 +57,14 @@ export class ModalCuentasComponent implements OnInit {
         this.activeModal.dismiss('Cross click');
       } else {
         this.cargando = false;
-        this.toastr.error(respuesta.operacionMensaje, 'Error');
+        this.toastr.info(respuesta.operacionMensaje, 'Informacion');
       }
     })
       .catch(err => this.handleError(err));
 
   };
   private handleError(error: any): void {
-    this.toastr.error("Error Interno", 'Error');
+    this.toastr.info("Error Interno", 'Error');
     this.cargando = false;
   };
 
@@ -74,7 +74,7 @@ export class ModalCuentasComponent implements OnInit {
     this.planCuentas = new Plandecuentas();
     this.cargando = false;
   };
-  
+
   traerParaEdicion() {
     this.cargando = true;
     this.vistaFormulario = true;
@@ -84,15 +84,13 @@ export class ModalCuentasComponent implements OnInit {
           if (data && data.extraInfo) {
             this.cargando = false;
             this.planCuentas = data.extraInfo;
-
+            
           } else {
-            this.toastr.info(data.operacionMensaje, "Informacion");
-
+            this.toastr.info(data.operacionMensaje, "Info"); 
           }
         }
       )
       .catch(err => this.handleError(err));
   }
-
 }
 
