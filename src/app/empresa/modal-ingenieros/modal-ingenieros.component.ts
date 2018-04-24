@@ -211,7 +211,7 @@ export class ModalIngenierosComponent implements OnInit {
             this.auth.agregarmodalopenclass();
         });
     };
-
+    
     cambiarestadoingeniero(ingeniero){
         this.cargando = true;
         return this.apiRequest.post('ingeniero/eliminar', {id:ingeniero.id})
