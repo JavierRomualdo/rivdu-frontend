@@ -8,8 +8,6 @@ import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.comp
 import { Plandecuentas } from '../../entidades/entidad.plandecuentas';
 import { Paginacion } from '../../entidades/entidad.paginacion';
 
-
-
 @Component({
   selector: 'app-modal-cuentas',
   templateUrl: './modal-cuentas.component.html',
@@ -19,9 +17,6 @@ export class ModalCuentasComponent implements OnInit {
   //declare variables
   @Input() idplan;
   public cargando: boolean = false;
-  public lista: any = [];
-  public listado: boolean = false;
-  public verNuevo: boolean = false;
   public planCuentas: Plandecuentas;
   public planCuentasArray: Plandecuentas[];
   public vistaFormulario: boolean = false;
@@ -29,7 +24,6 @@ export class ModalCuentasComponent implements OnInit {
   public page: number = 1;
   public codigo: string = "";
   public paginacion: Paginacion;
-  public solicitando = false;
   public parametros: any = {};
   //variables para modal
   public confirmarcambioestado: boolean = false;
@@ -77,17 +71,13 @@ export class ModalCuentasComponent implements OnInit {
   //nuevo init
   nuevo() {
     this.cargando = true;
-    this.verNuevo = false;
     this.planCuentas = new Plandecuentas();
     this.cargando = false;
   };
-  closeModalPlan() {
-  }
-
+  
   traerParaEdicion() {
     this.cargando = true;
     this.vistaFormulario = true;
-    this.verNuevo = true;
     return this.api.post('plancuenta/obtener', { id: this.idplan })
       .then(
         data => {
