@@ -6,6 +6,8 @@ import { ApiRequestService } from '../../servicios/api-request.service';
 import { Cuentabanco } from '../../entidades/entidad.cuentabanco';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
 import { Plandecuentas } from '../../entidades/entidad.plandecuentas';
+import { Paginacion } from '../../entidades/entidad.paginacion';
+
 
 
 @Component({
@@ -24,6 +26,13 @@ export class ModalCuentasComponent implements OnInit {
   public verNuevo: boolean = false;
   public planCuentas: Plandecuentas;
   public planCuentasArray: Plandecuentas[];
+  //variables para buusqueda
+  public page: number = 1;
+  public codigo: string = "";
+  public paginacion: Paginacion;
+  public confirmarcambioestado: boolean = false;
+  public solicitando = false;
+  public parametros: any = {};
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -31,15 +40,18 @@ export class ModalCuentasComponent implements OnInit {
     public api: ApiRequestService,
     public apiRequest: ApiRequestService,
     public toastr: ToastrService,
-    public auth: AuthService
+    public auth: AuthService,
   ) {
-     this.holderNombre="Ingrese Nombre";
+    this.holderNombre="Ingrese Nombre";
+
+    this.planCuentas = new Plandecuentas();
+    this.paginacion = new Paginacion();
    }
 
   ngOnInit() {
-    
     //init arrrayPlanCuentas
-    this.planCuentas = new Plandecuentas();
+    this.listarCuentas();
+
   }
   //metodo para guardar plan de cuentas
   guardarPlanPaCuenta() {
@@ -68,5 +80,29 @@ export class ModalCuentasComponent implements OnInit {
     this.verNuevo = false;
     this.planCuentas = new Plandecuentas();
     this.cargando = false;
+  };
+
+  //metodo busqueda by codigo
+  busqueda(): void {
+    this.page = 1;
+    this.parametros = {
+      "codigo": this.codigo
+    };
+    this.listarCuentas();
+  };
+
+  listarCuentas() {
+    this.cargando = true;
+    this.api.post('plancuenta/pagina/' + this.page + '/cantidadPorPagina/' + this.paginacion.cantidadPorPagina, this.parametros)
+      .then(data => {
+        if (data) {
+          this.paginacion.totalRegistros = data.totalRegistros;
+          this.paginacion.paginaActual = data.paginaActual;
+          this.paginacion.totalPaginas = data.totalPaginas;
+          this.planCuentas = data.registros;
+          this.cargando = false;
+        }
+      })
+      .catch(err => this.handleError(err));
   };
 }

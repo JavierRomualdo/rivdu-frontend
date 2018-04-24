@@ -127,14 +127,10 @@ export class ModalCostosComponent implements OnInit {
           }
         })
         .catch(err => this.handleError(err));
-
   };
 
   private handleError(error: any): void {
     this.toastr.error("Error Interno", 'Error');
     this.cargando =false;
   };
-
-
-
 }
