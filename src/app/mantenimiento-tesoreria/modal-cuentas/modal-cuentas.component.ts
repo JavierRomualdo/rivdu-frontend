@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../servicios/auth.service';
@@ -16,23 +16,23 @@ import { Paginacion } from '../../entidades/entidad.paginacion';
   styleUrls: ['./modal-cuentas.component.css']
 })
 export class ModalCuentasComponent implements OnInit {
-
-  public holderNombre:string;
-
   //declare variables
+  @Input() idplan;
   public cargando: boolean = false;
   public lista: any = [];
   public listado: boolean = false;
   public verNuevo: boolean = false;
   public planCuentas: Plandecuentas;
   public planCuentasArray: Plandecuentas[];
+  public vistaFormulario: boolean = false;
   //variables para buusqueda
   public page: number = 1;
   public codigo: string = "";
   public paginacion: Paginacion;
-  public confirmarcambioestado: boolean = false;
   public solicitando = false;
   public parametros: any = {};
+  //variables para modal
+  public confirmarcambioestado: boolean = false;
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -42,30 +42,30 @@ export class ModalCuentasComponent implements OnInit {
     public toastr: ToastrService,
     public auth: AuthService,
   ) {
-    this.holderNombre="Ingrese Nombre";
 
     this.planCuentas = new Plandecuentas();
     this.paginacion = new Paginacion();
-   }
+  }
 
   ngOnInit() {
-    //init arrrayPlanCuentas
-    this.listarCuentas();
-
+    if (this.idplan) {
+      this.traerParaEdicion();
+    }
   }
   //metodo para guardar plan de cuentas
-  guardarPlanPaCuenta() {
+  guardarPlanCuenta() {
     this.cargando = true;
     this.api.post("plancuenta", this.planCuentas).then(respuesta => {
-        if (respuesta && respuesta.extraInfo) {
-          this.planCuentas = respuesta.extraInfo;
-          this.toastr.success("Registro guardado exitosamente", 'Exito');
-          this.cargando = false;
-        } else {
-          this.cargando = false;
-          this.toastr.error(respuesta.operacionMensaje, 'Error');
-        }
-      })
+      if (respuesta && respuesta.extraInfo) {
+        this.planCuentas = respuesta.extraInfo;
+        this.toastr.success("Registro guardado exitosamente", 'Exito');
+        this.cargando = false;
+        this.activeModal.dismiss('Cross click');
+      } else {
+        this.cargando = false;
+        this.toastr.error(respuesta.operacionMensaje, 'Error');
+      }
+    })
       .catch(err => this.handleError(err));
 
   };
@@ -81,28 +81,28 @@ export class ModalCuentasComponent implements OnInit {
     this.planCuentas = new Plandecuentas();
     this.cargando = false;
   };
+  closeModalPlan() {
+  }
 
-  //metodo busqueda by codigo
-  busqueda(): void {
-    this.page = 1;
-    this.parametros = {
-      "codigo": this.codigo
-    };
-    this.listarCuentas();
-  };
-
-  listarCuentas() {
+  traerParaEdicion() {
     this.cargando = true;
-    this.api.post('plancuenta/pagina/' + this.page + '/cantidadPorPagina/' + this.paginacion.cantidadPorPagina, this.parametros)
-      .then(data => {
-        if (data) {
-          this.paginacion.totalRegistros = data.totalRegistros;
-          this.paginacion.paginaActual = data.paginaActual;
-          this.paginacion.totalPaginas = data.totalPaginas;
-          this.planCuentas = data.registros;
-          this.cargando = false;
+    this.vistaFormulario = true;
+    this.verNuevo = true;
+    return this.api.post('plancuenta/obtener', { id: this.idplan })
+      .then(
+        data => {
+          if (data && data.extraInfo) {
+            this.cargando = false;
+            this.planCuentas = data.extraInfo;
+
+          } else {
+            this.toastr.info(data.operacionMensaje, "Informacion");
+
+          }
         }
-      })
+      )
       .catch(err => this.handleError(err));
-  };
+  }
+
 }
+

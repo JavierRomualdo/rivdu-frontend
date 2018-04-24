@@ -30,12 +30,10 @@ export class MantenimientoCaptacionComponent implements OnInit {
   constructor(
     private modalService: NgbModal, public api: ApiRequestService, public toastr: ToastrService
   ) {
-
       this.captadores= [];
       this.paginacion = new Paginacion();
       this.captador= new Persona();
       this.captador.idubigeo = new Ubigeo();
-
   }
 
   ngOnInit() {

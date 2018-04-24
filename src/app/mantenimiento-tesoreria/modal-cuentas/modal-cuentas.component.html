@@ -14,38 +14,32 @@
       <app-cargando></app-cargando>
     </div>
     <div class="card-body pb-0">
-      <div *ngIf="!cargando && !vistaFormulario" class="form-horizontal" style="padding: 2px">
+      <div *ngIf="!cargando" class="form-horizontal" style="padding: 2px">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid pt-3" style="padding: 0px">
-            <div class="row">
+            <form class="row" (ngSubmit)="guardarPlanCuenta()">
               <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-bordered table-hover table-sm">
-                        <tbody>
-                          <form>
-                              <label class="col-sm-6 form-control-label" placeholder="hola">Nombre</label>
-                              <input type="text" class="form-control" name="" value="">
-                              <label class="col-sm-6 form-control-label">Codigo</label>
-                              <input type="text" class="form-control" name="" value="">
-                              <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
-                              </div>
-                          </form>
-                        </tbody>
-                      </table>
+                <div class="card mb-0">
+                  <div class="card body">
+
+                    <div class="form-group">
+                      <label class="col-sm-12 form-control-label" placeholder="hola">Codigo</label>
+                      <input type="text" class="form-control" [(ngModel)]="planCuentas.codigo" name="codigo" value="">
+                      <label class="col-sm-12 form-control-label">Nombre</label>
+                      <input type="text" class="form-control" [(ngModel)]="planCuentas.detalle" name="detalle" value="">
                     </div>
+
                   </div>
                 </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-sm" *ngIf="!planCuentas.id">Guardar</button>
+                  <button type="submit" class="btn btn-primary  btn-sm" *ngIf="planCuentas.id" >Editar</button>
+                  <button type="button" class="btn btn-outline-dark  btn-sm" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </section>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-outline-blue" (click)="activeModal.dismiss('Cross click')">Ok</button>
-        </div> -->
       </div>
     </div>
   </div>

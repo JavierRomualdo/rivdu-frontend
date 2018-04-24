@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../servicios/auth.service';
 import { Paginacion } from '../entidades/entidad.paginacion';
 import { Plandecuentas } from '../entidades/entidad.plandecuentas';
+import { ConfirmacionComponent } from '../util/confirmacion/confirmacion.component';
 
 @Component({
   selector: 'app-mantenimiento-tesoreria',
@@ -30,6 +31,8 @@ export class MantenimientoTesoreriaComponent implements OnInit {
   public confirmarcambioestado: boolean = false;
   public solicitando = false;
   public parametros: any = {};
+  //variables modal
+  public vistaFormulario: boolean = false;
   constructor(
     private modalService: NgbModal,
     private activeModal: NgbActiveModal,
@@ -53,7 +56,13 @@ export class MantenimientoTesoreriaComponent implements OnInit {
     }, (reason) => {
     });
   }
-
+  abrirPlanEdit(id): void {
+    const modalRef = this.modalService.open(ModalCuentasComponent, { size: 'sm', keyboard: false });
+    modalRef.componentInstance.idplan = id;
+    modalRef.result.then((result) => {
+    }, (reason) => {
+    });
+  }
   abrirCostos():void{
     const modalRef = this.modalService.open(ModalCostosComponent, {size: 'lg', keyboard: false});
     modalRef.result.then((result) => {
@@ -103,5 +112,21 @@ export class MantenimientoTesoreriaComponent implements OnInit {
       })
       .catch(err => this.handleError(err));
   };
+  //confirmacion de cambion de estado plan de cuentas
+  confirmarcambiodeestado(planCuentas) {
+    const modalRef = this.modal.open(ConfirmacionComponent, { windowClass: 'nuevo-modal', size: 'sm', keyboard: false });
+    modalRef.result.then((result) => {
+      this.confirmarcambioestado = true;
+      // this.confirmarcambiodeestado(this.planCuentas);
+      this.auth.agregarmodalopenclass();
+    }, (reason) => {
+      planCuentas.estado = !planCuentas.estado;
+      this.auth.agregarmodalopenclass();
+    });
+  };
+  //metodo obtener datos para edicion
+  getPlanCuentaEdit(id) {
+    this.abrirPlanEdit(id);
+  };  
 }
 

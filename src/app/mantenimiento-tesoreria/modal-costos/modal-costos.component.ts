@@ -39,8 +39,6 @@ export class ModalCostosComponent implements OnInit {
   ngOnInit() {
     this.listarCostos();
   }
-
-
   confirmarcambiodeestado(costo){
     const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
@@ -133,4 +131,4 @@ export class ModalCostosComponent implements OnInit {
     this.toastr.error("Error Interno", 'Error');
     this.cargando =false;
   };
-}
+  }
