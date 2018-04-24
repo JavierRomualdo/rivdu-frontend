@@ -5,7 +5,6 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService}  from '../../servicios/auth.service';
 import { Paginacion } from '../../entidades/entidad.paginacion';
 import { ConfirmacionComponent } from '../../util/confirmacion/confirmacion.component';
-
 import {ModalRolComponent} from '../../empresa/modal-rol/modal-rol.component'
 import {Usuario} from '../../entidades/entidad.usuario';
 import {Rol} from "../../entidades/entidad.rol";
@@ -97,8 +96,7 @@ export class ModalUsuariosComponent implements OnInit {
                     this.usuarios = respuesta.extraInfo;
                     this.cargando = false;
                     this.listaPR = this.usuarios.UsuarioaccesoList && this.usuarios.UsuarioaccesoList.length > 0 ? this.usuarios.UsuarioaccesoList : [];
-                }
-                else {
+                } else {
                     this.toastr.info(respuesta.operacionMensaje,"Informacion");
                     this.vistaFormulario = true;
                     this.cargando = false;
@@ -131,8 +129,7 @@ export class ModalUsuariosComponent implements OnInit {
                             this.usuarios.idempresa = new Empresa();
                         }
                         this.listaPR = this.usuarios.UsuarioaccesoList && this.usuarios.UsuarioaccesoList.length > 0 ? this.usuarios.UsuarioaccesoList : [];
-                    }
-                    else {
+                    } else {
                         this.toastr.info(data.operacionMensaje, "Informacion");
                         this.vistaFormulario = false;
                         this.cargando = false;
@@ -167,7 +164,6 @@ export class ModalUsuariosComponent implements OnInit {
                 estado:true,
                 idrol:rol
             }
-
             let rSelect = this.listaPR.find(item => item.idrol.id === rol.id);
             if (rSelect && rSelect.idrol && rSelect.idrol.id) {
                 this.toastr.warning('Rol ya existe', 'Aviso');
