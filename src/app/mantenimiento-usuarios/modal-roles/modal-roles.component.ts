@@ -18,8 +18,7 @@ export class ModalRolesComponent implements OnInit {
   public lista:any=[];
   public confirmarcambioRol= false;
   public cargando:boolean=false;
-  public clicknuevo:boolean=false;
-  public clickeditar:boolean=false;
+  public vistaFormulario:boolean=false;
   public listado:boolean=false;
   public id:number;
 
@@ -51,7 +50,7 @@ export class ModalRolesComponent implements OnInit {
 
   cambiarRol(rol){
     this.cargando = true;
-    return this.apiRequest.get('rol/eliminarestadocliente/'+rol.id)
+    return this.apiRequest.get('tiposroles/inhabilitarrol/'+rol.id)
         .then(
             data => {
               if(data && data.extraInfo){
@@ -68,9 +67,8 @@ export class ModalRolesComponent implements OnInit {
   };
 
   traerParaEdicion(id){
-    this.clickeditar=true;
-    this.clicknuevo=false;
-    return this.api.post('rol/obtener', {id: id})
+    this.vistaFormulario = true;
+    return this.api.post('tiposroles/obtener', {id: id})
         .then(
             data => {
               if(data && data.extraInfo){
@@ -99,33 +97,6 @@ export class ModalRolesComponent implements OnInit {
 
   };
 
-  eliminarRoles(li){
-    this.cargando = true;
-    this.api.delete("rol/eliminarestadocliente/"+li.id)
-        .then(respuesta => {
-          if(respuesta && respuesta.extraInfo){
-            this.lista.splice(this.lista.lastIndexOf(li),1);
-          } else {
-            this.toastr.error(respuesta.operacionMensaje, 'Error');
-          }
-          this.cargando=false;
-        })
-        .catch(err => this.handleError(err));
-  };
-
-  confirmareliminado(li): void {
-    const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
-    modalRef.result.then((result) => {
-      this.eliminarRoles(li);
-      this.toastr.success("Registro eliminado exitosamente", 'Exito');
-      this.auth.agregarmodalopenclass();
-    }, (reason) => {
-      this.auth.agregarmodalopenclass();
-    });
-  };
-
-
-
   guardarRol(){
     this.cargando=true;
     this.api.post("tiposroles",this.rol)
@@ -136,7 +107,7 @@ export class ModalRolesComponent implements OnInit {
             this.cargando = false;
             this.listado = true;
             this.listarRoles();
-            this.abrirlistado();
+            this.vistaFormulario = false;
           } else {
             this.cargando=false;
             this.toastr.error(respuesta.operacionMensaje, 'Error');
@@ -146,19 +117,9 @@ export class ModalRolesComponent implements OnInit {
   };
 
   abrinuevoRol(){
-    this.clicknuevo=true;
+    this.vistaFormulario = true;
     this.rol=new Rol();
   };
-
-  abrirlistado(){
-    this.clicknuevo=false;
-    this.clickeditar=false;
-
-  };
-
-  editarRol(li):void{
-    this.clickeditar=true;
-  }
 
   private handleError(err:any):any {
     this.cargando = false;

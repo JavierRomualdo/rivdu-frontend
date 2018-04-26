@@ -8,13 +8,15 @@
       </div>
     </div>
     <div class="card-header d-flex align-items-center">
-      <h3 class="h4" id="titulo" *ngIf="!clicknuevo&&!clickeditar">Roles de Usuario</h3>
+      <h3 class="h4" id="titulo" *ngIf="!vistaFormulario">Roles de Usuario</h3>
+      <h3 class="h4" id="titulo" *ngIf="vistaFormulario && rol.id">Editar Usuario</h3>
+      <h3 class="h4" id="titulo" *ngIf="vistaFormulario && !rol.id">Nuevo Usuario</h3>
     </div>
     <div class="card-body pb-0">
       <div *ngIf="cargando">
         <app-cargando></app-cargando>
       </div>
-      <form *ngIf="!clicknuevo && !clickeditar && !cargando" class="form-horizontal" name="frm">
+      <form *ngIf="!vistaFormulario && !cargando" class="form-horizontal" name="frm">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid p-0">
             <div class="row">
@@ -56,11 +58,11 @@
           </div>
         </section>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Ok</button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Cross click')">Ok</button>
         </div>
       </form>
       <!--<P> formulario Agregar nuevo Rol</P>-->
-      <form  *ngIf="clicknuevo && !clickeditar && !cargando"   class="form-horizontal" name="frm">
+      <form  *ngIf="vistaFormulario && !cargando"   class="form-horizontal" name="frm">
         <div class="line"></div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
@@ -70,23 +72,9 @@
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary btn-sm" (click)="guardarRol()">Guardar</button>
-          <button type="button" class="btn btn-outline-dark btn-sm" (click)="abrirlistado()">Cancelar</button>
-        </div>
-      </form>
-
-      <form  *ngIf="clickeditar && !clicknuevo && !cargando"   class="form-horizontal" name="frm">
-        <div class="line"></div>
-        <div class="form-group row">
-          <label class="col-sm-3 form-control-label">Nombre </label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" name="nombre" [(ngModel)]="estadocivil.nombre" maxlength="30">
-          </div>
-        </div>
-        <div class="line"></div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary btn-sm" (click)="guardarestado()">Actualizar</button>
-          <button type="button" class="btn btn-outline-dark btn-sm" (click)="abrirlistado()">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="!rol.id" (click)="guardarRol()">Guardar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="rol.id" (click)="guardarRol()">Actualizar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="vistaFormulario = false;">Cancelar</button>
         </div>
       </form>
 
