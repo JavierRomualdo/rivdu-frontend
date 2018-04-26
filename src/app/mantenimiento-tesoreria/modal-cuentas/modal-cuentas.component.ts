@@ -28,8 +28,8 @@ export class ModalCuentasComponent implements OnInit {
   public parametros: any = {};
   //variables para modal
   constructor(
-    private activeModal: NgbActiveModal,
-    private modal: NgbModal,
+    public activeModal: NgbActiveModal,
+    public modal: NgbModal,
     public api: ApiRequestService,
     public apiRequest: ApiRequestService,
     public toastr: ToastrService,
