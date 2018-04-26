@@ -4,7 +4,6 @@ import {ApiRequestService} from '../../servicios/api-request.service';
 import {AuthService} from '../../servicios/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Rol}from '../../entidades/entidad.rol';
-import {ModalRolesComponent} from '../modal-roles/modal-roles.component';
 import {ConfirmacionComponent} from '../../util/confirmacion/confirmacion.component'
 
 
@@ -23,9 +22,6 @@ export class ModalRolesComponent implements OnInit {
   public clickeditar:boolean=false;
   public listado:boolean=false;
   public id:number;
-  public listarRoles:any;
-
-
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -45,7 +41,6 @@ export class ModalRolesComponent implements OnInit {
   confirmarcambiodeRol(rol){
     const modalRef = this.modal.open(ConfirmacionComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
-      this.confirmarcambiodeRol=true;
       this.cambiarRol(rol);
       this.auth.agregarmodalopenclass();
     }, (reason) => {
@@ -163,10 +158,6 @@ export class ModalRolesComponent implements OnInit {
 
   editarRol(li):void{
     this.clickeditar=true;
-  }
-
-  probar():void{
-    alert("Hola");
   }
 
   private handleError(err:any):any {
