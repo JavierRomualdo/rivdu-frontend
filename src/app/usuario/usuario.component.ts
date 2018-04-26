@@ -55,31 +55,41 @@ export class UsuarioComponent implements OnInit {
     this.cargando = true;
     let antiguaPassword = Md5.hashStr(this.password.antiguaPassword);
     let nuevaPassword = Md5.hashStr(this.password.nuevaPassword);
+    if (this.password.antiguaPassword && this.password.nuevaPassword) {
+      this.api.get(`usuario/validarPassword/${this.authService.getUserName()}/${antiguaPassword}`)
+        .then(respuesta => {
+          if (respuesta && respuesta.extraInfo) {
+            this.actualizar(nuevaPassword);
+          }
+          else if (respuesta && !respuesta.extraInfo) {
+            this.toastr.warning(respuesta.operacionMensaje, 'Error');
+          }
+          else {
+            this.toastr.error(respuesta.operacionMensaje, 'Error');
+          }
+          this.cargando = false;
+        }).catch(err => this.handleError(err));
+    } else {
+      this.actualizar("");
+    }
+  }
 
-    this.api.get(`usuario/validarPassword/${this.authService.getUserName()}/${antiguaPassword}`)
+  actualizar(nuevaPassword) {
+    let usuarioEdicionDTO = {
+      "usuario": this.usuario,
+      "password": "" + nuevaPassword
+    }
+    this.api.put("usuario/", usuarioEdicionDTO)
       .then(respuesta => {
-        if(respuesta && respuesta.extraInfo){
-          this.usuario.password = ""+nuevaPassword;
-            this.api.put("usuario/", this.usuario)
-              .then(respuesta => {
-                if (respuesta) {
-                  this.authService.setNombrecompleto(this.usuario.nombre, this.usuario.apellidos);
-                  this.toastr.success(respuesta.operacionMensaje, 'Éxito');
-                  this.habilitarEdicion();
-                } else {
-                  this.toastr.error(respuesta.operacionMensaje, 'Error');
-                } this.cargando = false;
-              })
-              .catch(err => this.handleError(err));
-        }
-        else if (respuesta && !respuesta.extraInfo){
-          this.toastr.warning(respuesta.operacionMensaje, 'Error');
-        }
-        else{
+        if (respuesta) {
+          this.authService.setNombrecompleto(this.usuario.nombre, this.usuario.apellidos);
+          this.toastr.success(respuesta.operacionMensaje, 'Éxito');
+          this.habilitarEdicion();
+        } else {
           this.toastr.error(respuesta.operacionMensaje, 'Error');
-        }
-        this.cargando = false;
-      }).catch(err => this.handleError(err));
+        } this.cargando = false;
+      })
+      .catch(err => this.handleError(err));
   }
 
   habilitarEdicion() {

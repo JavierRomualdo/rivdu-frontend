@@ -208,8 +208,12 @@ export class ModalUsuariosComponent implements OnInit {
     guardarUsuarios(){
         this.cargando= true;
         this.usuarios.usuarioaccesoList = this.listaPR;
+        let usuarioEdicionDTO = {
+            "usuario":this.usuarios,
+            "password":"" + Md5.hashStr(this.clave)
+        }
         if(this.usuarios.id){
-            return this.apiRequest.put('usuario', this.usuarios)
+            return this.apiRequest.put('usuario', usuarioEdicionDTO)
                 .then(
                     data => {
                         if(data && data.extraInfo){
@@ -228,7 +232,7 @@ export class ModalUsuariosComponent implements OnInit {
                 )
                 .catch(err => this.handleError(err));
         } else {
-            return this.apiRequest.post('usuario', this.usuarios)
+            return this.apiRequest.post('usuario', usuarioEdicionDTO)
                 .then(
                     data => {
                         if(data && data.extraInfo){

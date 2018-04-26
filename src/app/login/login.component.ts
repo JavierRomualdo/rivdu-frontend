@@ -64,9 +64,7 @@ export class LoginComponent implements OnInit {
             this.cargando = false;
             return;
           }
-          this.cargando = false;
           this.armarMenu();
-          this.router.navigate(['/welcome']);
         },
         errResponse => {
           this.authService.cerrarSession();
@@ -91,8 +89,12 @@ export class LoginComponent implements OnInit {
       .then(respuesta => {
         if(respuesta && respuesta.extraInfo){
           localStorage.setItem(LS.KEY_MENUS,JSON.stringify(respuesta.extraInfo));
+          this.cargando = false;
+          this.router.navigate(['/welcome']);
+          window.location.reload();
         }else{
           this.toastr.error(respuesta.operacionMensaje, 'Error');
+          this.cargando = false;
         }
       })
       .catch(err => this.handleError(err));

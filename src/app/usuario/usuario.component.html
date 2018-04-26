@@ -100,7 +100,8 @@
                 <label class="col-sm-3 form-control-label">Contraseña actual</label>
                 <div class="col-sm-9">
                   <div class="form-group">
-                    <input type="password" [disabled]="!isEdicion" [required]="isAntiguaPasswordValido" class="form-control form-control-lg" name="antiguaPassword" [(ngModel)]="password.antiguaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <input type="password" [disabled]="!isEdicion" class="form-control form-control-lg" name="antiguaPassword" [(ngModel)]="password.antiguaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <small>*Ingrese algo solo si desea cambiar clave</small>
                   </div>
                 </div>
               </div>
@@ -109,7 +110,8 @@
                 <label class="col-sm-3 form-control-label">Nueva contraseña</label>
                 <div class="col-sm-9">
                   <div class="form-group">
-                    <input type="password" [disabled]="!isAntiguaPasswordValido" [required]="isAntiguaPasswordValido" class="form-control form-control-lg" name="nuevaPassword" [(ngModel)]="password.nuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <input type="password" [disabled]="!isAntiguaPasswordValido" class="form-control form-control-lg" name="nuevaPassword" [(ngModel)]="password.nuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <small>*Ingrese algo solo si desea cambiar clave</small>
                   </div>
                 </div>
               </div>
@@ -118,7 +120,8 @@
                 <label class="col-sm-3 form-control-label">Confirmar nueva contraseña</label>
                 <div class="col-sm-9">
                   <div class="form-group">
-                    <input type="password" [disabled]="!isAntiguaPasswordValido" [required]="isAntiguaPasswordValido" [ngClass]="{'is-invalid': !isNuevaPasswordValido && isAntiguaPasswordValido}" class="form-control form-control-lg" name="confirmarNuevaPassword" [(ngModel)]="password.confirmarNuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <input type="password" [disabled]="!isAntiguaPasswordValido" [ngClass]="{'is-invalid': !isNuevaPasswordValido && isAntiguaPasswordValido}" class="form-control form-control-lg" name="confirmarNuevaPassword" [(ngModel)]="password.confirmarNuevaPassword" maxlength="32" (keyup)="verificarPassword()">
+                    <small>*Ingrese algo solo si desea cambiar clave</small>
                   </div>
                 </div>
               </div>
@@ -126,7 +129,7 @@
               <div class="form-group row" *ngIf="isEdicion">
                 <div class="col-sm-12">
                   <div *ngIf="!cargando" class="float-right">
-                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="!usuarion.form.valid || cargando || !isNuevaPasswordValido">Aceptar</button>
+                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="!usuarion.form.valid || cargando || (password.antiguaPassword && !isNuevaPasswordValido)">Aceptar</button>
                     <button type="button" class="btn btn-outline-dark btn-sm" (click)="habilitarEdicion()">Cancelar</button>
                   </div>
                 </div>
