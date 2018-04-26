@@ -60,6 +60,7 @@ import {PaginatorModule} from 'primeng/paginator';
 import {TreeModule} from 'primeng/tree';
 import {FileUploadModule} from 'primeng/fileupload';
 
+
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
 import { ExpedientesVentasComponent } from './captaciones-expedientes/expedientes-ventas/expedientes-ventas.component';

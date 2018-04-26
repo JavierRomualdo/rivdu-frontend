@@ -112,18 +112,32 @@ export class MantenimientoTesoreriaComponent implements OnInit {
       })
       .catch(err => this.handleError(err));
   };
-  //confirmacion de cambion de estado plan de cuentas
+  //modal confirmar
   confirmarcambiodeestado(planCuentas) {
     const modalRef = this.modal.open(ConfirmacionComponent, { windowClass: 'nuevo-modal', size: 'sm', keyboard: false });
     modalRef.result.then((result) => {
       this.confirmarcambioestado = true;
-      // this.confirmarcambiodeestado(this.planCuentas);
-      this.auth.agregarmodalopenclass();
+      this.cambiarestadoPlan(planCuentas);
     }, (reason) => {
       planCuentas.estado = !planCuentas.estado;
-      this.auth.agregarmodalopenclass();
     });
   };
+
+  cambiarestadoPlan(planCuentas) {
+    this.cargando = true;
+    return this.apiRequest.get('plancuenta/eliminarestadocuenta/' + planCuentas.id)
+      .then(
+        data => {
+          if (data && data.extraInfo) {
+            this.toastr.success(data.operacionMensaje, " Exito");
+          } else {
+            this.toastr.info(data.operacionMensaje, "Informacion");
+          }
+          this.cargando = false;
+        }
+      )
+      .catch(err => this.handleError(err));
+  }
   //metodo obtener datos para edicion
   getPlanCuentaEdit(id) {
     this.abrirPlanEdit(id);

@@ -19,8 +19,8 @@ import {Programas} from '../entidades/entidad.programas';
 })
 export class EmpresaComponent implements OnInit {
 
-     public confirmarcambioestado:boolean=false;
-     public cargando:boolean=false;
+    public confirmarcambioestado:boolean=false;
+    public cargando:boolean=false;
     public programa:Programas[];
     public  lista:any=[];
     public vistaFormulario = false;
