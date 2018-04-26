@@ -17,6 +17,7 @@ export class ModalCuentasComponent implements OnInit {
   //declare variables
   @Input() idplan;
   public cargando: boolean = false;
+  public listado: boolean = false;
   public planCuentas: Plandecuentas;
   public planCuentasArray: Plandecuentas[];
   public vistaFormulario: boolean = false;
@@ -26,8 +27,6 @@ export class ModalCuentasComponent implements OnInit {
   public paginacion: Paginacion;
   public parametros: any = {};
   //variables para modal
-  public confirmarcambioestado: boolean = false;
-
   constructor(
     private activeModal: NgbActiveModal,
     private modal: NgbModal,
@@ -46,6 +45,7 @@ export class ModalCuentasComponent implements OnInit {
       this.traerParaEdicion();
     }
   }
+
   //metodo para guardar plan de cuentas
   guardarPlanCuenta() {
     this.cargando = true;
@@ -54,6 +54,7 @@ export class ModalCuentasComponent implements OnInit {
         this.planCuentas = respuesta.extraInfo;
         this.toastr.success("Registro guardado exitosamente", 'Exito');
         this.cargando = false;
+        this.listado = true;
         this.activeModal.dismiss('Cross click');
       } else {
         this.cargando = false;
@@ -63,6 +64,7 @@ export class ModalCuentasComponent implements OnInit {
       .catch(err => this.handleError(err));
 
   };
+
   private handleError(error: any): void {
     this.toastr.info("Error Interno", 'Error');
     this.cargando = false;
@@ -84,9 +86,9 @@ export class ModalCuentasComponent implements OnInit {
           if (data && data.extraInfo) {
             this.cargando = false;
             this.planCuentas = data.extraInfo;
-            
+
           } else {
-            this.toastr.info(data.operacionMensaje, "Info"); 
+            this.toastr.info(data.operacionMensaje, "Info");
           }
         }
       )

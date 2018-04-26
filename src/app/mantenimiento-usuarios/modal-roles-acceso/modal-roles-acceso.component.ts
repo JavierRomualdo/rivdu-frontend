@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Router, Tree, TreeNode } from '@angular/router';
+import { Router } from '@angular/router';
+
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../servicios/auth.service';
 import { Usuario } from '../../entidades/entidad.usuario';
@@ -7,7 +8,8 @@ import { Rol } from '../../entidades/entidad.rol';
 import { Menu } from '../../entidades/entidad.menu';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
-import { Message, MenuItem } from 'primeng/api';
+import { Message, MenuItem, TreeNode } from 'primeng/api';
+import { Tree } from 'primeng/tree';
 
 @Component({
   selector: 'app-modal-roles-acceso',

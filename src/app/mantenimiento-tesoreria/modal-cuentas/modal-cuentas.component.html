@@ -17,7 +17,7 @@
       <div *ngIf="!cargando" class="form-horizontal" style="padding: 4px">
         <section class="tables pt-0 pb-0">
           <div class="container-fluid pt-3" style="padding: 4px">
-            <form class="row" (ngSubmit)="guardarPlanCuenta()">
+            <form class="row"  #formulario="ngForm" (ngSubmit)="guardarPlanCuenta()">
               <div class="col-lg-12">
                 <div class="card mb-0">
                   <div class="card body mb-0">
@@ -25,20 +25,20 @@
                       <div class="form-group">
                         <label class="col-sm-12 form-control-label" placeholder="hola">Codigo</label>
                         <div class="form-group" style="padding: 4px">
-                          <input type="text" class="form-control" [(ngModel)]="planCuentas.codigo" name="codigo" value="">   </div>
+                          <input type="text"  maxlength="6" class="form-control" [(ngModel)]="planCuentas.codigo" name="codigo" value="" required></div>
                         </div>
                       <div  class="form-group" style="padding: 4px">
                         <label class="col-sm-12 form-control-label">Nombre</label>
                         <div class="form-group" style="padding: 4px">
-                            <input type="text" class="form-control" [(ngModel)]="planCuentas.detalle" name="detalle" value="">
+                            <input type="text" maxlength="50" class="form-control" [(ngModel)]="planCuentas.detalle" name="detalle" value="" required>
                         </div>
                        </div> 
                       </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary btn-sm" *ngIf="!planCuentas.id">Guardar</button>
-                  <button type="submit" class="btn btn-primary  btn-sm" *ngIf="planCuentas.id" >Editar</button>
+                  <button type="submit" class="btn btn-primary btn-sm"  [disabled]="!formulario.form.valid" *ngIf="!planCuentas.id">Guardar</button>
+                  <button type="submit" class="btn btn-primary  btn-sm" *ngIf="planCuentas.id" [disabled]="!formulario.form.valid">Editar</button>
                   <button type="button" class="btn btn-outline-dark  btn-sm" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
                 </div>
               </div>

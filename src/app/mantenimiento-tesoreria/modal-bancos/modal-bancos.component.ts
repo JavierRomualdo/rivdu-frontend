@@ -118,7 +118,6 @@ export class ModalBancosComponent implements OnInit {
             this.banco = respuesta.extraInfo;
             this.toastr.success("Registro guardado exitosamente", 'Exito');
             this.cargando = false;
-            this.listado = true;
             this.listarCuentas();
             this.vistaFormulario = false;
           } else {
