@@ -11,6 +11,7 @@ import {Rol} from "../../entidades/entidad.rol";
 import { Empresa } from '../../entidades/entidad.empresa';
 import { Sucursal } from '../../entidades/entidad.sucursal';
 import { LS } from '../../app-constants';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-modal-usuarios',
@@ -22,6 +23,7 @@ export class ModalUsuariosComponent implements OnInit {
     public cargando: boolean = false;
     public vistaFormulario: boolean = false;
     public verNuevo: boolean = false;
+    public clave:string;
 
     //Variables para realizar la Paginacion
     public page: number = 1;
@@ -95,31 +97,33 @@ export class ModalUsuariosComponent implements OnInit {
                 if (respuesta && respuesta.extraInfo) {
                     this.usuarios = respuesta.extraInfo;
                     this.cargando = false;
-                    this.listaPR = this.usuarios.UsuarioaccesoList && this.usuarios.UsuarioaccesoList.length > 0 ? this.usuarios.UsuarioaccesoList : [];
+                    this.listaPR = this.usuarios.usuarioaccesoList && this.usuarios.usuarioaccesoList.length > 0 ? this.usuarios.usuarioaccesoList : [];
                 } else {
                     this.toastr.info(respuesta.operacionMensaje,"Informacion");
                     this.vistaFormulario = true;
                     this.cargando = false;
                     this.usuarios =new Usuario();
+                    this.usuarios.idempresa = new Empresa();
                 }
             })
             .catch(err => this.handleError(err));
     }
-
 
     abriModalNuevoUsuario() {
         this.vistaFormulario=true;
         this.verNuevo = false;
         this.usuarios= new Usuario();
         this.usuarios.idempresa = new Empresa();
-        this.listaPR = this.listaPR && this.listaPR.length>0 ? this.listaPR : [];
+        this.listaPR = [];
+        this.clave="";
     };
 
     traerParaEdicion(id) {
         this.cargando = true;
         this.vistaFormulario = true;
         this.verNuevo = true;
-        return this.apiRequest.post('usuario/obtener', {id: id})
+        this.clave="";
+        return this.apiRequest.post('usuario/obteneredicion', {id: id})
             .then(
                 data => {
                     if (data && data.extraInfo) {
@@ -128,7 +132,7 @@ export class ModalUsuariosComponent implements OnInit {
                         if (this.usuarios && !this.usuarios.idempresa){
                             this.usuarios.idempresa = new Empresa();
                         }
-                        this.listaPR = this.usuarios.UsuarioaccesoList && this.usuarios.UsuarioaccesoList.length > 0 ? this.usuarios.UsuarioaccesoList : [];
+                        this.listaPR = this.usuarios.usuarioaccesoList && this.usuarios.usuarioaccesoList.length > 0 ? this.usuarios.usuarioaccesoList : [];
                     } else {
                         this.toastr.info(data.operacionMensaje, "Informacion");
                         this.vistaFormulario = false;
@@ -151,15 +155,13 @@ export class ModalUsuariosComponent implements OnInit {
             .catch(err => this.handleError(err));
     }
 
-
     abrirModalRol():void{
         const modalRef = this.modalService.open(ModalRolComponent, {windowClass:'nuevo-modal', size: 'sm', keyboard: true});
         modalRef.result.then((result) => {
             let rol = result;
             let pr = {
-                personarolPK:{
-                    idrol:rol.id,
-                    idpersona:this.usuarios.id
+                idusuario:{
+                    id:this.usuarios.id
                 },
                 estado:true,
                 idrol:rol
@@ -203,11 +205,9 @@ export class ModalUsuariosComponent implements OnInit {
             .catch(err => this.handleError(err));
     };
 
-
     guardarUsuarios(){
         this.cargando= true;
-        this.usuarios.UsuarioaccesoList = this.listaPR;
-
+        this.usuarios.usuarioaccesoList = this.listaPR;
         if(this.usuarios.id){
             return this.apiRequest.put('usuario', this.usuarios)
                 .then(
@@ -258,8 +258,6 @@ export class ModalUsuariosComponent implements OnInit {
             })
             .catch(err => this.handleError(err));
     };
-
-
 
     private handleError(error: any): void {
         this.toastr.error("Error Interno", 'Error');
