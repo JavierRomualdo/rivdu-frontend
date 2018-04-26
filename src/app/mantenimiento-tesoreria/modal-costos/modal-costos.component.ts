@@ -101,6 +101,7 @@ export class ModalCostosComponent implements OnInit {
               if(data && data.extraInfo){
                 this.cargando = false;
                 this.costo = data.extraInfo;
+                
               } else {
                 this.toastr.info(data.operacionMensaje,"Informacion");
               }
