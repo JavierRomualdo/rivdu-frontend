@@ -50,7 +50,6 @@
                       <th scope="row">{{i+1}}</th>
                       <td>{{proy.codigo}}</td>
                       <td>{{proy.nombre}}</td>
-                      <td>{{proy.estado}}</td>
                       <td>{{proy.estado?'HABILITADO':'DESHABILITADO'}}</td>
                       <td scope="row "  style="width: 140px">
                         <ui-switch size="small"  name="estado" (click)="confirmarcambiodeestado(proy)" [(ngModel)]="proy.estado" maxlength="50" >estado</ui-switch>

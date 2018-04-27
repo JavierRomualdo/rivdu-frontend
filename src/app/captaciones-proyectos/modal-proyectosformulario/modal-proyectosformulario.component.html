@@ -19,19 +19,19 @@
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Codigo </label>
           <div class="col-sm-9">
-            <input type="text" maxlength="50" required class="form-control" name="codigo" [(ngModel)]="proyecto.codigo" placeholder="Ingrese Codigo" maxlength="100">
+            <input type="text" maxlength="50" required class="form-control" name="codigo" [(ngModel)]="proyecto.codigo" placeholder="Ingrese Codigo">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Nombre </label>
           <div class="col-sm-9">
-            <input type="text" maxlength="100" required class="form-control" name="nombre" [(ngModel)]="proyecto.nombre" placeholder="Ingrese Nombre" maxlength="100">
+            <input type="text" maxlength="100" required class="form-control" name="nombre" [(ngModel)]="proyecto.nombre" placeholder="Ingrese Nombre">
           </div>
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" *ngIf="!proyecto.id" [disabled]="!formulario.form.valid">Aceptar</button>
-          <button type="submit" class="btn btn-primary" *ngIf="proyecto.id" [disabled]="!formulario.form.valid">Actualizar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="!proyecto.id" [disabled]="!formulario.form.valid">Guardar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="proyecto.id" [disabled]="!formulario.form.valid">Actualizar</button>
 
           <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss('Cross click')">Cancelar</button><!--(click)="abrirlistado()"-->
         </div>
