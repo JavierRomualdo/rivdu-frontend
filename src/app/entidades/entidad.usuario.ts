@@ -15,5 +15,5 @@ export class Usuario {
   cambiarclave:boolean;
   estado:boolean;
   idempresa:Empresa;
-  UsuarioaccesoList:any = [];
+  usuarioaccesoList:any = [];
 }
