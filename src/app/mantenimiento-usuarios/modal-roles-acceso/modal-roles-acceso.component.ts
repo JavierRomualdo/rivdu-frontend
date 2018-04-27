@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../servicios/auth.service';
@@ -8,8 +8,8 @@ import { Rol } from '../../entidades/entidad.rol';
 import { Menu } from '../../entidades/entidad.menu';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
-import { Message, MenuItem, TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
+import { Message, MenuItem, TreeNodeDragEvent, TreeNode } from 'primeng/api';
+import { Tree} from 'primeng/tree';
 
 @Component({
   selector: 'app-modal-roles-acceso',
@@ -22,17 +22,18 @@ export class ModalRolesAccesoComponent implements OnInit {
   public tiposrole: any = [];
   public tipos: any = [];
   public rol: Rol;
-  public rolSelected: any = {};
+  public rolSelected: any = [];
   //variables roles y asignar Menu 
   public menu:Menu;
   public tiposroles: any;
   public idRol: any;
+  public estado:boolean=false;
   //variables para tree p 
   msgs: Message[];
   @ViewChild('expandingTree')
   expandingTree: Tree;
   filesTree4: TreeNode[];
-  selectedFile2: TreeNode;
+  selectedFile4: TreeNode;
   items: MenuItem[];
   loading: boolean;
 
@@ -45,7 +46,7 @@ export class ModalRolesAccesoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.traertiposrol();
+    this.traertiposrol();; 
   }
 
   llenarMenus(){
@@ -87,7 +88,7 @@ export class ModalRolesAccesoComponent implements OnInit {
 
   }
 
-  //traer topo de roles
+  //traer tipo de roles
   traertiposrol() {
     this.api.get("tiposroles/listar")
       .then(respuesta => {
@@ -118,20 +119,46 @@ export class ModalRolesAccesoComponent implements OnInit {
     }, (reason) => {
     });
   }
-  elegirRolMenu(id){
+  //metodo verificar estado 
+  verificarEstadRol(estado){
+    this.api.get("menu/menuselect/" + estado).then(respuesta => {
+      if (respuesta && respuesta.extraInfo) {
+        
+      } else {
+        this.toastr.error(respuesta.operacionMensaje, 'Error');
+      }
+    })
+      .catch(err => this.handleError(err));  
       
   }
+  //unchecket select
+  nodeUnSelect(event) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'info', summary: 'Node Unselected', detail: event.node.label });
+    this.selectedFile4.partialSelected == false;
+    
+  }
+  //onselect
+  nodeSelect(event) {
+    this.rolSelected=[];
+    const rolSelected = this.selectedFile4[this.rolSelected.length - 1]
+    // this.rolSelected.setSelected(true);
+    this.rolSelected.length = 0;
+    this.rolSelected.push(rolSelected);
+    this.selectedFile4.partialSelected== rolSelected;
+  }  
   //listar menu combo
   listarMenuCombo(id){
-    this.api.get("menu/menuselect/"+id).then(respuesta => {
+      
+      this.api.get("menu/menuselect/" + id).then(respuesta => {
         if (respuesta && respuesta.extraInfo) {
-          this.filesTree4 = respuesta.extraInfo;
+          this.filesTree4 = respuesta.extraInfo;   
         } else {
           this.toastr.error(respuesta.operacionMensaje, 'Error');
         }
       })
-      .catch(err => this.handleError(err));    
-
+        .catch(err => this.handleError(err));  
+        
   }
 
   private handleError(error: any): void {
