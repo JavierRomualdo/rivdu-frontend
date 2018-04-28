@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Router} from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../servicios/auth.service';
 import { Usuario } from '../../entidades/entidad.usuario';
@@ -8,8 +7,19 @@ import { Rol } from '../../entidades/entidad.rol';
 import { Menu } from '../../entidades/entidad.menu';
 import { ApiRequestService } from '../../servicios/api-request.service';
 import { ToastrService } from 'ngx-toastr';
-import { Message, MenuItem, TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
+import { MenuItem, TreeNode } from 'primeng/api';
+import { Tree} from 'primeng/tree';
+
+export interface Selected {
+  children:any,
+  id:number,
+  label:"TESORERIA",
+  parent:any
+}
+export class RolPermisoDTO {
+  ids:any;
+  idrol:number
+}
 
 @Component({
   selector: 'app-modal-roles-acceso',
@@ -19,20 +29,15 @@ import { Tree } from 'primeng/tree';
 export class ModalRolesAccesoComponent implements OnInit {
 
   //variables for menu modal access
-  public tiposrole: any = [];
   public tipos: any = [];
   public rol: Rol;
-  public rolSelected: any = {};
-  //variables roles y asignar Menu 
-  public menu:Menu;
+  public rolSelected: any = [];
+  //variables roles y asignar Menu
   public tiposroles: any;
   public idRol: any;
   //variables para tree p 
-  msgs: Message[];
-  @ViewChild('expandingTree')
-  expandingTree: Tree;
   filesTree4: TreeNode[];
-  selectedFile2: TreeNode;
+  selectedFile4: any;
   items: MenuItem[];
   loading: boolean;
 
@@ -45,49 +50,10 @@ export class ModalRolesAccesoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.traertiposrol();
+    this.traertiposrol();; 
   }
 
-  llenarMenus(){
-    this.filesTree4 = [
-      {
-        "label": "Documents",
-        "children": [{
-          "label": "Administrador",
-          "children": [{ "label": "Capataciones"}, 
-                       { "label": "Compras"}]
-                    
-        },
-        {
-          "label": "Home",
-          "children": [{ "label": "Invoices.txt" }]
-        }]
-      },
-      {
-        "label": "Pictures",
-        "children": [
-          { "label": "barcelona.jpg"},
-          { "label": "logo.jpg"},
-          { "label": "primeui.png"}]
-      },
-      {
-        "label": "Movies",
-        "children": [{
-          "label": "Al Pacino",
-          "children": [{ "label": "Scarface"}, 
-                       { "label": "Serpico"}]
-        },
-        {
-          "label": "Robert De Niro",
-          "children": [{ "label": "Goodfellas"}, 
-                       { "label": "Untouchables"}]
-        }]
-      }
-    ]
-
-  }
-
-  //traer topo de roles
+  //traer tipo de roles
   traertiposrol() {
     this.api.get("tiposroles/listar")
       .then(respuesta => {
@@ -99,39 +65,73 @@ export class ModalRolesAccesoComponent implements OnInit {
       })
       .catch(err => this.handleError(err));
   }
-   //elije rol
-   elegir(rol) {
-    this.activeModal.close(rol);
+
+  //unchecket select
+  nodeUnSelect(event) {
+    let dto = this.construirDTO(event);
+    this.api.post("tiposroles/desapilarmenu", dto)
+    .then(respuesta => {
+      if (respuesta && respuesta.extraInfo) {
+      } else {
+        this.toastr.error(respuesta.operacionMensaje, 'Error');
+      }
+    })
+      .catch(err => this.handleError(err));
   }
 
-  //abrir modal para roles
-  abrirRolesPermiso(): void {
-    const modalRef = this.modalService.open(ModalRolesAccesoComponent, { size: 'lg', keyboard: false });
-    modalRef.result.then((result) => {
-    }, (reason) => {
-    });
+  //onselect
+  nodeSelect(event) {
+    let dto = this.construirDTO(event);
+    this.api.post("tiposroles/apilarmenu", dto)
+    .then(respuesta => {
+      if (respuesta && respuesta.extraInfo) {
+      } else {
+        this.toastr.error(respuesta.operacionMensaje, 'Error');
+      }
+    })
+      .catch(err => this.handleError(err));
+  } 
+  
+  construirDTO(event){
+    let dto = new RolPermisoDTO();
+    dto.ids = [];
+    dto.ids.push(event.node.id);
+    if(event.node && event.node.parent){
+      dto.ids.push(event.node.parent.id);
+    } else {
+      if(event.node && event.node.children && event.node.children.length>0){
+        for(let i=0; i<event.node.children.length; i++){
+          dto.ids.push(event.node.children[i].id);
+        }
+      }
+    }
+    dto.idrol = this.idRol;
+    return dto;
   }
-  //abrir roles
-  abrirRoles(): void {
-    const modalRef = this.modalService.open(ModalRolesAccesoComponent, { size: 'lg', keyboard: false });
-    modalRef.result.then((result) => {
-    }, (reason) => {
-    });
-  }
-  elegirRolMenu(id){
-      
-  }
+
   //listar menu combo
   listarMenuCombo(id){
-    this.api.get("menu/menuselect/"+id).then(respuesta => {
+      this.api.get("menu/menuselect/" + id).then(respuesta => {
         if (respuesta && respuesta.extraInfo) {
-          this.filesTree4 = respuesta.extraInfo;
+          let seleccionados = [];
+          let data = respuesta.extraInfo;
+          this.filesTree4 = respuesta.extraInfo; 
+          for(let i=0; i<data.length; i++){
+            if(data[i].estado){
+              seleccionados.push(this.filesTree4[i]);
+            }
+            for(let j=0; j<data[i].children.length; j++){
+              if(data[i].children[j].estado){
+                seleccionados.push(data[i].children[j]);
+              }
+            }
+          } 
+          this.selectedFile4 = seleccionados; 
         } else {
           this.toastr.error(respuesta.operacionMensaje, 'Error');
         }
       })
-      .catch(err => this.handleError(err));    
-
+        .catch(err => this.handleError(err));  
   }
 
   private handleError(error: any): void {
