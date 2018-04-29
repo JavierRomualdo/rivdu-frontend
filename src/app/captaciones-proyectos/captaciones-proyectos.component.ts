@@ -35,7 +35,7 @@ export class CaptacionesProyectosComponent implements OnInit {
   }
 
   abrirProyecto(): void {
-    const modalRef = this.modalService.open(ModalProyectosformularioComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalProyectosformularioComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
       this.listarProyectos();
     }, (reason) => {

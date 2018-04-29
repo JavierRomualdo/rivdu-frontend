@@ -25,6 +25,9 @@ export class CaptacionesComprasComponent implements OnInit {
   public personacompra:Personacompra[]=[];
   public dni:string="";
   public nombre:string="";
+  public fechainicio: string= "";
+  public fechafin: string= "";
+
   public correlativo:string="";
 
   constructor(
@@ -74,6 +77,8 @@ export class CaptacionesComprasComponent implements OnInit {
     this.parametros = {
       "dni":this.dni,
       "nombre":this.nombre,
+      "fechainicio":this.fechainicio,
+      "fechafin":this.fechafin,
       "correlativo":this.correlativo
     };
     this.listarcompras();
