@@ -27,11 +27,11 @@
               <div class="row">
                 <div class="col-sm-6">
                   <label class="form-control-label">Captador:</label>
-                  <input type="text" class="form-control form-control-sm" required="" maxlength="20" name="captador" [(ngModel)]="captador.nombre">
+                  <input type="text" class="form-control form-control-sm" maxlength="20" name="captador" [(ngModel)]="captador.nombre">
                 </div>
                 <div class="col-sm-6">
                   <label class="form-control-label">Comision:</label>
-                  <input type="number" class="form-control form-control-sm" required=""  name="comision" placeholder="Valores numericos" [(ngModel)]="captador.comision">
+                  <input type="number" class="form-control form-control-sm" name="comision" placeholder="Valores numericos" [(ngModel)]="captador.comision">
                 </div>
               </div>
             </div>
@@ -42,19 +42,25 @@
           <div class="card col-sm-12 mb-3">
             <div class="card-body">
               <div class="row">
-                <div class="col-sm 6">
+                <div class="col-sm-12">
                   <label class="form-control-label">Persona:</label>
                     <div class="input-group">
-                      <label class="form-control form-control-sm">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}} {{"-"}} {{persona.dni}}</label>
+                      <label class="form-control form-control-sm">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}}</label>
                       <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                  <label class="form-control-label">Estado Civil</label>
-                  <select class="form-control form-control-sm">
-                    <option *ngFor="let est of lista">{{est.nombre}}</option>
-                  </select>
+                <div class="col-sm-6" *ngIf="persona.dni">
+                  <label class="form-control-label">DNI</label>
+                  <label class="form-control form-control-sm">
+                      {{ persona.dni }}
+                  </label>
                 </div>
+                <div class="col-sm-6" *ngIf="persona.idestado">
+                    <label class="form-control-label">Estado Civil</label>
+                    <label class="form-control form-control-sm">
+                        {{ persona.idestado.nombre }}
+                    </label>
+                  </div>
               </div>
             </div>
           </div>
@@ -79,9 +85,9 @@
                     <tbody>
                       <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
                         <td>{{i+1}}</td>
-                        <td><label class="form-control mb-0">{{or.idpersona.nombre}}{{or.idpersona.apellido}}-{{or.idpersona.dni}}</label></td>
+                        <td><label class="form-control mb-0">{{or.idpersona.nombre}} {{or.idpersona.appaterno}} {{or.idpersona.apmaterno}} - DNI: {{or.idpersona.dni}}</label></td>
                         <td>
-                          <select class="form-control form-control-sm mb-0" requerid="" [(ngModel)]="or.idrelacion" name="relacion">
+                          <select class="form-control form-control-sm mb-0" required [(ngModel)]="or.idrelacion" name="relacion">
                             <option [ngValue]="o" *ngFor="let o of relacion">{{o.nombre}}</option>
                           </select>
                         </td>
@@ -230,8 +236,8 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  *ngIf="!predio.id" [disabled]="!formulario.form.valid">Guardar</button>
-        <button type="submit" class="btn btn-primary" *ngIf="predio.id" [disabled]="!formulario.form.valid">Actualizar</button>
+        <button type="submit" class="btn btn-primary"  *ngIf="!predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || !persona.nombre">Guardar</button>
+        <button type="submit" class="btn btn-primary" *ngIf="predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || persona.nombre">Actualizar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>

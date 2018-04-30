@@ -26,7 +26,7 @@
         "vendor/bootstrap/css/bootstrap.min.css",
         "css/style.default.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "styles.scss"
+        "styles.css"
       ],
       "scripts": [
         "vendor/jquery/jquery.min.js",

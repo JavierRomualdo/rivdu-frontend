@@ -26,7 +26,7 @@ export class MantenimientoUsuariosComponent implements OnInit {
     }
 
     abrirRoles(): void {
-        const modalRef = this.modalService.open(ModalRolesComponent, { size: 'lg', keyboard: false });
+        const modalRef = this.modalService.open(ModalRolesComponent, { size: 'sm', keyboard: false });
         modalRef.result.then((result) => {
         }, (reason) => {
         });

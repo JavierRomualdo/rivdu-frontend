@@ -16,15 +16,15 @@
         <div class="form-group row">
           <label class="col-sm-3 form-control-label">Rol</label>
           <div class="col-sm-9">
-            <select class="form-control" style="height: calc(2.5rem);" required="" name="tiporol"  [(ngModel)]="idRol">
+            <select class="form-control form-control-sm" style="height: calc(2.5rem);" required="" name="tiporol"  [(ngModel)]="idRol">
               <option [ngValue]="tip" *ngFor="let tip of tiposroles">{{tip.nombre}}</option>
             </select>
           </div>
         </div>
         <div class="line"></div>
         <div class="modal-footer">
-          <button type="submit" [disabled]="!rolf.form.valid" class="btn btn-primary">Aceptar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss()">Cancelar</button>
+          <button type="submit" [disabled]="!rolf.form.valid" class="btn btn-primary btn-sm">Aceptar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss()">Cancelar</button>
         </div>
       </form>
     </div>

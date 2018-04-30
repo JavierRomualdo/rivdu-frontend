@@ -60,106 +60,98 @@
           </div>
         </div>
         <section class="tables pt-0 pb-0">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-close mb-2">
-                    <a id="closeCard2" (click)="abrirIngenieros()"  class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Agregar a programa</a>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Ingenieros</h3>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>DNI</th>
-                            <th style="220px!important;">Roles</th>
-                            <th>Codigo</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="cursor-pointer rows-delgadas"   *ngFor="let item of listaRP; let i = index;"  >
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{ item.idpersona.nombre}} {{item.idpersona.appaterno}} {{item.idpersona.apmaterno}}</td>
-                            <td>{{item.idpersona.dni}}</td>
-                            <td>
-                              <select class="form-control form-control-sm mb-0"  style="height: 26px; padding: 0px;" required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol" >
-                                 <option [ngValue]="prol.idrol" *ngFor="let prol of item.idpersona.personarolList" >{{prol.idrol.nombre}}</option>
-                              </select>
-                            </td>
-                            <td >
-                              <input type="number" [(ngModel)]="item.codigocip" maxlength="10" required name="cod-{{i}}" >
-                            </td>
-                            <td >
-                              <a *ngIf="!programa.id" (click)="quitarresposable(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
-                              <a *ngIf="programa.id" (click)="confirmareliminado(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+          <div class="">
+            <div class="card">
+              <div class="card-close mb-2">
+                <a id="closeCard2" (click)="abrirIngenieros()"  class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Agregar a programa</a>
+              </div>
+              <div class="card-header d-flex align-items-center">
+                <h3 class="h4">Ingenieros</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th style="width: 200px!important;">Roles</th>
+                        <th>Codigo</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="cursor-pointer rows-delgadas"   *ngFor="let item of listaRP; let i = index;"  >
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{ item.idpersona.nombre}} {{item.idpersona.appaterno}} {{item.idpersona.apmaterno}}</td>
+                        <td>{{item.idpersona.dni}}</td>
+                        <td>
+                          <select class="form-control form-control-sm mb-0"  style="height: 26px; padding: 0px;" required="" name="tiporol-{{i}}"  [(ngModel)]="item.idrol" >
+                              <option [ngValue]="prol.idrol" *ngFor="let prol of item.idpersona.personarolList" >{{prol.idrol.nombre}}</option>
+                          </select>
+                        </td>
+                        <td >
+                          <input type="number" [(ngModel)]="item.codigocip" maxlength="10" required name="cod-{{i}}" >
+                        </td>
+                        <td >
+                          <a *ngIf="!programa.id" (click)="quitarresposable(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
+                          <a *ngIf="programa.id" (click)="confirmareliminado(item)" ><i class="fa fa-close fa-2x text-danger" > &nbsp;&nbsp;</i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <section class="tables pt-0 pb-0">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-close mb-2">
-                    <a id="closeCard1" (click)="abrirEspecificaciones()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Especificaciones Técnicas</h3>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Estructura</th>
-                          <th>Etapa</th>
-                          <th>Especificaciones</th>
-                          <th>*</th>
-                          <th>Valor M2</th>
-                          <th>Opciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="cursor-pointer rows-delgadas" *ngFor="let item1 of listaET; let i = index;" >
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{item1.idespecificacion.idestructura.nombre}}</td>
-                            <td>{{item1.idespecificacion.etapa}}</td>
-                            <td>{{item1.idespecificacion.especificaciones}}</td>
-                            <td>{{item1.idespecificacion.categoria}}</td>
-                            <td>{{item1.idespecificacion.valorm2}}</td>
-                            <td>
-                              <ui-switch size="small" *ngIf="programa.id" [(ngModel)]="item1.estado" name="es5-{{i}}" >estado</ui-switch>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+          <div class="">
+            <div class="card">
+              <div class="card-close mb-2">
+                <a id="closeCard1" (click)="abrirEspecificaciones()" class="btn-link cursor-pointer"><i class="fa fa-plus-circle"></i> Nuevo</a>
+              </div>
+              <div class="card-header d-flex align-items-center">
+                <h3 class="h4">Especificaciones Técnicas</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Estructura</th>
+                      <th>Etapa</th>
+                      <th>Especificaciones</th>
+                      <th>*</th>
+                      <th>Valor M2</th>
+                      <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="cursor-pointer rows-delgadas" *ngFor="let item1 of listaET; let i = index;" >
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{item1.idespecificacion.idestructura.nombre}}</td>
+                        <td>{{item1.idespecificacion.etapa}}</td>
+                        <td>{{item1.idespecificacion.especificaciones}}</td>
+                        <td>{{item1.idespecificacion.categoria}}</td>
+                        <td>{{item1.idespecificacion.valorm2}}</td>
+                        <td>
+                          <ui-switch size="small" *ngIf="programa.id" [(ngModel)]="item1.estado" name="es5-{{i}}" >estado</ui-switch>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" *ngIf="!programa.id" [disabled]="!formulario.form.valid">Aceptar</button>
-          <button type="submit" class="btn btn-primary" *ngIf="programa.id" [disabled]="!formulario.form.valid">Actualizar</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="!programa.id" [disabled]="!formulario.form.valid">Aceptar</button>
+          <button type="submit" class="btn btn-primary btn-sm" *ngIf="programa.id" [disabled]="!formulario.form.valid">Actualizar</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
     </div>

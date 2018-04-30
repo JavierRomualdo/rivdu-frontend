@@ -21,6 +21,21 @@ section.dashboard-counts .row {
 .color-rojo {
   color: red;
 }
+header.page-header {
+  padding: 15px 0!important;
+}
+h2, .h4 {
+  font-size: 1rem!important;
+}
+.card {
+  margin-bottom: 20px;
+}
+.btn {
+  padding: 0.25rem 0.5rem!important;
+  font-size: 0.875rem!important;
+  line-height: 1.5!important;
+  border-radius: 0.2rem!important;
+}
 .rows-delgadas td, .rows-delgadas th {
   padding-top: 5px!important;
   padding-bottom: 5px!important;

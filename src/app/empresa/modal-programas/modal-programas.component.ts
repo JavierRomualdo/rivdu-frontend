@@ -130,7 +130,7 @@ export class ModalProgramasComponent implements OnInit {
     }
 
     abrirIngenieros():void{
-        const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'sm', keyboard: false , windowClass:'nuevo-modal'});
+        const modalRef = this.modalService.open(ModalIngenierosComponent, {size: 'lg', keyboard: false , windowClass:'nuevo-modal'});
         modalRef.result.then((result) => {
             let persona = result;
             let pp = {
