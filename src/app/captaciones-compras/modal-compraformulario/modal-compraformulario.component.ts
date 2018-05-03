@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../servicios/auth.service';
 import { ApiRequestService } from '../../servicios/api-request.service';
-import { Estadocliente } from '../../entidades/entidad.estadocliente';
 import { Relacion } from '../../entidades/entidad.relacion';
 import { Persona } from '../../entidades/entidad.persona';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +26,8 @@ export class ModalCompraformularioComponent implements OnInit {
 
     @Input() edit;
     public relacion: Relacion[] = [];
-    public personacompra2: Personacompra[] = [];
+    public propietarioList: Personacompra[] = [];
+    public allegadosList: Personacompra[] = [];
     public rel: Relacion;
     public cargando: boolean = false;
     public vistaFormulario: boolean = false;
@@ -35,13 +35,12 @@ export class ModalCompraformularioComponent implements OnInit {
     public predio: Predio;
     public compra: Compra;
     public todocompra: Savecompradto;
-    public listacompra: Savecompradto;
     public captador: Captador;
     public colindante: Colindante;
     public servicios: Servicio[] = [];
     public persona: Persona;
     public idpersona: Persona;
-    public relacionPropietario: Personacompra[] = [];
+    selectedServicios: string[] = [];
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -60,10 +59,8 @@ export class ModalCompraformularioComponent implements OnInit {
         this.captador = new Captador();
         this.predio = new Predio();
         this.predio.idubigeo = new Ubigeo();
-        this.captador = new Captador();
         this.colindante = new Colindante();
         this.todocompra = new Savecompradto();
-        this.listacompra = new Savecompradto();
     }
 
     ngOnInit() {
@@ -71,29 +68,34 @@ export class ModalCompraformularioComponent implements OnInit {
             this.traerParaEdicion(this.edit);
         }
         this.listarRelacionParentesco();
+        this.listarServicios();
     };
 
     traerParaEdicion(id) {
         this.cargando = true;
+        this.selectedServicios = [];
         this.vistaFormulario = true;
         return this.apiRequest.post('compra/obtener', { id: id })
             .then(
                 data => {
                     if (data && data.extraInfo) {
-                        this.cargando = false;
                         this.todocompra = data.extraInfo;
-                        this.persona = this.todocompra.personacompra[0].idpersona;
-                        this.rel = this.todocompra.personacompra[0].idrelacion;
-                        this.relacionPropietario = this.todocompra.personacompra2;
-                        this.llenarCombo(this.relacionPropietario);
-                        //  this.relacionPropietario = this.todocompra.personacompra;
-                        //   this.personacompra2 = this.todocompra.personacompra2;
-                        this.predio = this.todocompra.predio;
-                        this.captador = this.todocompra.captador;
-                        this.colindante = this.todocompra.colindante;
-                        this.servicios = this.todocompra.servicios;
-                    }
-                    else {
+                        this.persona = this.todocompra.propietarioList[0].idpersona;
+                        this.propietarioList.push(this.todocompra.propietarioList[0]);
+                        this.allegadosList = this.todocompra.allegadosList;
+                        this.rel = this.todocompra.allegadosList[0].idrelacion;
+                        this.llenarCombo(this.allegadosList);
+                        this.predio = this.todocompra.predio ? this.todocompra.predio : new Predio();
+                        this.compra = this.todocompra.compra ? this.todocompra.compra : new Compra();
+                        this.captador = this.todocompra.captador ? this.todocompra.captador : new Captador();
+                        this.colindante = this.todocompra.colindante ? this.todocompra.colindante : new Colindante();
+                        if (this.todocompra.servicios) {
+                            for (let i = 0; i < this.todocompra.servicios.length; i++) {
+                                this.selectedServicios.push(this.todocompra.servicios[i] + "");
+                            }
+                        }
+                        this.cargando = false;
+                    } else {
                         this.toastr.info(data.operacionMensaje, "Informacion");
                         this.vistaFormulario = false;
                         this.cargando = false;
@@ -112,14 +114,16 @@ export class ModalCompraformularioComponent implements OnInit {
     };
 
     guardarCompra() {
-        this.todocompra.personacompra = this.relacionPropietario;
-        this.todocompra.personacompra2 = this.personacompra2;
+        this.todocompra.allegadosList = this.allegadosList;
+        this.todocompra.propietarioList = this.propietarioList;
         this.todocompra.predio = this.predio;
         this.todocompra.captador = this.captador;
         this.todocompra.colindante = this.colindante;
-        this.todocompra.servicios = this.servicios;
+        this.todocompra.compra = this.compra;
+        this.todocompra.servicios = this.selectedServicios;
         this.cargando = true;
         if (this.predio.id) {
+            this.todocompra.compra.usuarioeditaa = this.auth.getUserName();
             return this.api.put("compra/actualizar", this.todocompra)
                 .then(respuesta => {
                     if (respuesta && respuesta.extraInfo) {
@@ -134,6 +138,7 @@ export class ModalCompraformularioComponent implements OnInit {
                     }
                 }).catch(err => this.handleError(err));
         } else {
+            this.todocompra.compra.usuariocrea = this.auth.getUserName();
             return this.api.post("compra/guardar", this.todocompra)
                 .then(respuesta => {
                     if (respuesta && respuesta.extraInfo) {
@@ -148,62 +153,81 @@ export class ModalCompraformularioComponent implements OnInit {
                 })
                 .catch(err => this.handleError(err));
         }
-
     };
 
     listarRelacionParentesco() {
-        this.cargando = true;
         this.api.get("relacion/listar")
             .then(respuesta => {
                 if (respuesta && respuesta.extraInfo) {
                     this.relacion = respuesta.extraInfo;
-                    this.cargando = false;
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
-                    this.cargando = false;
                 }
             })
             .catch(err => this.handleError(err));
-        this.cargando = false;
+    };
 
-
+    listarServicios() {
+        if (JSON.parse(localStorage.getItem("servicios"))) {
+            this.servicios = JSON.parse(localStorage.getItem("servicios"));
+        } else {
+            this.api.get("servicios/listar")
+                .then(respuesta => {
+                    if (respuesta && respuesta.extraInfo) {
+                        this.servicios = respuesta.extraInfo;
+                        localStorage.setItem("servicios", JSON.stringify(this.servicios));
+                    } else {
+                        this.toastr.error(respuesta.operacionMensaje, 'Error');
+                    }
+                })
+                .catch(err => this.handleError(err));
+        }
     };
 
     confirmarEliminacion(o): void {
         const modalRef = this.modal.open(ConfirmacionComponent, { windowClass: 'nuevo-modal', size: 'sm', keyboard: false });
         modalRef.result.then((result) => {
-            this.quitarPropietario(o);
+            this.quitarAllegado(o);
             this.auth.agregarmodalopenclass();
         }, (reason) => {
             this.auth.agregarmodalopenclass();
         });
     };
 
-    quitarPropietario(o) {
-        this.relacionPropietario.splice(this.relacionPropietario.indexOf(o), 1);
+    quitarAllegado(o) {
+        this.api.get("compra/quitarallegado/" + o.id)
+            .then(respuesta => {
+                if (respuesta && respuesta.extraInfo) {
+                    this.toastr.success(respuesta.operacionMensaje, 'Exito');
+                    this.allegadosList.splice(this.allegadosList.indexOf(o), 1);
+                    this.cargando = false;
+                } else {
+                    this.cargando = false;
+                    this.toastr.error(respuesta.operacionMensaje, 'Error');
+                }
+            })
+            .catch(err => this.handleError(err));
     };
 
-    abrirModalPersona(): void {
+    abrirModalPropietario(): void {
         const modalRef = this.modal.open(ModalIngenierosComponent, { windowClass: 'nuevo-modal', size: 'lg', keyboard: false });
         modalRef.result.then((result) => {
-            for (let i = 0; i < this.relacionPropietario.length; i++) {
-                if (this.relacionPropietario[i].idpersona.id == result.id) {
+            let puedeSerSeleccionado = true;
+            let propietario = new Personacompra();
+            propietario.id = null;
+            propietario.idcompra = this.compra.id;
+            propietario.estado = true;
+            for (let i = 0; i < this.allegadosList.length; i++) {
+                if (this.allegadosList[i].idpersona.id == result.id) {
                     this.toastr.warning("Persona ya se encuentra seleccionada.", "Aviso");
-                } else {
-                    let personaCompra2 = new Personacompra();
-                    personaCompra2.id = null;
-                    personaCompra2.idpersona = result;
-                    personaCompra2.idcompra = this.compra.id;
-                    this.personacompra2.push(personaCompra2);
-                    this.persona = result;
+                    puedeSerSeleccionado = false;
+                    break;
                 }
             }
-            if (this.relacionPropietario.length == 0) {
-                let personaCompra2 = new Personacompra();
-                personaCompra2.id = null;
-                personaCompra2.idpersona = result;
-                personaCompra2.idcompra = this.compra.id;
-                this.personacompra2.push(personaCompra2);
+            if (puedeSerSeleccionado) {
+                this.propietarioList = [];
+                propietario.idpersona = result;
+                this.propietarioList.push(propietario);
                 this.persona = result;
             }
             this.auth.agregarmodalopenclass();
@@ -212,7 +236,7 @@ export class ModalCompraformularioComponent implements OnInit {
         });
     };
 
-    abrirModalPropietario(): void {
+    abrirModalAllegados(): void {
         const modalRef = this.modal.open(ModalIngenierosComponent, { windowClass: 'nuevo-modal', size: 'lg', keyboard: false });
         modalRef.result.then((result) => {
             if (result.id == this.persona.id || this.validarRepetidos(result)) {
@@ -220,9 +244,10 @@ export class ModalCompraformularioComponent implements OnInit {
             } else {
                 let relacionPropietario = new Personacompra();
                 relacionPropietario.id = null;
+                relacionPropietario.estado = true;
                 relacionPropietario.idcompra = this.compra.id;
                 relacionPropietario.idpersona = result;
-                this.relacionPropietario.push(relacionPropietario);
+                this.allegadosList.push(relacionPropietario);
             }
             this.auth.agregarmodalopenclass();
         }, (reason) => {
@@ -232,8 +257,8 @@ export class ModalCompraformularioComponent implements OnInit {
 
     validarRepetidos(result) {
         var rpt = false;
-        for (let i = 0; i < this.relacionPropietario.length; i++) {
-            if (this.relacionPropietario[i].idpersona.id == result.id) {
+        for (let i = 0; i < this.allegadosList.length; i++) {
+            if (this.allegadosList[i].idpersona.id == result.id) {
                 rpt = true;
                 return rpt;
             }

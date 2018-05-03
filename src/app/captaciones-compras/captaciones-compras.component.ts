@@ -27,7 +27,6 @@ export class CaptacionesComprasComponent implements OnInit {
   public nombre:string="";
   public fechainicio: string= "";
   public fechafin: string= "";
-
   public correlativo:string="";
 
   constructor(

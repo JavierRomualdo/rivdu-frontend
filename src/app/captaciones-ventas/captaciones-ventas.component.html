@@ -27,8 +27,32 @@
         </div>
       </div>
       <div id="exampledropdownDropdown2" class="collapse col-xl-12 col-sm-12" >
-        <h4>titulo1</h4>
+        <div class="card border-dark mb-3 col-sm-12">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="form-control-label">Dni:</label>
+              <input type="text" class="form-control" placeholder="Busque por DNI" [(ngModel)]="dni" maxlength="8" id="cdescor" name="cdescor" required>              </div>
+            <div class="col-sm-6">
+              <label class="form-control-label">Nombre:</label>
+              <input type="text" class="form-control" placeholder="Busque por nombre" [(ngModel)]="nombre" maxlength="100" id="cdescr" name="cdscor" required>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-control-label"></label>
+              <input type="datetime" class="form-control" placeholder="Busque por Fecha Inicio" [(ngModel)]="fechainicio" maxlength="8" id="cdescr" name="cdscor" required>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-control-label"></label>
+              <input type="datetime" class="form-control" placeholder="Busque por Fecha Fin" [(ngModel)]="fechafin" maxlength="8" id="cdescr" name="cdscor" required>
+            </div>
+          </div>
+          <div class="col pt-2">
+            <button style="float:right " class="btn btn-primary btn-sm" (click)="busqueda()" type="button">
+              <i class="fa fa-search cursor-pointer"></i></button>
+          </div>
+        </div>
       </div>
+    </div>
     </div>
   </div>
 </section>

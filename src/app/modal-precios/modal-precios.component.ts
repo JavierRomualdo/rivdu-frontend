@@ -9,7 +9,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./modal-precios.component.css']
 })
 export class ModalPreciosComponent implements OnInit {
+  
   public listaProyectos: any;
+  cargando: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -19,15 +21,19 @@ export class ModalPreciosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listarProyectos();
   }
 
-  listarStatus() {
-        this.api.get("proyecto/listar")
+  listarProyectos() {
+    this.cargando = true;
+        this.api.get('proyecto/listar')
             .then(respuesta => {
                 if (respuesta && respuesta.extraInfo) {
                     this.listaProyectos = respuesta.extraInfo;
+                    this.cargando = false;
                 } else {
                     this.toastr.error(respuesta.operacionMensaje, 'Error');
+                  this.cargando = false;
                 }
             })
             .catch(err => this.handleError(err));

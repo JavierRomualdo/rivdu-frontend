@@ -49,17 +49,17 @@ import { ModalVentaformularioComponent } from './captaciones-ventas/modal-ventaf
 import { ModalPreciosComponent } from './modal-precios/modal-precios.component';
 import { CaptacionesExpedientesComponent } from './captaciones-expedientes/captaciones-expedientes.component';
 
-import {SidebarModule} from 'primeng/sidebar';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
-import {TableModule} from 'primeng/table';
-import {TreeTableModule} from 'primeng/treetable';
-import {ContextMenuModule} from 'primeng/contextmenu';
-import {TreeNode} from 'primeng/api';
-import {PaginatorModule} from 'primeng/paginator';
-import {TreeModule} from 'primeng/tree';
-import {FileUploadModule} from 'primeng/fileupload';
-
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { TreeTableModule } from 'primeng/treetable';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { TreeNode } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
+import { TreeModule } from 'primeng/tree';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { ExpedientesComprasComponent } from './captaciones-expedientes/expedientes-compras/expedientes-compras.component';
 import { ExpedientesProyectosComponent } from './captaciones-expedientes/expedientes-proyectos/expedientes-proyectos.component';
@@ -164,7 +164,8 @@ import { ModalProyectosformularioComponent } from './captaciones-proyectos/modal
     ContextMenuModule,
     PaginatorModule,
     TreeModule,
-    FileUploadModule
+    FileUploadModule,
+    CheckboxModule
   ],
   providers: [
     AppConfig,

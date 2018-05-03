@@ -9,8 +9,8 @@ export class Savecompradto{
     compra: Compra;
     predio: Predio;
     colindante: Colindante;
-    servicios: Servicio [];
+    servicios: String[];
     captador: Captador;
-    personacompra: Personacompra [];
-    personacompra2: Personacompra [];
+    propietarioList: Personacompra [];
+    allegadosList: Personacompra [];
 }

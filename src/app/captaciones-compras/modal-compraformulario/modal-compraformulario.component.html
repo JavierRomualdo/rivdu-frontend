@@ -13,7 +13,7 @@
     <div *ngIf="cargando">
       <app-cargando></app-cargando>
     </div>
-    <div class="card-body mr-2 ml-2">
+    <div class="card-body mr-2 ml-2" *ngIf="!cargando">
       <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarCompra()">
         <div class="card border-dark mb-3 col-sm-12">
           <div class="card-body text-center p-1">
@@ -23,7 +23,7 @@
         <div>
           <h6>CAPTADOR O COMISIONISTA</h6>
           <div class="card border-dark mb-3 col-sm-12">
-            <div class="card-body">
+            <div class="card-body p-2">
               <div class="row">
                 <div class="col-sm-6">
                   <label class="form-control-label">Captador:</label>
@@ -40,13 +40,13 @@
         <div>
           <h6>PROPIETARIO</h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-body">
+            <div class="card-body p-2">
               <div class="row">
                 <div class="col-sm-12">
                   <label class="form-control-label">Persona:</label>
                     <div class="input-group">
                       <label class="form-control form-control-sm">{{persona.nombre}} {{persona.appaterno}} {{persona.apmaterno}}</label>
-                      <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalPersona()"><i class="fa fa-search"></i></button>
+                      <button type="button" class="btn btn-primary btn-sm"  (click)="abrirModalPropietario()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="col-sm-6" *ngIf="persona.dni">
@@ -67,13 +67,13 @@
         </div>
         <div>
           <h6>PROPIETARIO / RELACION
-            <a id="closeCard2" style="float:right;" class="btn-link cursor-pointer" (click)="abrirModalPropietario()"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <a id="closeCard2" style="float:right;" class="btn-link cursor-pointer" (click)="abrirModalAllegados()"><i class="fa fa-plus-circle"></i> Nuevo</a>
           </h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-body">
+            <div class="card-body p-2">
               <div class="row">
                 <div class="table-responsive col-sm-12" >
-                  <table class="table table-striped table-bordered table-sm" id="tabla1">
+                  <table class="table table-striped table-bordered table-sm mb-0" id="tabla1">
                     <thead>
                       <tr>
                         <th >#</th>
@@ -83,16 +83,16 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="cursor-pointer" *ngFor="let or of relacionPropietario;let i=index">
+                      <tr class="cursor-pointer" *ngFor="let or of allegadosList;let i=index">
                         <td>{{i+1}}</td>
                         <td><label class="form-control mb-0">{{or.idpersona.nombre}} {{or.idpersona.appaterno}} {{or.idpersona.apmaterno}} - DNI: {{or.idpersona.dni}}</label></td>
                         <td>
-                          <select class="form-control form-control-sm mb-0" required [(ngModel)]="or.idrelacion" name="relacion">
+                          <select class="form-control form-control-sm mb-0" required [(ngModel)]="or.idrelacion" name="relacion-{{i}}">
                             <option [ngValue]="o" *ngFor="let o of relacion">{{o.nombre}}</option>
                           </select>
                         </td>
                         <td style="width: 30px;" class="text-center">
-                          <a><i class="fa fa-close fa-2x text-danger" (click)="confirmarEliminacion(o)"> &nbsp;&nbsp;</i></a>
+                          <a><i class="fa fa-close fa-2x text-danger" (click)="confirmarEliminacion(or)"> &nbsp;&nbsp;</i></a>
                         </td>
                       </tr>
                     </tbody>
@@ -105,7 +105,7 @@
         <div>
           <h6>PREDIO</h6>
           <div class="card col-sm-12 mb-3">
-            <div class="card-body">
+            <div class="card-body p-2">
               <div class="row">
                 <ngb-tabset [destroyOnHide]="false" class="col-sm-12">
                   <ngb-tab title="General">
@@ -204,21 +204,9 @@
                       <br/>
                       <div class="row">
                         <div class="col-sm-4">
-                          <div class="i-checks">
-                            <input id="checkAgua" type="checkbox" value="" class="checkbox-template">
-                            <label for="checkAgua">Servicio de Agua</label>
-                          </div>
-                          <div class="i-checks">
-                            <input id="checkDesague" type="checkbox" value="" class="checkbox-template">
-                            <label for="checkDesague">Servicio de Desagüe</label>
-                          </div>
-                          <div class="i-checks">
-                            <input id="checkLuz" type="checkbox" value="" class="checkbox-template">
-                            <label for="checkLuz">Servicio de Luz</label>
-                          </div>
-                          <div class="i-checks">
-                            <input id="checkDesague" type="checkbox" value="" class="checkbox-template">
-                            <label for="checkFactibilidad">Cuenta con Factibilidad</label>
+                          <div *ngFor="let s of servicios; let i=index;">
+                            <p-checkbox name="group1" value={{s.id}} label={{s.nombre}}
+                             [(ngModel)]="selectedServicios" inputId="la-{i}"></p-checkbox>
                           </div>
                         </div>
                       </div>
@@ -230,14 +218,20 @@
                       </div>
                     </ng-template>
                   </ngb-tab>
+                  <ngb-tab title="Precios">
+                    <ng-template ngbTabContent>
+                      <br/>
+                      <app-modal-precios></app-modal-precios>
+                    </ng-template>
+                  </ngb-tab>
                 </ngb-tabset>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  *ngIf="!predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || !persona.nombre">Guardar</button>
-        <button type="submit" class="btn btn-primary" *ngIf="predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || persona.nombre">Actualizar</button>
+        <div class="modal-footer p-1">
+        <button type="submit" class="btn btn-primary"  *ngIf="!predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || !predio.idubigeo.id || !persona.nombre">Guardar</button>
+        <button type="submit" class="btn btn-primary" *ngIf="predio.id" [disabled]="!formulario.form.valid || !predio.idubigeo || !predio.idubigeo.id || !persona.nombre">Actualizar</button>
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Cross click')">Cancelar</button>
         </div>
       </form>
