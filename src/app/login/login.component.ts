@@ -90,8 +90,11 @@ export class LoginComponent implements OnInit {
         if(respuesta && respuesta.extraInfo){
           localStorage.setItem(LS.KEY_MENUS,JSON.stringify(respuesta.extraInfo));
           this.cargando = false;
-          this.router.navigate(['/welcome']);
-          window.location.reload();
+          this.router.navigated = false;
+          this.router.navigateByUrl('/welcome')
+          .then(() => {
+            location.reload();
+          });
         }else{
           this.toastr.error(respuesta.operacionMensaje, 'Error');
           this.cargando = false;
