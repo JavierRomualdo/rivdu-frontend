@@ -64,7 +64,7 @@ export class MantenimientoTesoreriaComponent implements OnInit {
     });
   }
   abrirCostos():void{
-    const modalRef = this.modalService.open(ModalCostosComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalCostosComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
