@@ -20,7 +20,7 @@
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarubigeo()">
           <div class="card p-3 mb-0">
             <div class="form-group row">
-              <div class="col-sm-6" >
+              <div class="col-sm-8" >
                   <label class="form-control-label">Estado <span class="text-primary">*</span> </label>
                   <div>
                     <ui-switch *ngIf="ubigeo.id" [(ngModel)]="ubigeo.estado" name="estado">estado</ui-switch>
