@@ -67,27 +67,27 @@
         <form class="form-horizontal" #formulario="ngForm" (ngSubmit)="guardarSucursales()">
           <div class="">
             <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Estado <span class="text-primary">*</span> </label>
-              <div class="col-sm-9" >
-                <ui-switch *ngIf="sucursal.id" [(ngModel)]="sucursal.estado" name="estado">estado</ui-switch>
-                <ui-switch *ngIf="!sucursal.id"  [checked]="true"  name="estado1">estado</ui-switch>
+              <div class="col-sm-4" >
+                <div>
+                  <label class="form-control-label">Estado <span class="text-primary">*</span> </label>
+                </div>
+                <ui-switch  *ngIf="sucursal.id" [(ngModel)]="sucursal.estado" name="estado"  >estado</ui-switch>
+                <ui-switch  *ngIf="!sucursal.id"  [checked]="true"  name="estado1" >estado</ui-switch>
+              </div>
+              <div class="col-sm-8">
+                <label class="form-control-label">Nombre.  <span class="text-primary">*</span></label>
+                <input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre completo" required="" maxlength="100" [(ngModel)]="sucursal.nombre">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Nombre</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="nombre" required="" placeholder="Ingrese nombre completo" maxlength="100" [(ngModel)]="sucursal.nombre">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Direccion</label>
-              <div class="col-sm-9">
+              <div class="col-sm-12">
+              <label class="form-control-label">Direccion</label>
                 <input type="text" class="form-control" name="apellido" required="" maxlength="100" [(ngModel)]="sucursal.direccion" >
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Ubigeo</label>
-              <div class="col-sm-9">
+              <div class="col-sm-12">
+              <label class="form-control-label">Ubigeo</label>
                 <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" disabled [(ngModel)]="sucursal.ubigeo.nombre" name="ubigeo">
@@ -99,8 +99,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-3 form-control-label">Empresa</label>
-              <div class="col-sm-9">
+              <div class="col-sm-12">
+              <label class="form-control-label">Empresa</label>
                 <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" disabled [(ngModel)]="sucursal.idempresa.razonsocial" name="idempresa">

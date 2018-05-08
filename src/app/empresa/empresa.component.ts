@@ -63,7 +63,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   abrirSucursal():void{
-    const modalRef = this.modalService.open(ModalSucursalesComponent, {size: 'lg', keyboard: false});
+    const modalRef = this.modalService.open(ModalSucursalesComponent, {size: 'sm', keyboard: false});
     modalRef.result.then((result) => {
     }, (reason) => {
     });
